@@ -16,5 +16,15 @@ namespace AseProgramingLanguage1
         {
             InitializeComponent();
         }
+
+        private void commandLine_KeyDown(object sender, KeyEventArgs e)
+        {
+            
+            Console.WriteLine("key down");
+            if (e.KeyCode==Keys.Enter)
+            {
+                Console.WriteLine("ENTER IS PRESSED");
+            }
+        }
     }
 }
