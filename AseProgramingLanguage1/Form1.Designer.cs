@@ -68,7 +68,7 @@ namespace AseProgramingLanguage1
             this.commandLine.Size = new System.Drawing.Size(303, 20);
             this.commandLine.TabIndex = 3;
             this.commandLine.KeyDown += new System.Windows.Forms.KeyEventHandler(this.commandLine_KeyDown);
-            // 
+
             // runButton
             // 
             this.runButton.Location = new System.Drawing.Point(23, 294);

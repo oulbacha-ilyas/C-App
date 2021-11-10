@@ -13,31 +13,50 @@ namespace AseProgramingLanguage1
         Graphics g; //the drawing area 
         //Pen myPen;
         Pen myPen;
+        Pen turtlePen;
         int start_x, start_y; //it each time the form is launcher,will set the drawing to start in (0,0) then it can be changed using moveTo()
-    
-        public  Canvass(Graphics g)
+
+        public Canvass(Graphics g)
         {
             this.g = g;
-            this.start_x = start_y = 0;
+            this.start_x=start_y=0;
             myPen = new Pen(Color.Black, 1);
+            turtlePen = new Pen(Color.Red, 5);
 
         }
+
         // drawing a line between tow points:the starting point (0,0) and another point defined by the user
-         public void DrawLine(int end_x,int end_y)
-         {
-             g.DrawLine(myPen,start_x,start_y, end_x, end_y);
-             start_x = end_x; //the pen will start where the last drawing ended.
-             start_y = end_y;
+        public void DrawLine(int end_x, int end_y)
+        {
+            g.DrawLine(myPen, start_x, start_y, end_x, end_y);
+            //start_x = end_x; //the pen will start where the last drawing ended.
+            //start_y = end_y;
 
-         }
-         public void DrawRectangle(int width, int length)
-         {
-             g.DrawRectangle(myPen, start_x, start_y, start_x+width, start_y+length);
+        }
+        public void DrawRectangle(int width, int length)
+        {
+            g.DrawRectangle(myPen, start_x, start_y, start_x + width, start_y + length);
 
-             //start_x +=width ; //the pen will start where the last drawing ended.
-             //start_y += length;
-         }
+            //start_x +=width ; //the pen will start where the last drawing ended.
+            //start_y += length;
+        }
 
+        public void moveTo(int end_x, int end_y)
+        {
+            g.DrawEllipse(turtlePen, end_x, end_y, 2, 2);
+            start_x = end_x;
+            start_y = end_y;
+
+        }
     }
-
 }
+        
+        
+		
+		
+        
+     
+
+    
+
+
