@@ -46,6 +46,7 @@ namespace AseProgramingLanguage1
             this.outputWindow.Size = new System.Drawing.Size(479, 346);
             this.outputWindow.TabIndex = 0;
             this.outputWindow.TabStop = false;
+            this.outputWindow.Paint += new System.Windows.Forms.PaintEventHandler(this.outputWindow_Paint);
             // 
             // commandLines
             // 
