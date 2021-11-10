@@ -8,27 +8,26 @@ namespace AseProgramingLanguage1
 {
     class ParseCommand
     {
-        public static void parseCommand(string line)
+        public string line { get; }
+        public string command { get; }
+        public int param1 { get; }
+        public int param2 { get; }
+
+        // create an object with 3 attributes:command,params
+        public ParseCommand(string line)
         {
-            string text = " circle 100,100";
-            line = text;
+            this.line = line;
             string[] split;
-            string command;
             string[] parameters;
             line = line.ToLower().Trim();
             split = line.Split(' ');
-            command = split[0];
             parameters = split[1].Split(',');
             string parameter1 = parameters[0];
             string parameter2 = parameters[1];
-            int param1 = Int32.Parse(parameter1);
-            int param2 = Int32.Parse(parameter2);
-            Console.WriteLine("your command is to draw " + command + "with the parameters " + param1 + "and" + "param2");
 
-            /*for (double n = 0; n <= parameters.Length; n++)
-            {
-        
-            } */
+            this.param1 = Int32.Parse(parameter1);
+            this.param2 = Int32.Parse(parameter2);
+            this.command = split[0];
         }
     }
 }

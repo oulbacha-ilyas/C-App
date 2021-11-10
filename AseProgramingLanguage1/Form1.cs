@@ -47,52 +47,27 @@ namespace AseProgramingLanguage1
     
         private void commandLine_KeyDown(object sender, KeyEventArgs e)
         {
-            // parsing the input
-            // rectangle 70,70
-            string line = commandLine.Text;
-            //line = text;
-            string[] split;
-            string command;
-            string[] parameters;
-            line = line.ToLower().Trim();
-            split = line.Split(' ');
-            command = split[0];
-            parameters = split[1].Split(',');
-
-            /*for (int n = 0; n <= parameters.Length; n++)
-            {*/
-
-
-
-
-                string parameter1 = parameters[0];
-                string parameter2 = parameters[1];
-                int param1 = Int32.Parse(parameter1);
-                int param2 = Int32.Parse(parameter2);
-               // Console.WriteLine("the input length is" + parameters.Length);
-               // Console.WriteLine("your command is to draw " + shape + "with the parameters " + parameters[0] + "and" + parameters[1]);
-
-
-            //}
+            ParseCommand parse = new ParseCommand(commandLine.Text);
+          
 
             if (e.KeyCode==Keys.Enter)
             {
                 
                 //command = commandLine.Text.Trim().ToLower();// reads what is written in command Line, gets ride of spaces and convert the text to lower case
-                if (command.Equals("line")==true)
+                if (parse.command.Equals("line")==true)
                 {
-                    myCanvass.DrawLine(param1, param2);
+                    myCanvass.DrawLine(parse.param1,parse.param2);
 
                     //Console.WriteLine("a line is drawn");
                 }
-                else if (command.Equals("rectangle") == true)
+                else if (parse.command.Equals("rectangle") == true)
                 {
-                    myCanvass.DrawRectangle(param1, param2);
+                    myCanvass.DrawRectangle(parse.param1,parse.param2);
                    // Console.WriteLine("a square is draws");
                 }
-                else if (command.Equals("moveto") == true)
+                else if (parse.command.Equals("moveto") == true)
                 {
-                    myCanvass.moveTo(param1, param2);
+                    myCanvass.moveTo(parse.param1, parse.param2);
                 }
 
                 commandLine.Text = ""; // clear the command line after the ENTER KEY is pressed
