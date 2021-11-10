@@ -22,6 +22,7 @@ namespace AseProgramingLanguage1
             this.start_x=start_y=0;
             myPen = new Pen(Color.Black, 1);
             turtlePen = new Pen(Color.Red, 5);
+            Point turtle = new Point();
 
         }
 
@@ -40,8 +41,20 @@ namespace AseProgramingLanguage1
             //start_x +=width ; //the pen will start where the last drawing ended.
             //start_y += length;
         }
+        /*public void drawEllipse(int start_x,int start_y)
+        {
+            
+        }*/
+        public void moveTo(int end_x, int end_y)
+        {
 
-       
+            g.DrawEllipse(turtlePen, start_x, start_y, 2, 2);
+            start_x = end_x;
+            start_y = end_y;
+
+        }
+
+
     }
 }
         
