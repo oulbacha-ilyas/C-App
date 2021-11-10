@@ -22,21 +22,7 @@ namespace AseProgramingLanguage1
             myPen = new Pen(Color.Black, 1);
 
         }
-        // drawing a line between tow points:the starting point (0,0) and another point defined by the user
-        public void DrawLine(int end_x,int end_y)
-        {
-            g.DrawLine(myPen,start_x,start_y, end_x, end_y);
-            start_x = end_x; //the pen will start where the last drawing ended.
-            start_y = end_y;
-
-        }
-        public void DrawRectangle(int width, int length)
-        {
-            g.DrawRectangle(myPen, start_x, start_y, start_x+width, start_y+length);
-
-            //start_x +=width ; //the pen will start where the last drawing ended.
-            //start_y += length;
-        }
+       
         
     }
 
