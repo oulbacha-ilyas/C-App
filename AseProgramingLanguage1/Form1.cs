@@ -24,9 +24,7 @@ namespace AseProgramingLanguage1
             InitializeComponent();
 
             myCanvass = new Canvass(Graphics.FromImage(OutputBitmap));// this will handle the drawing then pass it to the form
-            myCanvass.moveTo(end_x, end_y);
-            start_x = end_x;
-            start_y = end_y;
+            
         }
 
 
@@ -60,10 +58,7 @@ namespace AseProgramingLanguage1
                     myCanvass.DrawRectangle(50, 100);
                    // Console.WriteLine("a square is draws");
                 }
-                else if (command.Equals("moveto")==true)
-                {
-                    myCanvass.moveTo(100, 100);
-                }
+               
                 commandLine.Text = ""; // clear the command line after the ENTER KEY is pressed
                 outputWindow.Refresh();// update the drawing area to avoid drawing over past draws
             }

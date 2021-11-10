@@ -41,13 +41,7 @@ namespace AseProgramingLanguage1
             //start_y += length;
         }
 
-        public void moveTo(int end_x, int end_y)
-        {
-            g.DrawEllipse(turtlePen, end_x, end_y, 2, 2);
-            start_x = end_x;
-            start_y = end_y;
-
-        }
+       
     }
 }
         
