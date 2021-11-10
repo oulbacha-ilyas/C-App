@@ -21,13 +21,31 @@ namespace AseProgramingLanguage1
             string[] parameters;
             line = line.ToLower().Trim();
             split = line.Split(' ');
-            parameters = split[1].Split(',');
-            string parameter1 = parameters[0];
-            string parameter2 = parameters[1];
-
-            this.param1 = Int32.Parse(parameter1);
-            this.param2 = Int32.Parse(parameter2);
+            string command;
+            command = split[0];
+            if (command.Equals("rectangle"))
+            {
+                parameters = split[1].Split(',');
+                string width = parameters[0];
+                string length = parameters[1];
+                this.param1 = Int32.Parse(width);
+                this.param2 = Int32.Parse(length);
+            }
+            else if (command.Equals("circle"))
+            {                
+                string radius = split[1];
+                this.param1 = Int32.Parse(radius);      
+            }
+            else if (command.Equals("moveto") || command.Equals("moveto"))
+            {
+                parameters = split[1].Split(',');
+                string end_x = parameters[0];
+                string end_y= parameters[1];
+                this.param1= Int32.Parse(end_x);
+                this.param2= Int32.Parse(end_x);
+            }
             this.command = split[0];
         }
+       
     }
 }

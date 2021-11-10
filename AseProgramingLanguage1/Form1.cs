@@ -15,21 +15,21 @@ namespace AseProgramingLanguage1
         //the drawing will be in a bitmap then will be displayed in a pictureBox(outputWindow)
         Bitmap OutputBitmap = new Bitmap(700, 600);
         Canvass myCanvass;
-        
+        int end_x = 0;
         public Form1()
         {
             InitializeComponent();
 
             myCanvass = new Canvass(Graphics.FromImage(OutputBitmap));// this will handle the drawing then pass it to the form
-
+            myCanvass.moveTo(0, 0);
             int start_x = 0;
             int start_y = 0;
             int end_x = 0;
             int end_y = 0;
 
-            myCanvass.moveTo(end_x, end_y);
-            start_x = end_x;
-            start_y = end_y;
+            
+            //start_x = end_x;
+            //start_y = end_y;
         }
 
 
@@ -38,7 +38,8 @@ namespace AseProgramingLanguage1
         {
             Graphics g = e.Graphics;
             g.DrawImageUnscaled(OutputBitmap, 0, 0);
-
+            //ParseCommand parse = new ParseCommand(commandLine.Text);
+            //myCanvass.moveTo(0, 0) ;
         }
 
        
@@ -54,9 +55,9 @@ namespace AseProgramingLanguage1
             {
                 
                 //command = commandLine.Text.Trim().ToLower();// reads what is written in command Line, gets ride of spaces and convert the text to lower case
-                if (parse.command.Equals("line")==true)
+                if (parse.command.Equals("drawto")==true)
                 {
-                    myCanvass.DrawLine(parse.param1,parse.param2);
+                    myCanvass.drawTo(parse.param1,parse.param2);
 
                     //Console.WriteLine("a line is drawn");
                 }
@@ -68,6 +69,12 @@ namespace AseProgramingLanguage1
                 else if (parse.command.Equals("moveto") == true)
                 {
                     myCanvass.moveTo(parse.param1, parse.param2);
+                    
+                     
+                }
+                else if (parse.command.Equals("circle") == true)
+                {
+                    myCanvass.DrawCircle(parse.param1);
                 }
 
                 commandLine.Text = ""; // clear the command line after the ENTER KEY is pressed
