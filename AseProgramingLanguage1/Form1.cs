@@ -84,6 +84,12 @@ namespace AseProgramingLanguage1
                 {
                     myCanvass.DrawTriangle(parse.param1,parse.param2, parse.param3,parse.param4);
                 }
+                else if (parse.command.Equals("clear")==true) 
+                {
+                    ClearCommand();
+                    outputWindow.Refresh();
+                }
+                
 
                 //commandLine.Text = ""; // clear the command line after the ENTER KEY is pressed
                 outputWindow.Refresh();// update the drawing area to avoid drawing over past draws
@@ -107,17 +113,25 @@ namespace AseProgramingLanguage1
        private void runButton_Click(object sender, EventArgs e)
         {
             
+            
+            
+        }
+        private void ClearCommand() // clearing all the previous drawings
+        {
+            Graphics g = Graphics.FromImage(OutputBitmap);
+            g.Clear(Color.Linen);
+
         }
 
         private void commandLines_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            /*if (e.KeyCode == Keys.Enter)
             {
                 int r = Int32.Parse(commandLines.Text);
                 myCanvass.DrawCircle(r) ;
             }
             outputWindow.Refresh();// update the drawing area to avoid drawing over past draws
-
+            */
 
         }
     }

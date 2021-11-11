@@ -61,6 +61,11 @@ namespace AseProgramingLanguage1
                 this.param4 = Int32.Parse(point2y);
 
             }
+            else if (command.Equals("clear") )
+            {
+                this.command = split[0];
+            }
+
             else throw new ArgumentOutOfRangeException("the syntax is incorrect");
             this.command = split[0];
         }

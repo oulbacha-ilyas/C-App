@@ -41,6 +41,7 @@ namespace AseProgramingLanguage1
             // 
             // outputWindow
             // 
+            this.outputWindow.BackColor = System.Drawing.Color.Linen;
             this.outputWindow.Location = new System.Drawing.Point(321, 2);
             this.outputWindow.Name = "outputWindow";
             this.outputWindow.Size = new System.Drawing.Size(479, 346);
