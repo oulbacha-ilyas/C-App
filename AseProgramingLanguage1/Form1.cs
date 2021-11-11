@@ -97,7 +97,11 @@ namespace AseProgramingLanguage1
                 }
                 else if (parse.command.Equals("drawcolor") == true) // reset can use ClearCommand but the pen position is set to (0,0)
                 {
-                    myCanvass.DrawColor(parse.pencolor);
+                    myCanvass.DrawColor(parse.param5);
+                }
+                else if (parse.command.Equals("fill") == true) // reset can use ClearCommand but the pen position is set to (0,0)
+                {
+                    myCanvass.ChangeFill(parse.param5);
                 }
 
 
@@ -132,6 +136,9 @@ namespace AseProgramingLanguage1
             g.Clear(Color.Linen);
 
         }
+        
+
+        
        
 
         private void commandLines_KeyDown(object sender, KeyEventArgs e)

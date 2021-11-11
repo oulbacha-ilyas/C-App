@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+//using System.Drawing.TextureBrush;
 
 namespace AseProgramingLanguage1
 {
@@ -14,11 +15,17 @@ namespace AseProgramingLanguage1
         //Pen myPen;
         Pen myPen;
         Pen turtlePen;
+        Brush myBrush;
         int start_x = 0;
         int start_y =0; //it each time the form is launcher,will set the drawing to start in (0,0) then it can be changed using moveTo()
         int end_x = 0;
         int end_y =0;
-        
+        //string fill = "off";
+        //string defualtFill = "off";
+        Turtle fillOnOff; 
+
+
+
         public Canvass(Graphics g)
         {
             this.g = g;
@@ -26,6 +33,17 @@ namespace AseProgramingLanguage1
             myPen = new Pen(Color.Black, 1);
             turtlePen = new Pen(Color.Red, 5);
             //Point turtle = new Point();
+            // Brush myBrush = new Brush();
+            myBrush = new SolidBrush(Color.Green);
+           
+
+        }
+        public void ChangeFill(string Fill) // the circle is not drawn from the last position of moveTo,but the center is shifted
+        {
+            // outline or fill off is the default value of drawing,but this method should be called before DrawRectangle
+            fillOnOff = new Turtle(Fill);
+            
+            Console.WriteLine("youve choosen fill" + Fill);
 
         }
 
@@ -39,19 +57,24 @@ namespace AseProgramingLanguage1
             moveTo(end_x, end_y);
 
         }
-        public void DrawRectangle(int lateral1, int lateral2)
+        public void DrawRectangle(int width, int higth)
         {
+
             
-            g.DrawRectangle(myPen, start_x, start_y, start_x + lateral1, start_y + lateral2);
-           // start_x = end_x;
-           // start_y = end_y;
-            //start_x +=width ; //the pen will start where the last drawing ended.
-            //start_y += length;
+
+            if (fillOnOff.Fill.Equals("off") == true)
+            {
+                g.DrawRectangle(myPen, start_x, start_y, start_x + width, start_y + higth);
+            }
+            else if (fillOnOff.Fill.Equals("on") == true)
+            {
+                g.FillRectangle(myBrush, start_x, start_y, start_x + width, start_y + higth);
+            }
+            else throw new ArgumentOutOfRangeException("You need to choose fill on or fill off for the shape drawing method");
+                
+
         }
-        /*public void drawEllipse(int start_x,int start_y)
-        {
-            
-        }*/
+       
         public void moveTo(int end_x, int end_y)
         {
             start_x = end_x;
@@ -101,9 +124,8 @@ namespace AseProgramingLanguage1
                 myPen = new Pen(Color.Black);
             }
 
-
-
         }
+
     }
 }
         

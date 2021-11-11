@@ -14,7 +14,8 @@ namespace AseProgramingLanguage1
         public int param2 { get; }
         public int param3 { get; }
         public int param4 { get; }
-        public string pencolor { get; }
+        public string param5 { get; }
+
 
         // create an object with 3 attributes:command,params
         public ParseCommand(string line)
@@ -69,11 +70,17 @@ namespace AseProgramingLanguage1
             else if (command.Equals("drawcolor") )
             {
                 string colors = split[1];
-                this.pencolor = colors;
+                this.param5 = colors;
 
                 this.command = split[0];
             }
+            else if (command.Equals("fill"))
+            {
+                string OnOff = split[1];
+                this.param5 = OnOff;
 
+                this.command = split[0];
+            }
             else throw new ArgumentOutOfRangeException("the syntax is incorrect");
             this.command = split[0];
         }

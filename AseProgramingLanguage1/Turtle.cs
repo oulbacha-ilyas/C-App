@@ -8,13 +8,12 @@ namespace AseProgramingLanguage1
 {
     class Turtle
     {
-        public int a { get; }
-        public int b { get; }
-    public Turtle()
+        public string Fill
+        { get; }
+    public Turtle(string fill)
         {
-            ParseCommand turtles = new ParseCommand();
-            a = turtles.param1;
-            b = turtles.param2;
+            //Fill.Equals(fill);
+            this.Fill=fill ;
             
         }
     }
