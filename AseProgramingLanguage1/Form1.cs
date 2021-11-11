@@ -95,6 +95,10 @@ namespace AseProgramingLanguage1
                     myCanvass.moveTo(0, 0);
                     outputWindow.Refresh();
                 }
+                else if (parse.command.Equals("drawcolor") == true) // reset can use ClearCommand but the pen position is set to (0,0)
+                {
+                    myCanvass.DrawColor(parse.pencolor);
+                }
 
 
                 //commandLine.Text = ""; // clear the command line after the ENTER KEY is pressed

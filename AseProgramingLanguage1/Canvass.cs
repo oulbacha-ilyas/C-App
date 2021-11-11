@@ -82,7 +82,28 @@ namespace AseProgramingLanguage1
             //start_x +=width ; //the pen will start where the last drawing ended.
             //start_y += length;
         }
+        public void DrawColor(string pencolor)
+        {
+            if (pencolor.Equals("red")==true)
+            {
+                myPen = new Pen(Color.Red);
+            }
+            else if (pencolor.Equals("green") == true)
+            {
+                myPen = new Pen(Color.Green);
+            }
+            else if (pencolor.Equals("blue") == true)
+            {
+                myPen = new Pen(Color.Blue);
+            }
+            else if (pencolor.Equals("black") == true)
+            {
+                myPen = new Pen(Color.Black);
+            }
 
+
+
+        }
     }
 }
         

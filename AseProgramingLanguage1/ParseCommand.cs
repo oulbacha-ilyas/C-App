@@ -14,6 +14,7 @@ namespace AseProgramingLanguage1
         public int param2 { get; }
         public int param3 { get; }
         public int param4 { get; }
+        public string pencolor { get; }
 
         // create an object with 3 attributes:command,params
         public ParseCommand(string line)
@@ -63,6 +64,13 @@ namespace AseProgramingLanguage1
             }
             else if (command.Equals("clear") || command.Equals("reset"))
             {
+                this.command = split[0];
+            }
+            else if (command.Equals("drawcolor") )
+            {
+                string colors = split[1];
+                this.pencolor = colors;
+
                 this.command = split[0];
             }
 
