@@ -89,7 +89,13 @@ namespace AseProgramingLanguage1
                     ClearCommand();
                     outputWindow.Refresh();
                 }
-                
+                else if (parse.command.Equals("reset") == true) // reset can use ClearCommand but the pen position is set to (0,0)
+                {
+                    ClearCommand();
+                    myCanvass.moveTo(0, 0);
+                    outputWindow.Refresh();
+                }
+
 
                 //commandLine.Text = ""; // clear the command line after the ENTER KEY is pressed
                 outputWindow.Refresh();// update the drawing area to avoid drawing over past draws
@@ -122,6 +128,7 @@ namespace AseProgramingLanguage1
             g.Clear(Color.Linen);
 
         }
+       
 
         private void commandLines_KeyDown(object sender, KeyEventArgs e)
         {

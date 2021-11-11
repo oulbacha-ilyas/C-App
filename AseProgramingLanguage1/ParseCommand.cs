@@ -61,7 +61,7 @@ namespace AseProgramingLanguage1
                 this.param4 = Int32.Parse(point2y);
 
             }
-            else if (command.Equals("clear") )
+            else if (command.Equals("clear") || command.Equals("reset"))
             {
                 this.command = split[0];
             }
