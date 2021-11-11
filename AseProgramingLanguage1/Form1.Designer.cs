@@ -55,6 +55,8 @@ namespace AseProgramingLanguage1
             this.commandLines.Size = new System.Drawing.Size(303, 231);
             this.commandLines.TabIndex = 1;
             this.commandLines.Text = "";
+            this.commandLines.TextChanged += new System.EventHandler(this.commandLines_TextChanged);
+            this.commandLines.KeyDown += new System.Windows.Forms.KeyEventHandler(this.commandLines_KeyDown);
             // 
             // contextMenuStrip1
             // 
@@ -78,6 +80,7 @@ namespace AseProgramingLanguage1
             this.runButton.TabIndex = 4;
             this.runButton.Text = "Run";
             this.runButton.UseVisualStyleBackColor = true;
+            this.runButton.Click += new System.EventHandler(this.runButton_Click);
             // 
             // synthaxButton
             // 

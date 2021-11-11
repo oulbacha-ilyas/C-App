@@ -15,19 +15,21 @@ namespace AseProgramingLanguage1
         //the drawing will be in a bitmap then will be displayed in a pictureBox(outputWindow)
         Bitmap OutputBitmap = new Bitmap(700, 600);
         Canvass myCanvass;
-        int end_x = 0;
+        //Turtle turtle  = new Turtle();
+        //int a = 0;
+        //int b = 0;
+        
         public Form1()
         {
             InitializeComponent();
-
-            myCanvass = new Canvass(Graphics.FromImage(OutputBitmap));// this will handle the drawing then pass it to the form
-            myCanvass.moveTo(0, 0);
-            int start_x = 0;
-            int start_y = 0;
-            int end_x = 0;
-            int end_y = 0;
-
             
+            myCanvass = new Canvass(Graphics.FromImage(OutputBitmap));// this will handle the drawing then pass it to the form
+            //myCanvass.moveTo(turtle.a, turtle.b);
+            
+
+
+
+
             //start_x = end_x;
             //start_y = end_y;
         }
@@ -40,6 +42,8 @@ namespace AseProgramingLanguage1
             g.DrawImageUnscaled(OutputBitmap, 0, 0);
             //ParseCommand parse = new ParseCommand(commandLine.Text);
             //myCanvass.moveTo(0, 0) ;
+            
+            
         }
 
        
@@ -70,14 +74,18 @@ namespace AseProgramingLanguage1
                 {
                     myCanvass.moveTo(parse.param1, parse.param2);
                     
-                     
+                   
                 }
                 else if (parse.command.Equals("circle") == true)
                 {
                     myCanvass.DrawCircle(parse.param1);
                 }
+                else if (parse.command.Equals("triangle") == true)
+                {
+                    myCanvass.DrawTriangle(parse.param1,parse.param2, parse.param3,parse.param4);
+                }
 
-                commandLine.Text = ""; // clear the command line after the ENTER KEY is pressed
+                //commandLine.Text = ""; // clear the command line after the ENTER KEY is pressed
                 outputWindow.Refresh();// update the drawing area to avoid drawing over past draws
 
               
@@ -88,6 +96,28 @@ namespace AseProgramingLanguage1
 
         private void commandLine_TextChanged(object sender, EventArgs e)
         {
+
+        }
+
+        private void commandLines_TextChanged(object sender, EventArgs e)
+        {
+            myCanvass.drawTo(500, 500);
+        }
+
+       private void runButton_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void commandLines_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                int r = Int32.Parse(commandLines.Text);
+                myCanvass.DrawCircle(r) ;
+            }
+            outputWindow.Refresh();// update the drawing area to avoid drawing over past draws
+
 
         }
     }
