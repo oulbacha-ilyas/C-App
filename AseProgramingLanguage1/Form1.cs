@@ -95,13 +95,17 @@ namespace AseProgramingLanguage1
                     myCanvass.moveTo(0, 0);
                     outputWindow.Refresh();
                 }
-                else if (parse.command.Equals("drawcolor") == true) // reset can use ClearCommand but the pen position is set to (0,0)
+                else if (parse.command.Equals("drawcolor") == true) 
                 {
-                    myCanvass.DrawColor(parse.param5);
+                    myCanvass.DrawColor(parse.param5); //calling the the drawing color setting method
                 }
-                else if (parse.command.Equals("fill") == true) // reset can use ClearCommand but the pen position is set to (0,0)
+                else if (parse.command.Equals("fill") == true) 
                 {
-                    myCanvass.ChangeFill(parse.param5);
+                    myCanvass.ChangeFill(parse.param5); //calling the fill setting method
+                }
+                else if (parse.command.Equals("fillcolor") == true) 
+                {
+                    myCanvass.FillColor(parse.param5); //calling the fill color setting method
                 }
 
 

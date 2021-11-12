@@ -64,11 +64,13 @@ namespace AseProgramingLanguage1
 
             if (fillOnOff.Fill.Equals("off") == true)
             {
-                g.DrawRectangle(myPen, start_x, start_y, start_x + width, start_y + higth);
+                g.DrawRectangle(myPen, start_x, start_y,width,higth);
+          
             }
             else if (fillOnOff.Fill.Equals("on") == true)
             {
-                g.FillRectangle(myBrush, start_x, start_y, start_x + width, start_y + higth);
+                g.FillRectangle(myBrush, start_x, start_y,width, higth);
+                
             }
             else throw new ArgumentOutOfRangeException("You need to choose fill on or fill off for the shape drawing method");
                 
@@ -80,26 +82,46 @@ namespace AseProgramingLanguage1
             start_x = end_x;
             start_y = end_y;
             g.DrawEllipse(turtlePen, start_x, start_y, 2, 2);
-            
-           
-
         }
         public void DrawCircle(float radius) // the circle is not drawn from the last position of moveTo,but the center is shifted
         {
             
             float width;
             float higth;
-            width = higth = radius;
-            g.DrawEllipse(myPen,start_x,start_y,width,higth);
-            //start_x = end_x;
-            //start_y = end_y;
+            width = higth = radius*2;
+            //g.DrawEllipse(myPen,start_x-(radius/2),start_y-(radius/2),width*2,higth*2);
+            if (fillOnOff.Fill.Equals("off") == true)
+            {
+                g.DrawEllipse(myPen, start_x - radius, start_y - radius, width, higth);
+            }
+            else if (fillOnOff.Fill.Equals("on") == true)
+            {
+                g.FillEllipse(myBrush, start_x - radius, start_y - radius, width, higth);
+            }
+            else throw new ArgumentOutOfRangeException("You need to choose fill on or fill off for the shape drawing method");
+           
         }
         public void DrawTriangle(int point1x, int point1y,int point2x,int point2y)
         {
+            PointF[] triangle = new PointF[]
+        { new PointF { X = start_x,Y=start_y },
+              new PointF {X= point1x , Y=point1y},
+              new PointF {X=point2x, Y=point2y}
+        };
+            if (fillOnOff.Fill.Equals("off") == true)
+            {
+            
+                g.DrawPolygon(myPen, triangle);
+               
+            }
+             else if (fillOnOff.Fill.Equals("on") == true)
+            {
+                g.FillPolygon(myBrush, triangle);
+            }
+            else throw new ArgumentOutOfRangeException("You need to choose fill on or fill off for the shape drawing method");
 
-            g.DrawLine(myPen,start_x,start_y,point1x,point1y);
-            g.DrawLine(myPen, point1x, point1y, point2x, point2y);
-            g.DrawLine(myPen, point2x, point2y, start_x, start_y);
+
+
             // start_x = end_x;
             // start_y = end_y;
             //start_x +=width ; //the pen will start where the last drawing ended.
@@ -123,7 +145,26 @@ namespace AseProgramingLanguage1
             {
                 myPen = new Pen(Color.Black);
             }
+        }
 
+        public void FillColor(string fillcolor)
+        {
+            if (fillcolor.Equals("red") == true)
+            {
+                myBrush = new SolidBrush(Color.Red);
+            }
+            else if (fillcolor.Equals("green") == true)
+            {
+                myBrush = new SolidBrush(Color.Green);
+            }
+            else if (fillcolor.Equals("blue") == true)
+            {
+                myBrush = new SolidBrush(Color.Blue);
+            }
+            else if (fillcolor.Equals("black") == true)
+            {
+                myBrush = new SolidBrush(Color.Black);
+            }
         }
 
     }

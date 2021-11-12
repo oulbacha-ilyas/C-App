@@ -76,8 +76,15 @@ namespace AseProgramingLanguage1
             }
             else if (command.Equals("fill"))
             {
-                string OnOff = split[1];
-                this.param5 = OnOff;
+                string OnOff = split[1];//only one parameter(On or Off) is taken after the commmand
+                this.param5 = OnOff; 
+
+                this.command = split[0];
+            }
+            else if (command.Equals("fillcolor"))
+            {
+                string fillcolor = split[1];//only one parameter(On or Off) is taken after the commmand
+                this.param5 = fillcolor;
 
                 this.command = split[0];
             }
