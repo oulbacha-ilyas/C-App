@@ -17,7 +17,8 @@ namespace AseProgramingLanguage1
         public string param5 { get; }
 
 
-        // create an object with 3 attributes:command,params
+        // the constructor ParseCommand takes 1 argument line,then split it, extract arguments and parse them
+        // the if statements are checking the synthax,if it is not respected,it returns an exception error
         public ParseCommand(string line)
         {
             this.line = line;
@@ -63,7 +64,7 @@ namespace AseProgramingLanguage1
                 this.param4 = Int32.Parse(point2y);
 
             }
-            else if (command.Equals("clear") || command.Equals("reset"))
+            else if (command.Equals("clear") || command.Equals("reset") || command.Equals("run"))
             {
                 this.command = split[0];
             }

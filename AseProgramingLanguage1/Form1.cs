@@ -18,14 +18,14 @@ namespace AseProgramingLanguage1
         //Turtle turtle  = new Turtle();
         //int a = 0;
         //int b = 0;
-        
+
         public Form1()
         {
             InitializeComponent();
-            
+
             myCanvass = new Canvass(Graphics.FromImage(OutputBitmap));// this will handle the drawing then pass it to the form
-            //myCanvass.moveTo(turtle.a, turtle.b);
-            
+            myCanvass.ChangeFill("off");                                                        //myCanvass.moveTo(turtle.a, turtle.b);
+
 
 
 
@@ -42,39 +42,39 @@ namespace AseProgramingLanguage1
             g.DrawImageUnscaled(OutputBitmap, 0, 0);
             //ParseCommand parse = new ParseCommand(commandLine.Text);
             //myCanvass.moveTo(0, 0) ;
-            
-            
+
+
         }
 
-       
-                
-        
-    
+
+
+
+
         private void commandLine_KeyDown(object sender, KeyEventArgs e)
         {
             ParseCommand parse = new ParseCommand(commandLine.Text);
-          
 
-            if (e.KeyCode==Keys.Enter)
+
+            if (e.KeyCode == Keys.Enter)
             {
-                
+
                 //command = commandLine.Text.Trim().ToLower();// reads what is written in command Line, gets ride of spaces and convert the text to lower case
-                if (parse.command.Equals("drawto")==true)
+                if (parse.command.Equals("drawto") == true)
                 {
-                    myCanvass.drawTo(parse.param1,parse.param2);
+                    myCanvass.drawTo(parse.param1, parse.param2);
 
                     //Console.WriteLine("a line is drawn");
                 }
                 else if (parse.command.Equals("rectangle") == true)
                 {
-                    myCanvass.DrawRectangle(parse.param1,parse.param2);
-                   // Console.WriteLine("a square is draws");
+                    myCanvass.DrawRectangle(parse.param1, parse.param2);
+                    // Console.WriteLine("a square is draws");
                 }
                 else if (parse.command.Equals("moveto") == true)
                 {
                     myCanvass.moveTo(parse.param1, parse.param2);
-                    
-                   
+
+
                 }
                 else if (parse.command.Equals("circle") == true)
                 {
@@ -82,9 +82,9 @@ namespace AseProgramingLanguage1
                 }
                 else if (parse.command.Equals("triangle") == true)
                 {
-                    myCanvass.DrawTriangle(parse.param1,parse.param2, parse.param3,parse.param4);
+                    myCanvass.DrawTriangle(parse.param1, parse.param2, parse.param3, parse.param4);
                 }
-                else if (parse.command.Equals("clear")==true) 
+                else if (parse.command.Equals("clear") == true)
                 {
                     ClearCommand();
                     outputWindow.Refresh();
@@ -95,66 +95,133 @@ namespace AseProgramingLanguage1
                     myCanvass.moveTo(0, 0);
                     outputWindow.Refresh();
                 }
-                else if (parse.command.Equals("drawcolor") == true) 
+                else if (parse.command.Equals("drawcolor") == true)
                 {
                     myCanvass.DrawColor(parse.param5); //calling the the drawing color setting method
                 }
-                else if (parse.command.Equals("fill") == true) 
+                else if (parse.command.Equals("fill") == true)
                 {
                     myCanvass.ChangeFill(parse.param5); //calling the fill setting method
                 }
-                else if (parse.command.Equals("fillcolor") == true) 
+                else if (parse.command.Equals("fillcolor") == true)
                 {
                     myCanvass.FillColor(parse.param5); //calling the fill color setting method
+                }
+                else if (parse.command.Equals("run") == true)
+                {
+                    //calling the fill color setting method
+                    ExecuteCommandProgram();
                 }
 
 
                 //commandLine.Text = ""; // clear the command line after the ENTER KEY is pressed
-                outputWindow.Refresh();// update the drawing area to avoid drawing over past draws
+                // update the drawing area to avoid drawing over past draws
 
-              
-                
-                
+
+                outputWindow.Refresh();
+
             }
-        }
-
-        private void commandLine_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void commandLines_TextChanged(object sender, EventArgs e)
-        {
-            myCanvass.drawTo(500, 500);
-        }
-
-       private void runButton_Click(object sender, EventArgs e)
-        {
-            
-            
             
         }
+
+
+
+
+
+
         private void ClearCommand() // clearing all the previous drawings
         {
             Graphics g = Graphics.FromImage(OutputBitmap);
             g.Clear(Color.Linen);
 
         }
-        
 
-        
-       
+    
 
-        private void commandLines_KeyDown(object sender, KeyEventArgs e)
+        private void drawButton_Click(object sender, EventArgs e)
         {
-            /*if (e.KeyCode == Keys.Enter)
+            ExecuteCommandProgram();
+        }
+        private void ExecuteCommandProgram()
+        {
+            int linesNumber = ProgramLines.Lines.Length;
+            Console.WriteLine("number lines is" + linesNumber);
+            for (int i = 0; i <= linesNumber - 1; i++)
             {
-                int r = Int32.Parse(commandLines.Text);
-                myCanvass.DrawCircle(r) ;
+
+                ParseCommand parse = new ParseCommand(ProgramLines.Lines[i]);
+
+                Console.WriteLine(ProgramLines.Lines[i]);
+                if (parse.command.Equals("drawto") == true)
+                {
+                    myCanvass.drawTo(parse.param1, parse.param2);
+
+                    //Console.WriteLine("a line is drawn");
+                }
+                else if (parse.command.Equals("rectangle") == true)
+                {
+                    myCanvass.DrawRectangle(parse.param1, parse.param2);
+                    // Console.WriteLine("a square is draws");
+                }
+                else if (parse.command.Equals("moveto") == true)
+                {
+                    myCanvass.moveTo(parse.param1, parse.param2);
+                }
+                else if (parse.command.Equals("circle") == true)
+                {
+                    myCanvass.DrawCircle(parse.param1);
+                }
+                else if (parse.command.Equals("triangle") == true)
+                {
+                    myCanvass.DrawTriangle(parse.param1, parse.param2, parse.param3, parse.param4);
+                }
+                else if (parse.command.Equals("clear") == true)
+                {
+                    ClearCommand();
+                    outputWindow.Refresh();
+                }
+                else if (parse.command.Equals("reset") == true) // reset can use ClearCommand but the pen position is set to (0,0)
+                {
+                    ClearCommand();
+                    myCanvass.moveTo(0, 0);
+                    outputWindow.Refresh();
+                }
+                else if (parse.command.Equals("drawcolor") == true)
+                {
+                    myCanvass.DrawColor(parse.param5); //calling the the drawing color setting method
+                }
+                else if (parse.command.Equals("fill") == true)
+                {
+                    myCanvass.ChangeFill(parse.param5); //calling the fill setting method
+                }
+                else if (parse.command.Equals("fillcolor") == true)
+                {
+                    myCanvass.FillColor(parse.param5); //calling the fill color setting method
+                }
+
             }
-            outputWindow.Refresh();// update the drawing area to avoid drawing over past draws
+            outputWindow.Refresh();
+
+
+            /*int r = Int32.Parse(commandLines.Text);
+            myCanvass.DrawCircle(r);
+            Console.WriteLine("does something happened?"+commandLines.Text);
+            outputWindow.Refresh();*/
+            /////::::
+            /* if (e.KeyCode == Keys.Enter)
+                {
+            int r = Int32.Parse(commandLines.Text);
+            myCanvass.DrawCircle(r);
+
+                outputWindow.Refresh();// update the drawing area to avoid drawing over past draws
             */
+        }
+
+        private void ProgramLines_TextChanged(object sender, EventArgs e)
+        {
 
         }
     }
+    
+
 }

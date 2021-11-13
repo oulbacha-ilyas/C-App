@@ -166,6 +166,11 @@ namespace AseProgramingLanguage1
                 myBrush = new SolidBrush(Color.Black);
             }
         }
+        public void drawline()
+        {
+            g.DrawLine(myPen,10, 10, 150, 150);
+
+        }
 
     }
 }
