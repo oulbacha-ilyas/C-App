@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AseProgramingLanguage1
 {
-    class ParseCommand
+    public class ParseCommand
     {
         public string line { get; }
         public string command { get; }
@@ -19,9 +19,13 @@ namespace AseProgramingLanguage1
 
         // the constructor ParseCommand takes 1 argument line,then split it, extract arguments and parse them
         // the if statements are checking the synthax,if it is not respected,it returns an exception error
-        public ParseCommand(string line)
+        
+        
+        public ParseCommand(string line) // for commands with no parameters
         {
             this.line = line;
+           
+           
             string[] split;
             string[] parameters;
             line = line.ToLower().Trim();
@@ -68,7 +72,7 @@ namespace AseProgramingLanguage1
             {
                 this.command = split[0];
             }
-            else if (command.Equals("drawcolor") )
+            else if (command.Equals("drawcolor"))
             {
                 string colors = split[1];
                 this.param5 = colors;
@@ -78,7 +82,7 @@ namespace AseProgramingLanguage1
             else if (command.Equals("fill"))
             {
                 string OnOff = split[1];//only one parameter(On or Off) is taken after the commmand
-                this.param5 = OnOff; 
+                this.param5 = OnOff;
 
                 this.command = split[0];
             }
@@ -89,13 +93,81 @@ namespace AseProgramingLanguage1
 
                 this.command = split[0];
             }
-            else throw new ArgumentOutOfRangeException("the syntax is incorrect");
-            this.command = split[0];
+            else { throw new ArgumentOutOfRangeException("the syntax is incorrect");
+                Console.WriteLine("this is an error message");
+            }
+            this.command =split[0];
+           
         }
+       
+        /*public ParseCommand(string line)
+        {
+            this.line = line;
+            string[] split;
+            string[] parameters;
+            line = line.ToLower().Trim();
+            split = line.Split(' ');
+            string command;
+            command = split[0];
+            parameters = split[1].Split(',');
+ 
+            this.param1 = Int32.Parse(parameters[0]);
+            this.param2 = Int32.Parse(parameters[1]);
+            this.param3 = Int32.Parse(parameters[2]);
+            this.param4 = Int32.Parse(parameters[3]);
+            this.param5 = split[0];
+        }
+        */
+        /*
         public ParseCommand()
         {
             this.param1 = param1;
             this.param2 = param1;
         }
+      
+        public ParseCommand(string c,int x) //for commands with one parameter
+        {
+            this.command = c;
+            this.param1 = x;
+        }
+        public ParseCommand(string c, string  cl) //for commands with a string parameter(fill on)
+        {
+            this.command = c;
+            this.param5 = cl;
+        }
+    public ParseCommand(string c,int x,int y) // command with tow arguments
+        {
+            this.command = c;
+            this.param1 = x;
+            this.param2 = y;
+        }
+        public ParseCommand(string c, int x, int y,int z,int w)
+        {
+            this.command = c;
+            this.param1 = x;
+            this.param2 = y;
+            this.param1 = z;
+            this.param2 = y;
+        }
+        
+        /*public void SynthaxCheck()
+         {
+             ParseCommand inputtext = new ParseCommand(line);
+             //string command = inputtext.command;
+             object[] values = { (string) command };
+             foreach( var value in values)
+             {
+                 Type tp = value.GetType();
+                 if (tp.Equals(typeof(string)))
+
+                 {
+                     Console.WriteLine("command synthax is correct");
+                 }
+                 else throw new ArgumentOutOfRangeException("command synthax is not correct,it should be composed of caracters only");
+             }
+         }
+        */
+        
+       
     }
 }

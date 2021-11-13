@@ -70,6 +70,7 @@ namespace AseProgramingLanguage1
             this.synthaxButton.TabIndex = 5;
             this.synthaxButton.Text = "Synthax";
             this.synthaxButton.UseVisualStyleBackColor = true;
+            this.synthaxButton.Click += new System.EventHandler(this.synthaxButton_Click);
             // 
             // drawButton
             // 

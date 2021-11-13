@@ -52,12 +52,11 @@ namespace AseProgramingLanguage1
 
         private void commandLine_KeyDown(object sender, KeyEventArgs e)
         {
-            ParseCommand parse = new ParseCommand(commandLine.Text);
-
-
+   
             if (e.KeyCode == Keys.Enter)
             {
-
+                ParseCommand parse = new ParseCommand(commandLine.Text);
+                
                 //command = commandLine.Text.Trim().ToLower();// reads what is written in command Line, gets ride of spaces and convert the text to lower case
                 if (parse.command.Equals("drawto") == true)
                 {
@@ -220,6 +219,13 @@ namespace AseProgramingLanguage1
         private void ProgramLines_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void synthaxButton_Click(object sender, EventArgs e)
+        {
+
+            SynthaxCommand synthax = new SynthaxCommand(commandLine.Text);
+            synthax.SynthaxCheck(commandLine.Text);
         }
     }
     

@@ -8,7 +8,7 @@ using System.Drawing;
 
 namespace AseProgramingLanguage1
 {
-    class Canvass
+    public class Canvass
     {
         //instance data for the drawing tools: pen attributes,starting positions,graphics context
         Graphics g; //the drawing area 
