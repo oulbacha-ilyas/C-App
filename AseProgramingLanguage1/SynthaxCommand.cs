@@ -25,6 +25,8 @@ namespace AseProgramingLanguage1
         public const string TrianglePoints = "Triangle points:x and y should be of type int";
         public const string PositionsParameters = "the positions should have two parameters:x and y";
         public const string PositionsPointsParse = "the positions parameters should be of type int";
+        public const string ColorParametersNumber = "Only one color name can be take";
+        public const string ColorParametersMatch= "The color name does not match any of the existing";
 
         public void SynthaxCheck(string line)
         {

@@ -255,7 +255,7 @@ namespace ProgramingLanguage1Tests
         //======drawto command
         //=========drawto command======
         [TestMethod]
-        public void DarwToWithNoParameter_test() //if drawto command is not followed by any parameter,an exception is thrown
+        public void DrawToWithNoParameter_test() //if drawto command is not followed by any parameter,an exception is thrown
         {
 
             string line = "drawto";
@@ -308,6 +308,121 @@ namespace ProgramingLanguage1Tests
             }
             Assert.Fail("the expected exception was not thrown");
         }
+
+
+        //=============Tests for color methods=============
+        //=========drawcolor command======
+        [TestMethod]
+        public void DrawColorNoParameter_test() //if drawcolor command is not followed by any parameter,an exception is thrown
+        {
+
+            string line = "drawcolor";
+            SynthaxCommand synthax_test = new SynthaxCommand(line);
+
+            try
+            {
+                synthax_test.SynthaxCheck(line);
+            }
+            catch (System.ArgumentOutOfRangeException e)
+            {
+                StringAssert.Contains(e.Message, SynthaxCommand.Command_WithParameter);
+                return;
+            }
+            Assert.Fail("the expected exception was not thrown");
+        }
+        [TestMethod]
+        public void DrawColorParmetersNumber_test() //if the number of parameters is not as required for the command,an exception is thrown
+        {
+
+            string line = "drawcolor blue,red";
+            SynthaxCommand synthax_test = new SynthaxCommand(line);
+
+            try
+            {
+                synthax_test.SynthaxCheck(line);
+            }
+            catch (System.ArgumentOutOfRangeException e)
+            {
+                StringAssert.Contains(e.Message, SynthaxCommand.ColorParametersNumber);
+                return;
+            }
+            Assert.Fail("the expected exception was not thrown");
+        }
+        public void DrawColorParmetersMatch_test() //if the  parameters does not match an existing color,an exception is thrown
+        {
+
+            string line = "drawcolor ble";
+            SynthaxCommand synthax_test = new SynthaxCommand(line);
+
+            try
+            {
+                synthax_test.SynthaxCheck(line);
+            }
+            catch (System.ArgumentOutOfRangeException e)
+            {
+                StringAssert.Contains(e.Message, SynthaxCommand.ColorParametersMatch);
+                return;
+            }
+            Assert.Fail("the expected exception was not thrown");
+        }
+
+        //========Tests for FillColor method=====
+        //=========drawcolor command======
+        [TestMethod]
+        public void FillColorNoParameter_test() //if fillcolor command is not followed by any parameter,an exception is thrown
+        {
+
+            string line = "fillcolor";
+            SynthaxCommand synthax_test = new SynthaxCommand(line);
+
+            try
+            {
+                synthax_test.SynthaxCheck(line);
+            }
+            catch (System.ArgumentOutOfRangeException e)
+            {
+                StringAssert.Contains(e.Message, SynthaxCommand.Command_WithParameter);
+                return;
+            }
+            Assert.Fail("the expected exception was not thrown");
+        }
+        [TestMethod]
+        public void FillColorParametersNumber_test() //if the parameters cannot be parsed,an exception is thrown
+        {
+
+            string line = "fillcolor x,y";
+            SynthaxCommand synthax_test = new SynthaxCommand(line);
+
+            try
+            {
+                synthax_test.SynthaxCheck(line);
+            }
+            catch (System.ArgumentOutOfRangeException e)
+            {
+                StringAssert.Contains(e.Message, SynthaxCommand.ColorParametersNumber);
+                return;
+            }
+            Assert.Fail("the expected exception was not thrown");
+        }
+        public void FillColorParmetersMatch_test() //if the  parameters does not match an existing color,an exception is thrown
+        {
+
+            string line = "fillcolor r";
+            SynthaxCommand synthax_test = new SynthaxCommand(line);
+
+            try
+            {
+                synthax_test.SynthaxCheck(line);
+            }
+            catch (System.ArgumentOutOfRangeException e)
+            {
+                StringAssert.Contains(e.Message, SynthaxCommand.ColorParametersMatch);
+                return;
+            }
+            Assert.Fail("the expected exception was not thrown");
+        }
     }
+   
 }
+
 
