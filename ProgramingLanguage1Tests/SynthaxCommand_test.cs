@@ -97,7 +97,7 @@ namespace ProgramingLanguage1Tests
             }
             catch (System.ArgumentOutOfRangeException e)
             {
-                StringAssert.Contains(e.Message, SynthaxCommand.RectangleWidthHeight);
+                StringAssert.Contains(e.Message, SynthaxCommand.RectangleParametersNumber);
                 return;
             }
             Assert.Fail("the expected exception was not thrown");
@@ -139,12 +139,30 @@ namespace ProgramingLanguage1Tests
             Assert.Fail("the expected exception was not thrown");
         }
 
-       //==============Test methods for triangle=======================
+        //==============Test methods for triangle=======================
         [TestMethod]
-        public void TriangleParametersNumber_test() //if the heigth cannot be parsed,an exception is thrown
+        public void TriangleWithNoParameter_test() //if rectangle command is not followed by any parameter,an exception is thrown
         {
 
-            string line = "triangle 100,100";
+            string line = "triangle";
+            SynthaxCommand synthax_test = new SynthaxCommand(line);
+
+            try
+            {
+                synthax_test.SynthaxCheck(line);
+            }
+            catch (System.ArgumentOutOfRangeException e)
+            {
+                StringAssert.Contains(e.Message, SynthaxCommand.Command_WithParameter);
+                return;
+            }
+            Assert.Fail("the expected exception was not thrown");
+        }
+        [TestMethod]
+        public void TriangleParametersNumber_test() //if the number of parameters is not exactly as required for triangle command,an exception is thrown
+        {
+
+            string line = "triangle 100";
             SynthaxCommand synthax_test = new SynthaxCommand(line);
 
             try
@@ -159,10 +177,10 @@ namespace ProgramingLanguage1Tests
             Assert.Fail("the expected exception was not thrown");
         }
         [TestMethod]
-        public void TriangleLateralInt_test() //if the heigth cannot be parsed,an exception is thrown
+        public void TrianglePointsParse_test() //if one of the trinagle parameters cannot be parsed,an exception is thrown
         {
 
-            string line = "triangle 100,100,130,x";
+            string line = "triangle c,100,130,x";
             SynthaxCommand synthax_test = new SynthaxCommand(line);
 
             try
@@ -177,7 +195,43 @@ namespace ProgramingLanguage1Tests
             Assert.Fail("the expected exception was not thrown");
         }
 
+        //===========Tests for position commands=====
+        [TestMethod]
+        public void MoveToParmetersNumber_test() //if the number of parameters is not as required for the command,an exception is thrown
+        {
 
+            string line = "moveto 100";
+            SynthaxCommand synthax_test = new SynthaxCommand(line);
+
+            try
+            {
+                synthax_test.SynthaxCheck(line);
+            }
+            catch (System.ArgumentOutOfRangeException e)
+            {
+                StringAssert.Contains(e.Message, SynthaxCommand.PositionsParameters);
+                return;
+            }
+            Assert.Fail("the expected exception was not thrown");
+        }
+        [TestMethod]
+        public void MoveToPointsParse_test() //if the number of parameters is not as required for the command,an exception is thrown
+        {
+
+            string line = "moveto 100";
+            SynthaxCommand synthax_test = new SynthaxCommand(line);
+
+            try
+            {
+                synthax_test.SynthaxCheck(line);
+            }
+            catch (System.ArgumentOutOfRangeException e)
+            {
+                StringAssert.Contains(e.Message, SynthaxCommand.PositionsParameters);
+                return;
+            }
+            Assert.Fail("the expected exception was not thrown");
+        }
     }
 }
 
