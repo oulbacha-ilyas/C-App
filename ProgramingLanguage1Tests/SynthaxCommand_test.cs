@@ -197,6 +197,24 @@ namespace ProgramingLanguage1Tests
 
         //===========Tests for position commands=====
         [TestMethod]
+        public void MoveToWithNoParameter_test() //if moveto command is not followed by any parameter,an exception is thrown
+        {
+
+            string line = "moveto";
+            SynthaxCommand synthax_test = new SynthaxCommand(line);
+
+            try
+            {
+                synthax_test.SynthaxCheck(line);
+            }
+            catch (System.ArgumentOutOfRangeException e)
+            {
+                StringAssert.Contains(e.Message, SynthaxCommand.Command_WithParameter);
+                return;
+            }
+            Assert.Fail("the expected exception was not thrown");
+        }
+        [TestMethod]
         public void MoveToParmetersNumber_test() //if the number of parameters is not as required for the command,an exception is thrown
         {
 
@@ -215,10 +233,10 @@ namespace ProgramingLanguage1Tests
             Assert.Fail("the expected exception was not thrown");
         }
         [TestMethod]
-        public void MoveToPointsParse_test() //if the number of parameters is not as required for the command,an exception is thrown
+        public void MoveToPointsParse_test() //if the parameters cannot be parsed,an exception is thrown
         {
 
-            string line = "moveto 100";
+            string line = "moveto x,y";
             SynthaxCommand synthax_test = new SynthaxCommand(line);
 
             try
@@ -227,7 +245,7 @@ namespace ProgramingLanguage1Tests
             }
             catch (System.ArgumentOutOfRangeException e)
             {
-                StringAssert.Contains(e.Message, SynthaxCommand.PositionsParameters);
+                StringAssert.Contains(e.Message, SynthaxCommand.PositionsPointsParse);
                 return;
             }
             Assert.Fail("the expected exception was not thrown");

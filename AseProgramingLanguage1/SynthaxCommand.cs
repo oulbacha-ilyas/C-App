@@ -112,26 +112,26 @@ namespace AseProgramingLanguage1
             }
             else if (command.Equals("moveto") || command.Equals("drawto"))
             {
-                parameters = split[1].Split(',');
-                bool res1 = int.TryParse(parameters[0], out int r1);
-                bool res2 = int.TryParse(parameters[1], out int r2);
-                if (res1)
+                if (split.Length==2)
                 {
-                    int x = Int32.Parse(parameters[0]);
-                    if (res2)
+                    parameters = split[1].Split(',');
+                   if (parameters.Length==2)
                     {
-                        int y = Int32.Parse(parameters[1]);
-                    }
-                    else throw new ArgumentOutOfRangeException("parameter 2 should be number");
+                        bool res1 = int.TryParse(parameters[0], out int r1);
+                        bool res2 = int.TryParse(parameters[1], out int r2);
+                        if (res1 !=true){throw new System.ArgumentOutOfRangeException("Parameter type",parameters[0],PositionsPointsParse);}
+                        if (res2 !=true){ throw new System.ArgumentOutOfRangeException("Parameter",parameters[1],PositionsPointsParse); }
 
+                    }
+                    else throw new System.ArgumentOutOfRangeException("Parameters number",split[1],PositionsParameters);
                 }
-                else throw new ArgumentOutOfRangeException("parameter 1 should be number");
+                else if (split.Length > 2) { throw new System.ArgumentOutOfRangeException("Parameters number", split[1],PositionsParameters); }
 
 
             }
             else if (command.Equals("triangle"))
             {
-               if(split.Length == 1) { throw new System.ArgumentOutOfRangeException("Parameters number", split[1],TriangleParametersNumber); }
+               //if(split.Length == 1) { throw new System.ArgumentOutOfRangeException("Parameters number", split[1],TriangleParametersNumber); }
                 if (split.Length == 2)
                 {
                     parameters = split[1].Split(',');
