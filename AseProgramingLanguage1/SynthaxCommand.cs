@@ -19,7 +19,7 @@ namespace AseProgramingLanguage1
         public const string CircleShouldHaveRadius ="Cirlce should have a radius of type int";
         public const string RadiusShouldBeInt = "The radius should be an int";
         public const string RectangleWidthHeight = "Rectangle should have two parameters:width and heigth";
-        public const string WidtInt = "The width should be an int";
+        public const string WidthInt = "The width should be an int";
         public const string HeigthInt = "The theigth should be an int";
         public void SynthaxCheck(string line)
         {
@@ -54,11 +54,12 @@ namespace AseProgramingLanguage1
                 if (split.Length == 2)
                 {
                     parameters = split[1].Split(',');
+                    if (parameters.Length == 1) { throw new System.ArgumentOutOfRangeException("Width and Heigth ", split[1], Command_WithParameter); }
                     if (parameters.Length == 2)
                     {
                         bool res1 = int.TryParse(parameters[0], out int r1);
                         bool res2 = int.TryParse(parameters[1], out int r2);
-                        if (res1 != true) { throw new System.ArgumentOutOfRangeException("width", parameters[0], WidtInt); }
+                        if (res1 != true) { throw new System.ArgumentOutOfRangeException("width", parameters[0], WidthInt); }
                         if (res2 != true) { throw new System.ArgumentOutOfRangeException("width", parameters[0], HeigthInt); }
                         /*if (res1)
                         {
@@ -73,7 +74,7 @@ namespace AseProgramingLanguage1
                         else throw new ArgumentOutOfRangeException("parameter 1 should be number");
                        */
                     }
-                    else throw new System.ArgumentOutOfRangeException("Width and Heigth ", split[1], RectangleWidthHeight);
+                    if (parameters.Length > 2) { throw new System.ArgumentOutOfRangeException("Width and Heigth ", parameters, RectangleWidthHeight); }
 
                 }
                 else if (split.Length > 2) { throw new ArgumentOutOfRangeException("Width and Heigth ", split[1], RectangleWidthHeight); }

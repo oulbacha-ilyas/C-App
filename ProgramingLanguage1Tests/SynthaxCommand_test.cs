@@ -12,7 +12,7 @@ namespace ProgramingLanguage1Tests
         [TestMethod]
         public void Synthax_CommandNoparameter_Test() // testing commands with no parameters,if any paramters is entered it throws an exception
         {
-            
+
             string line = "run 40";
             SynthaxCommand synthax_test = new SynthaxCommand(line);
             //ACT
@@ -59,7 +59,7 @@ namespace ProgramingLanguage1Tests
             }
             catch (System.ArgumentOutOfRangeException e)
             {
-                StringAssert.Contains(e.Message,SynthaxCommand.RadiusShouldBeInt);
+                StringAssert.Contains(e.Message, SynthaxCommand.RadiusShouldBeInt);
                 return;
             }
             Assert.Fail("the expected exception was not thrown");
@@ -85,6 +85,24 @@ namespace ProgramingLanguage1Tests
             Assert.Fail("the expected exception was not thrown");
         }
         [TestMethod]
+        public void RectangleleWith1Parameter_test() //if rectangle command is not followed by any parameter,an exception is thrown
+        {
+
+            string line = "rectangle 30";
+            SynthaxCommand synthax_test = new SynthaxCommand(line);
+
+            try
+            {
+                synthax_test.SynthaxCheck(line);
+            }
+            catch (System.ArgumentOutOfRangeException e)
+            {
+                StringAssert.Contains(e.Message, SynthaxCommand.Command_WithParameter);
+                return;
+            }
+            Assert.Fail("the expected exception was not thrown");
+        }
+            [TestMethod]
         public void RectangleWidthInt_test() //if the width cannot be parsed,an exception is thrown
         {
 
@@ -97,7 +115,7 @@ namespace ProgramingLanguage1Tests
             }
             catch (System.ArgumentOutOfRangeException e)
             {
-                StringAssert.Contains(e.Message, SynthaxCommand.WidtInt);
+                StringAssert.Contains(e.Message, SynthaxCommand.WidthInt);
                 return;
             }
             Assert.Fail("the expected exception was not thrown");
@@ -106,7 +124,7 @@ namespace ProgramingLanguage1Tests
         public void RectangleHeigthInt_test() //if the heigth cannot be parsed,an exception is thrown
         {
 
-            string line = "rectangle 100,x";
+            string line = "rectangle 100,100;10";
             SynthaxCommand synthax_test = new SynthaxCommand(line);
 
             try
@@ -116,6 +134,25 @@ namespace ProgramingLanguage1Tests
             catch (System.ArgumentOutOfRangeException e)
             {
                 StringAssert.Contains(e.Message, SynthaxCommand.HeigthInt);
+                return;
+            }
+            Assert.Fail("the expected exception was not thrown");
+        }
+
+        [TestMethod]
+        public void RectangleleWithMoreParameter_test() //if rectangle command is not followed by any parameter,an exception is thrown
+        {
+
+            string line = "rectangle 10,30,40";
+            SynthaxCommand synthax_test = new SynthaxCommand(line);
+
+            try
+            {
+                synthax_test.SynthaxCheck(line);
+            }
+            catch (System.ArgumentOutOfRangeException e)
+            {
+                StringAssert.Contains(e.Message, SynthaxCommand.RectangleWidthHeight);
                 return;
             }
             Assert.Fail("the expected exception was not thrown");
