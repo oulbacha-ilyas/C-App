@@ -33,7 +33,7 @@ namespace AseProgramingLanguage1
                 
                 if (split.Length == 1)
                 { command = split[0]; }
-                else throw new ArgumentOutOfRangeException("this command has no parameters");
+                //else throw new ArgumentOutOfRangeException("this command has no parameters");
 
             }
 
