@@ -21,6 +21,8 @@ namespace AseProgramingLanguage1
         public const string RectangleWidthHeight = "Rectangle should have two parameters:width and heigth";
         public const string WidthInt = "The width should be an int";
         public const string HeigthInt = "The theigth should be an int";
+        public const string TriangleParametersNumber= "Tiangle should have 4 parameters;x and y for each point";
+        public const string TrianglePoints = "Triangle points:x and y should be of type int";
         public void SynthaxCheck(string line)
         {
             //ParseCommand parse = new ParseCommand(line);
@@ -54,7 +56,7 @@ namespace AseProgramingLanguage1
                 if (split.Length == 2)
                 {
                     parameters = split[1].Split(',');
-                    if (parameters.Length == 1) { throw new System.ArgumentOutOfRangeException("Width and Heigth ", split[1], Command_WithParameter); }
+                    if (parameters.Length == 1) { throw new System.ArgumentOutOfRangeException("Width and Heigth ", split[1], RectangleWidthHeight); }
                     if (parameters.Length == 2)
                     {
                         bool res1 = int.TryParse(parameters[0], out int r1);
@@ -126,32 +128,40 @@ namespace AseProgramingLanguage1
             }
             else if (command.Equals("triangle"))
             {
-                parameters = split[1].Split(',');
-                bool res1 = int.TryParse(parameters[0], out int r1);
-                bool res2 = int.TryParse(parameters[1], out int r2);
-                bool res3 = int.TryParse(parameters[2], out int r3);
-                bool res4 = int.TryParse(parameters[3], out int r4);
-                if (res1)
+               if(split.Length == 1) { throw new ArgumentOutOfRangeException("Parameters number", split[1],TriangleParametersNumber); }
+               if(split.Length ==2)
                 {
-                    int x = Int32.Parse(parameters[0]);
-                    if (res2)
+                    parameters = split[1].Split(',');
+                    bool res1 = int.TryParse(parameters[0], out int r1);
+                    bool res2 = int.TryParse(parameters[1], out int r2);
+                    bool res3 = int.TryParse(parameters[2], out int r3);
+                    bool res4 = int.TryParse(parameters[3], out int r4);
+                    if (res1)
                     {
-                        int y = Int32.Parse(parameters[1]);
-                        if (res3)
-                        { int z = Int32.Parse(parameters[2]);
-                            if (res4)
-                            { int w = Int32.Parse(parameters[3]); }
-                            else throw new ArgumentOutOfRangeException("parameter 4 should be number");
+                        int x = Int32.Parse(parameters[0]);
+                        if (res2)
+                        {
+                            int y = Int32.Parse(parameters[1]);
+                            if (res3)
+                            {
+                                int z = Int32.Parse(parameters[2]);
+                                if (res4)
+                                { int w = Int32.Parse(parameters[3]); }
+                                else throw new ArgumentOutOfRangeException("parameter 4 should be number");
+                            }
+                            else throw new ArgumentOutOfRangeException("parameter 3 should be number");
                         }
-                        else throw new ArgumentOutOfRangeException("parameter 3 should be number");
-                    }
-                    else throw new ArgumentOutOfRangeException("parameter 2 should be number");
+                        else throw new ArgumentOutOfRangeException("parameter 2 should be number");
 
+                    }
+                    else throw new ArgumentOutOfRangeException("parameter 1 should be number");
                 }
-                else throw new ArgumentOutOfRangeException("parameter 1 should be number");
-              
-               
-                
+                if (split.Length >2) { throw new ArgumentOutOfRangeException("Parameters number", split[1], TriangleParametersNumber); }
+
+
+
+
+
             }
             else if (command.Equals("drawcolor") || command.Equals("fillcolor"))
             {

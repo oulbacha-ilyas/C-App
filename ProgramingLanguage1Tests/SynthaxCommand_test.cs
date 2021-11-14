@@ -85,10 +85,10 @@ namespace ProgramingLanguage1Tests
             Assert.Fail("the expected exception was not thrown");
         }
         [TestMethod]
-        public void RectangleleWith1Parameter_test() //if rectangle command is not followed by any parameter,an exception is thrown
+        public void RectangleleParameterNumber_test() //if rectangle command is not followed by any parameter,an exception is thrown
         {
 
-            string line = "rectangle 30";
+            string line = "rectangle 30,30,50";
             SynthaxCommand synthax_test = new SynthaxCommand(line);
 
             try
@@ -97,7 +97,7 @@ namespace ProgramingLanguage1Tests
             }
             catch (System.ArgumentOutOfRangeException e)
             {
-                StringAssert.Contains(e.Message, SynthaxCommand.Command_WithParameter);
+                StringAssert.Contains(e.Message, SynthaxCommand.RectangleWidthHeight);
                 return;
             }
             Assert.Fail("the expected exception was not thrown");
@@ -139,11 +139,12 @@ namespace ProgramingLanguage1Tests
             Assert.Fail("the expected exception was not thrown");
         }
 
+       //==============Test methods for triangle=======================
         [TestMethod]
-        public void RectangleleWithMoreParameter_test() //if rectangle command is not followed by any parameter,an exception is thrown
+        public void TriangleParametersNumber_test() //if the heigth cannot be parsed,an exception is thrown
         {
 
-            string line = "rectangle 10,30,40";
+            string line = "triangle 100,100";
             SynthaxCommand synthax_test = new SynthaxCommand(line);
 
             try
@@ -152,11 +153,31 @@ namespace ProgramingLanguage1Tests
             }
             catch (System.ArgumentOutOfRangeException e)
             {
-                StringAssert.Contains(e.Message, SynthaxCommand.RectangleWidthHeight);
+                StringAssert.Contains(e.Message, SynthaxCommand.TriangleParametersNumber);
                 return;
             }
             Assert.Fail("the expected exception was not thrown");
         }
+        [TestMethod]
+        public void TriangleLateralInt_test() //if the heigth cannot be parsed,an exception is thrown
+        {
+
+            string line = "triangle 100,100,130,x";
+            SynthaxCommand synthax_test = new SynthaxCommand(line);
+
+            try
+            {
+                synthax_test.SynthaxCheck(line);
+            }
+            catch (System.ArgumentOutOfRangeException e)
+            {
+                StringAssert.Contains(e.Message, SynthaxCommand.TrianglePoints);
+                return;
+            }
+            Assert.Fail("the expected exception was not thrown");
+        }
+
+
     }
 }
 
