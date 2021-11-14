@@ -343,7 +343,7 @@ namespace ProgramingLanguage1Tests
             }
             catch (System.ArgumentOutOfRangeException e)
             {
-                StringAssert.Contains(e.Message, SynthaxCommand.ColorParametersNumber);
+                StringAssert.Contains(e.Message, SynthaxCommand.ColorParametersMatch);
                 return;
             }
             Assert.Fail("the expected exception was not thrown");
@@ -399,7 +399,7 @@ namespace ProgramingLanguage1Tests
             }
             catch (System.ArgumentOutOfRangeException e)
             {
-                StringAssert.Contains(e.Message, SynthaxCommand.ColorParametersNumber);
+                StringAssert.Contains(e.Message, SynthaxCommand.ColorParametersMatch);
                 return;
             }
             Assert.Fail("the expected exception was not thrown");

@@ -165,13 +165,12 @@ namespace AseProgramingLanguage1
                 for (int i=0;i<=colors.Length; i++)
                 {}
                 */
-                if (split[1].Equals("black") || split[1].Equals("red") || split[1].Equals("blue") || split[1].Equals("green"))
+                    if (split[1].Equals("black") || split[1].Equals("red") || split[1].Equals("blue") || split[1].Equals("green"))
+                    {
+                       
+                    }
+                    else throw new System.ArgumentOutOfRangeException("Color Name",split[1],ColorParametersMatch);
 
-                {
-                    string param5 = split[1];
-                }
-                else throw new ArgumentOutOfRangeException("Unknown color name");
-               
             }
             else if(command.Equals("fill"))
             {
