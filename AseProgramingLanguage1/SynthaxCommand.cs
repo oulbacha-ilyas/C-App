@@ -15,8 +15,11 @@ namespace AseProgramingLanguage1
             this.line = line;
         }
         public const string Command_withNoParameters = "This command shouldn't have any parameter";
+        public const string Command_WithParameter = "This command should have parameters";
         public const string CircleShouldHaveRadius ="Cirlce should have a radius of type int";
         public const string RadiusShouldBeInt = "The radius should be an int";
+        public const string WidtInt = "The width should be an int";
+        public const string HeigthInt = "The theigth should be an int";
         public void SynthaxCheck(string line)
         {
             //ParseCommand parse = new ParseCommand(line);
@@ -25,7 +28,7 @@ namespace AseProgramingLanguage1
             string[] split;
             string[] parameters;
             line = line.ToLower().Trim();
-            if (line.Equals("circle")){ throw new ArgumentOutOfRangeException("line", line, CircleShouldHaveRadius); }
+            if (line.Equals("circle") || line.Equals("rectangle") || line.Equals("triangle") || line.Equals("moveto") || line.Equals("drawto") || line.Equals("fill") || line.Equals("fillcolor") || line.Equals("drawcolor")) { throw new ArgumentOutOfRangeException("line", line, Command_WithParameter); }
             //string ine =line; //added for manipulating commands with no parameters
             split = line.Split(' ');
             string command;
