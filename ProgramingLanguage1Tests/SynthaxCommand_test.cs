@@ -196,6 +196,7 @@ namespace ProgramingLanguage1Tests
         }
 
         //===========Tests for position commands=====
+        //=========moveto command======
         [TestMethod]
         public void MoveToWithNoParameter_test() //if moveto command is not followed by any parameter,an exception is thrown
         {
@@ -237,6 +238,63 @@ namespace ProgramingLanguage1Tests
         {
 
             string line = "moveto x,y";
+            SynthaxCommand synthax_test = new SynthaxCommand(line);
+
+            try
+            {
+                synthax_test.SynthaxCheck(line);
+            }
+            catch (System.ArgumentOutOfRangeException e)
+            {
+                StringAssert.Contains(e.Message, SynthaxCommand.PositionsPointsParse);
+                return;
+            }
+            Assert.Fail("the expected exception was not thrown");
+        }
+
+        //======drawto command
+        //=========drawto command======
+        [TestMethod]
+        public void DarwToWithNoParameter_test() //if drawto command is not followed by any parameter,an exception is thrown
+        {
+
+            string line = "drawto";
+            SynthaxCommand synthax_test = new SynthaxCommand(line);
+
+            try
+            {
+                synthax_test.SynthaxCheck(line);
+            }
+            catch (System.ArgumentOutOfRangeException e)
+            {
+                StringAssert.Contains(e.Message, SynthaxCommand.Command_WithParameter);
+                return;
+            }
+            Assert.Fail("the expected exception was not thrown");
+        }
+        [TestMethod]
+        public void DrawToParmetersNumber_test() //if the number of parameters is not as required for the command,an exception is thrown
+        {
+
+            string line = "drawto 100";
+            SynthaxCommand synthax_test = new SynthaxCommand(line);
+
+            try
+            {
+                synthax_test.SynthaxCheck(line);
+            }
+            catch (System.ArgumentOutOfRangeException e)
+            {
+                StringAssert.Contains(e.Message, SynthaxCommand.PositionsParameters);
+                return;
+            }
+            Assert.Fail("the expected exception was not thrown");
+        }
+        [TestMethod]
+        public void DarwToPointsParse_test() //if the parameters cannot be parsed,an exception is thrown
+        {
+
+            string line = "drawto x,y";
             SynthaxCommand synthax_test = new SynthaxCommand(line);
 
             try
