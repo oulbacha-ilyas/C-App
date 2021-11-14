@@ -88,7 +88,7 @@ namespace ProgramingLanguage1Tests
         public void RectangleWidthInt_test() //if the width cannot be parsed,an exception is thrown
         {
 
-            string line = "Circle x,100";
+            string line = "rectangle x,100";
             SynthaxCommand synthax_test = new SynthaxCommand(line);
 
             try
@@ -106,7 +106,7 @@ namespace ProgramingLanguage1Tests
         public void RectangleHeigthInt_test() //if the heigth cannot be parsed,an exception is thrown
         {
 
-            string line = "Circle 100,x";
+            string line = "rectangle 100,x";
             SynthaxCommand synthax_test = new SynthaxCommand(line);
 
             try

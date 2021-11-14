@@ -18,6 +18,7 @@ namespace AseProgramingLanguage1
         public const string Command_WithParameter = "This command should have parameters";
         public const string CircleShouldHaveRadius ="Cirlce should have a radius of type int";
         public const string RadiusShouldBeInt = "The radius should be an int";
+        public const string RectangleWidthHeight = "Rectangle should have two parameters:width and heigth";
         public const string WidtInt = "The width should be an int";
         public const string HeigthInt = "The theigth should be an int";
         public void SynthaxCheck(string line)
@@ -57,7 +58,9 @@ namespace AseProgramingLanguage1
                     {
                         bool res1 = int.TryParse(parameters[0], out int r1);
                         bool res2 = int.TryParse(parameters[1], out int r2);
-                        if (res1)
+                        if (res1 != true) { throw new System.ArgumentOutOfRangeException("width", parameters[0], WidtInt); }
+                        if (res2 != true) { throw new System.ArgumentOutOfRangeException("width", parameters[0], HeigthInt); }
+                        /*if (res1)
                         {
                             int width = Int32.Parse(parameters[0]);
                             if (res2)
@@ -68,11 +71,12 @@ namespace AseProgramingLanguage1
 
                         }
                         else throw new ArgumentOutOfRangeException("parameter 1 should be number");
+                       */
                     }
-                    else throw new ArgumentOutOfRangeException("you need to input a width and a heigth ");
+                    else throw new System.ArgumentOutOfRangeException("Width and Heigth ", split[1], RectangleWidthHeight);
 
                 }
-                else throw new ArgumentOutOfRangeException("you need to input a width and a heigth sperated with a comma");
+                else if (split.Length > 2) { throw new ArgumentOutOfRangeException("Width and Heigth ", split[1], RectangleWidthHeight); }
                 
 
                // string param1 = parameters[0];
