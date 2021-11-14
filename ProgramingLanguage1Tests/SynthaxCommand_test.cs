@@ -348,6 +348,7 @@ namespace ProgramingLanguage1Tests
             }
             Assert.Fail("the expected exception was not thrown");
         }
+        [TestMethod]
         public void DrawColorParmetersMatch_test() //if the  parameters does not match an existing color,an exception is thrown
         {
 
@@ -404,6 +405,7 @@ namespace ProgramingLanguage1Tests
             }
             Assert.Fail("the expected exception was not thrown");
         }
+        [TestMethod]
         public void FillColorParmetersMatch_test() //if the  parameters does not match an existing color,an exception is thrown
         {
 
@@ -421,6 +423,45 @@ namespace ProgramingLanguage1Tests
             }
             Assert.Fail("the expected exception was not thrown");
         }
+
+        //=======Tests for fill command====
+        [TestMethod]
+        public void FillNoParmeters_test() //if the command choice (on/off) is not specified,an exception is thrown
+        {
+
+            string line = "fill";
+            SynthaxCommand synthax_test = new SynthaxCommand(line);
+
+            try
+            {
+                synthax_test.SynthaxCheck(line);
+            }
+            catch (System.ArgumentOutOfRangeException e)
+            {
+                StringAssert.Contains(e.Message, SynthaxCommand.Command_WithParameter);
+                return;
+            }
+            Assert.Fail("the expected exception was not thrown");
+        }
+        [TestMethod]
+        public void FillParmetersMatch_test() //if the  parameters does not match an existing color,an exception is thrown
+        {
+
+            string line = "fill r";
+            SynthaxCommand synthax_test = new SynthaxCommand(line);
+
+            try
+            {
+                synthax_test.SynthaxCheck(line);
+            }
+            catch (System.ArgumentOutOfRangeException e)
+            {
+                StringAssert.Contains(e.Message, SynthaxCommand.FillParametersMatch);
+                return;
+            }
+            Assert.Fail("the expected exception was not thrown");
+        }
+
     }
    
 }

@@ -25,9 +25,8 @@ namespace AseProgramingLanguage1
         public const string TrianglePoints = "Triangle points:x and y should be of type int";
         public const string PositionsParameters = "the positions should have two parameters:x and y";
         public const string PositionsPointsParse = "the positions parameters should be of type int";
-        public const string ColorParametersNumber = "Only one color name can be take";
-        public const string ColorParametersMatch= "The color name does not match any of the existing";
-
+        public const string ColorParametersMatch= "The color name does not match any of the existing;only one color can be choosen at a time";
+        public const string FillParametersMatch = "Only two options can be choosen: On or Off";
         public void SynthaxCheck(string line)
         {
             //ParseCommand parse = new ParseCommand(line);
@@ -107,10 +106,6 @@ namespace AseProgramingLanguage1
                 }
                 else if (split.Length>2){ new System.ArgumentOutOfRangeException("radius", split[1], CircleShouldHaveRadius); }
                 
-
-
-
-
             }
             else if (command.Equals("moveto") || command.Equals("drawto"))
             {
@@ -152,10 +147,6 @@ namespace AseProgramingLanguage1
                     else throw new System.ArgumentOutOfRangeException("Parameters Number", parameters, TriangleParametersNumber);
                 }
                 if (split.Length >2) { throw new ArgumentOutOfRangeException("Parameters number", split[1], TriangleParametersNumber); }
-
-
-
-
 
             }
             else if (command.Equals("drawcolor") || command.Equals("fillcolor"))
