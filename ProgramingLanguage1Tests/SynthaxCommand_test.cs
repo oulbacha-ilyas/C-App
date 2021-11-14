@@ -29,10 +29,10 @@ namespace ProgramingLanguage1Tests
         }
 
         [TestMethod]
-        public void CircleParameter_test() //test if there is a parameter or not,and this parameter if of type int
+        public void CircleWithNoParameter_test() //test if there is a parameter or not,and this parameter if of type int
         {
 
-            string line = "Circle";
+            string line = "circle";
             SynthaxCommand synthax_test = new SynthaxCommand(line);
 
             try

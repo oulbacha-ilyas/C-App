@@ -25,6 +25,8 @@ namespace AseProgramingLanguage1
             string[] split;
             string[] parameters;
             line = line.ToLower().Trim();
+            if (line.Equals("circle")){ throw new ArgumentOutOfRangeException("line", line, CircleShouldHaveRadius); }
+            //string ine =line; //added for manipulating commands with no parameters
             split = line.Split(' ');
             string command;
             command = split[0];
@@ -78,8 +80,9 @@ namespace AseProgramingLanguage1
             }
             else if (command.Equals("circle"))
             {
-                if (split.Length == 1) { new System.ArgumentOutOfRangeException("radius", split[0], CircleShouldHaveRadius); }
-                else if (split.Length == 2) 
+                /*if (split.Length == 1 ) { new System.ArgumentOutOfRangeException("radius", split[0], CircleShouldHaveRadius); }
+                 else */
+                if (split.Length == 2) 
                 {
                         bool res1 = int.TryParse(split[1], out int r1);
                     if (res1 != true)
@@ -87,8 +90,9 @@ namespace AseProgramingLanguage1
                         throw new System.ArgumentOutOfRangeException("radius",split[1], RadiusShouldBeInt);
                     }
                 }
-                else if ( split.Length > 2) { new System.ArgumentOutOfRangeException("radius", split[1], CircleShouldHaveRadius); }
-          
+                else if (split.Length>2){ new System.ArgumentOutOfRangeException("radius", split[1], CircleShouldHaveRadius); }
+                
+
 
 
 
