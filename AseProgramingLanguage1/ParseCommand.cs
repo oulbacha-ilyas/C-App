@@ -117,7 +117,7 @@ namespace AseProgramingLanguage1
             this.param4 = Int32.Parse(parameters[3]);
             this.param5 = split[0];
         }
-        */
+       */
         /*
         public ParseCommand()
         {

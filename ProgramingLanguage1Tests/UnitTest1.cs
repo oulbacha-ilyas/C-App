@@ -2,6 +2,7 @@
 using System;
 using System.Drawing;
 using AseProgramingLanguage1;
+using AseProgramingLanguage1;
 
 namespace ProgramingLanguage1Tests
 {
@@ -9,42 +10,24 @@ namespace ProgramingLanguage1Tests
     public class UnitTest1
     {
         [TestMethod]
-       public void SynthaxCheck_Test()
+        public void SynthaxCheck_Test()
         {
-            /*
-            string TestLine = "cir 100";
-            string intended_command = "circle";
-            Type intendedType = typeof(string);
             
-            //act
+            string line = "run";
+            string exp_command = "run";
+            //int exp_param1 = 60;
             
-            ParseCommand synthax0 = new ParseCommand( TestLine);
-            synthax0.SynthaxCheck();
-            //assert
-            object[] VALUES = { synthax0.command };
-            foreach(var VALUE in VALUES)
-            {
-                Type actual = VALUE.GetType();
-                Assert.AreEqual(intendedType, actual);
-            }
-            
-            */
-        }
-        public void StructureCheck_Test()
-        {
-            /*
-            string line = "circle60";
-            string exp_command = "command";
-            int exp_int = 70;
-            ParseCommand parse_test = new ParseCommand(line);
+            SynthaxCommand synthax_test = new SynthaxCommand(line);
             //ACT
-            parse_test.StructureCheck();
-            string act_command = parse_test.line;
-            int act_int = parse_test.param1;
+            synthax_test.SynthaxCheck(line);
+            ParseCommand parse_test = new ParseCommand(line);//SynthaxCheck doesn't return anything,we need to parse the paramaters for test purposes.
+
+            string act_command = parse_test.command;
+            //int act_param1 = parse_test.param1;
             //
-            Assert.AreEqual(exp_command, act_command,"is there an error");
-            //Assert.AreEqual(exp_int, act_int);
-            */
+            Assert.AreEqual(exp_command, act_command);
+           //Assert.AreEqual(exp_param1, act_param1);
+            
         }
 
     }

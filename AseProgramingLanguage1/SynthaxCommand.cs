@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AseProgramingLanguage1
 {
-    class SynthaxCommand
+    public class SynthaxCommand
     {
         public string line { get; }
 
@@ -29,30 +29,47 @@ namespace AseProgramingLanguage1
 
             if (command.Equals("clear") || command.Equals("reset") || command.Equals("run"))
             {
-                command =split[0];
+                
+                
+                if (split.Length == 1)
+                { command = split[0]; }
+                else throw new ArgumentOutOfRangeException("this command has no parameters");
+
             }
 
             else
             if (command.Equals("rectangle"))
             {
-                parameters = split[1].Split(',');
+                if (split.Length == 2)
+                {
+                    parameters = split[1].Split(',');
+                    if (parameters.Length == 2)
+                    {
+                        bool res1 = int.TryParse(parameters[0], out int r1);
+                        bool res2 = int.TryParse(parameters[1], out int r2);
+                        if (res1)
+                        {
+                            int width = Int32.Parse(parameters[0]);
+                            if (res2)
+                            {
+                                int heigth = Int32.Parse(parameters[1]);
+                            }
+                            else throw new ArgumentOutOfRangeException("parameter 2 should be number");
+
+                        }
+                        else throw new ArgumentOutOfRangeException("parameter 1 should be number");
+                    }
+                    else throw new ArgumentOutOfRangeException("you need to input a width and a heigth ");
+
+                }
+                else throw new ArgumentOutOfRangeException("you need to input a width and a heigth sperated with a comma");
+                
 
                // string param1 = parameters[0];
                // string param2 = parameters[1];
                 //bool res;
                 //int r;
-                bool res1 = int.TryParse(parameters[0], out int r1);
-                bool res2 = int.TryParse(parameters[1], out int r2);
-                if (res1)
-                {
-                    int width = Int32.Parse(parameters[0]);
-                    if (res2)
-                    { int heigth = Int32.Parse(parameters[1]); 
-                    }
-                    else throw new ArgumentOutOfRangeException("parameter 2 should be number");
-
-                }
-                else throw new ArgumentOutOfRangeException("parameter 1 should be number");
+                
             }
             else if (command.Equals("circle"))
             {

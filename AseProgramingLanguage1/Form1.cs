@@ -55,6 +55,8 @@ namespace AseProgramingLanguage1
    
             if (e.KeyCode == Keys.Enter)
             {
+                SynthaxCommand synthax = new SynthaxCommand(commandLine.Text);
+                synthax.SynthaxCheck(commandLine.Text);
                 ParseCommand parse = new ParseCommand(commandLine.Text);
                 
                 //command = commandLine.Text.Trim().ToLower();// reads what is written in command Line, gets ride of spaces and convert the text to lower case
