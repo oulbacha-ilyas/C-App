@@ -14,7 +14,9 @@ namespace AseProgramingLanguage1
         {
             this.line = line;
         }
-
+        public const string Command_withNoParameters = "This command shouldn't have any parameter";
+        public const string CircleShouldHaveRadius ="Cirlce should have a radius of type int";
+        public const string RadiusShouldBeInt = "The radius should be an int";
         public void SynthaxCheck(string line)
         {
             //ParseCommand parse = new ParseCommand(line);
@@ -29,12 +31,15 @@ namespace AseProgramingLanguage1
 
             if (command.Equals("clear") || command.Equals("reset") || command.Equals("run"))
             {
-                
-                
-                if (split.Length == 1)
-                { command = split[0]; }
-                //else throw new ArgumentOutOfRangeException("this command has no parameters");
+                if (split.Length >=2)
+                {
+                    throw new System.ArgumentOutOfRangeException("parameters", split[1], Command_withNoParameters);
+                }
 
+                /* if (split.Length == 1)
+                 {  command = split[0]; }
+                 else throw new System.ArgumentOutOfRangeException("command",command,Command_withNoParameters);
+                */
             }
 
             else
@@ -73,11 +78,19 @@ namespace AseProgramingLanguage1
             }
             else if (command.Equals("circle"))
             {
-                bool res = int.TryParse(split[1], out int r);
-                if (res)
-                { int radius = Int32.Parse(split[1]); 
+                if (split.Length == 1) { new System.ArgumentOutOfRangeException("radius", split[0], CircleShouldHaveRadius); }
+                else if (split.Length == 2) 
+                {
+                        bool res1 = int.TryParse(split[1], out int r1);
+                    if (res1 != true)
+                    {
+                        throw new System.ArgumentOutOfRangeException("radius",split[1], RadiusShouldBeInt);
+                    }
                 }
-                else throw new ArgumentOutOfRangeException("radius should be a number");
+                else if ( split.Length > 2) { new System.ArgumentOutOfRangeException("radius", split[1], CircleShouldHaveRadius); }
+          
+
+
 
             }
             else if (command.Equals("moveto") || command.Equals("drawto"))

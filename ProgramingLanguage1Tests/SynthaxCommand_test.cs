@@ -13,8 +13,7 @@ namespace ProgramingLanguage1Tests
         public void Synthax_CommandNoparameter_Test() // testing commands with no parameters
         {
             
-            string line = "run ";
-            string exp_command = "run";
+            string line = "run 40";
             SynthaxCommand synthax_test = new SynthaxCommand(line);
             //ACT
             try
@@ -23,29 +22,44 @@ namespace ProgramingLanguage1Tests
             }
             catch (System.ArgumentOutOfRangeException e)
             {
-                StringAssert.Contains(e.Message, "this command has no paramters");
+                StringAssert.Contains(e.Message, SynthaxCommand.Command_withNoParameters);
                 return;
             }
             Assert.Fail("the expected exception was not thrown");
         }
 
-        public void Synthax_commandOneParameter_test()
+        [TestMethod]
+        public void CircleParameter_test() //test if there is a parameter or not,and this parameter if of type int
         {
 
-            string line = "Circle 70";
-            string exp_command = "circle";
+            string line = "Circle";
             SynthaxCommand synthax_test = new SynthaxCommand(line);
-            //ParseCommand parse_test = new ParseCommand(line);//SynthaxCheck doesn't return anything,we need to parse the paramaters for test purposes.
-            //string act_command = parse_test.command;
 
-            //ACT
             try
             {
                 synthax_test.SynthaxCheck(line);
             }
             catch (System.ArgumentOutOfRangeException e)
             {
-                StringAssert.Contains(e.Message, "this command has no paramters");
+                StringAssert.Contains(e.Message, SynthaxCommand.CircleShouldHaveRadius);
+                return;
+            }
+            Assert.Fail("the expected exception was not thrown");
+        }
+        [TestMethod]
+        public void CircleRadius_test() //test if there is a parameter or not,and this parameter if of type int
+        {
+
+            string line = "Circle x";
+            SynthaxCommand synthax_test = new SynthaxCommand(line);
+
+            try
+            {
+                synthax_test.SynthaxCheck(line);
+            }
+            catch (System.ArgumentOutOfRangeException e)
+            {
+                StringAssert.Contains(e.Message,SynthaxCommand.RadiusShouldBeInt);
                 return;
             }
             Assert.Fail("the expected exception was not thrown");
