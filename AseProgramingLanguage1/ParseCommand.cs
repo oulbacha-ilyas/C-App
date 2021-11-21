@@ -21,7 +21,8 @@ namespace AseProgramingLanguage1
         // the if statements are checking the synthax,if it is not respected,it returns an exception error
         
         
-        public ParseCommand(string line) // for commands with no parameters
+        public ParseCommand(string line) 
+            //input text is lowered,then trimed to ignore any spaces,then split to extract commands and parameters
         {
             this.line = line;
            
@@ -31,13 +32,13 @@ namespace AseProgramingLanguage1
             line = line.ToLower().Trim();
             split = line.Split(' ');
             string command;
-            command = split[0];
+            command = split[0]; //based on the first split,parse parameters based on command value;some commands may have no parameters,others may have more then 1
             if (command.Equals("rectangle"))
             {
                 parameters = split[1].Split(',');
                 string width = parameters[0];
                 string length = parameters[1];
-                this.param1 = Int32.Parse(width);
+                this.param1 = Int32.Parse(width); //parse the width value so it it can be used as an integer in the drawing method rectangle()
                 this.param2 = Int32.Parse(length);
             }
             else if (command.Equals("circle"))
@@ -93,81 +94,8 @@ namespace AseProgramingLanguage1
 
                 this.command = split[0];
             }
-            else { throw new ArgumentOutOfRangeException("the syntax is incorrect");
-                Console.WriteLine("this is an error message");
-            }
             this.command =split[0];
            
         }
-       
-        /*public ParseCommand(string line)
-        {
-            this.line = line;
-            string[] split;
-            string[] parameters;
-            line = line.ToLower().Trim();
-            split = line.Split(' ');
-            string command;
-            command = split[0];
-            parameters = split[1].Split(',');
- 
-            this.param1 = Int32.Parse(parameters[0]);
-            this.param2 = Int32.Parse(parameters[1]);
-            this.param3 = Int32.Parse(parameters[2]);
-            this.param4 = Int32.Parse(parameters[3]);
-            this.param5 = split[0];
-        }
-       */
-        /*
-        public ParseCommand()
-        {
-            this.param1 = param1;
-            this.param2 = param1;
-        }
-      
-        public ParseCommand(string c,int x) //for commands with one parameter
-        {
-            this.command = c;
-            this.param1 = x;
-        }
-        public ParseCommand(string c, string  cl) //for commands with a string parameter(fill on)
-        {
-            this.command = c;
-            this.param5 = cl;
-        }
-    public ParseCommand(string c,int x,int y) // command with tow arguments
-        {
-            this.command = c;
-            this.param1 = x;
-            this.param2 = y;
-        }
-        public ParseCommand(string c, int x, int y,int z,int w)
-        {
-            this.command = c;
-            this.param1 = x;
-            this.param2 = y;
-            this.param1 = z;
-            this.param2 = y;
-        }
-        
-        /*public void SynthaxCheck()
-         {
-             ParseCommand inputtext = new ParseCommand(line);
-             //string command = inputtext.command;
-             object[] values = { (string) command };
-             foreach( var value in values)
-             {
-                 Type tp = value.GetType();
-                 if (tp.Equals(typeof(string)))
-
-                 {
-                     Console.WriteLine("command synthax is correct");
-                 }
-                 else throw new ArgumentOutOfRangeException("command synthax is not correct,it should be composed of caracters only");
-             }
-         }
-        */
-        
-       
     }
 }

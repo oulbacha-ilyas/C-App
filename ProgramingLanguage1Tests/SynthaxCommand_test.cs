@@ -10,6 +10,24 @@ namespace ProgramingLanguage1Tests
     public class SynthaxCommand_test
     {
         [TestMethod]
+        public void UnkownCommand_Test() // if an unkown command,if any paramters is entered it throws an exception
+        {
+
+            string line = "go";
+            SynthaxCommand synthax_test = new SynthaxCommand(line);
+            //ACT
+            try
+            {
+                synthax_test.SynthaxCheck(line);
+            }
+            catch (System.ArgumentOutOfRangeException e)
+            {
+                StringAssert.Contains(e.Message, SynthaxCommand.UnkownCommand);
+                return;
+            }
+            Assert.Fail("the expected exception was not thrown");
+        }
+        [TestMethod]
         public void Synthax_CommandNoparameter_Test() // testing commands with no parameters,if any paramters is entered it throws an exception
         {
 
@@ -52,13 +70,14 @@ namespace ProgramingLanguage1Tests
 
             string line = "Circle 100x";
             SynthaxCommand synthax_test = new SynthaxCommand(line);
-
+ 
             try
             {
                 synthax_test.SynthaxCheck(line);
             }
             catch (System.ArgumentOutOfRangeException e)
             {
+    
                 StringAssert.Contains(e.Message, SynthaxCommand.RadiusShouldBeInt);
                 return;
             }

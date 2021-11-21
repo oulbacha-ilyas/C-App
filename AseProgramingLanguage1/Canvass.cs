@@ -22,8 +22,9 @@ namespace AseProgramingLanguage1
         int end_y =0;
         //string fill = "off";
         //string defualtFill = "off";
-        Turtle fillOnOff; 
-
+        Turtle fillOnOff;
+        List<Circles> Circles= new List<Circles>();
+        List<Turtle> turtles = new List<Turtle>();
 
 
         public Canvass(Graphics g)
@@ -42,26 +43,18 @@ namespace AseProgramingLanguage1
         {
             // outline or fill off is the default value of drawing,but this method should be called before DrawRectangle
             fillOnOff = new Turtle(Fill);
-            
-            Console.WriteLine("youve choosen fill" + Fill);
-
         }
 
         // drawing a line between tow points:the starting point (0,0) and another point defined by the user
         public void drawTo(int end_x, int end_y)
         {
             
-            g.DrawLine(myPen, start_x, start_y, end_x, end_y);
-            //start_x = end_x; //the pen will start where the last drawing ended.
-            //start_x = end_y;
-            moveTo(end_x, end_y);
+            g.DrawLine(myPen, start_x, start_y, end_x, end_y); //drawing a line first,
+            moveTo(end_x, end_y);//then moving the turtle to the last point of the drawn line
 
         }
         public void DrawRectangle(int width, int higth)
         {
-
-            
-
             if (fillOnOff.Fill.Equals("off") == true)
             {
                 g.DrawRectangle(myPen, start_x, start_y,width,higth);
@@ -73,22 +66,30 @@ namespace AseProgramingLanguage1
                 
             }
             else throw new ArgumentOutOfRangeException("You need to choose fill on or fill off for the shape drawing method");
-                
-
-        }
+          }
        
         public void moveTo(int end_x, int end_y)
         {
+            Turtle turtle = new Turtle(end_x, end_y);
+            turtles.Add(turtle);
             start_x = end_x;
             start_y = end_y;
-            g.DrawEllipse(turtlePen, start_x, start_y, 2, 2);
+            g.DrawEllipse(turtlePen, start_x, start_y, 1,1);
+            for (int i=0;i<Circles.Count;i++)
+            {
+               g.DrawEllipse(myPen, Circles[i].X - Circles[i].Radius, Circles[i].Y - Circles[i].Radius, Circles[i].Radius*2, Circles[i].Radius*2);
+            }
+           
         }
-        public void DrawCircle(float radius) // the circle is not drawn from the last position of moveTo,but the center is shifted
+        public void DrawCircle(int radius) // the circle is not drawn from the last position of moveTo,but the center is shifted
         {
             
             float width;
             float higth;
             width = higth = radius*2;
+            Circles circle = new Circles(start_x, start_y, radius);
+            Circles.Add(circle);
+            
             //g.DrawEllipse(myPen,start_x-(radius/2),start_y-(radius/2),width*2,higth*2);
             if (fillOnOff.Fill.Equals("off") == true)
             {
@@ -171,6 +172,7 @@ namespace AseProgramingLanguage1
             g.DrawLine(myPen,10, 10, 150, 150);
 
         }
+      
 
     }
 }

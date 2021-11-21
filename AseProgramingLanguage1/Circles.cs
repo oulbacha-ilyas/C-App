@@ -6,23 +6,17 @@ using System.Threading.Tasks;
 
 namespace AseProgramingLanguage1
 {
-    class Turtle
+    class Circles
     {
-        public string Fill { get; }
         public int X { get; }
         public int Y { get; }
+        public int Radius { get; }
 
-        public Turtle(string fill)
-        {
-            //Fill.Equals(fill);
-            this.Fill=fill ;
-            
-        }
-        public Turtle(int x,int y)
+        public Circles(int x,int y,int r)
         {
             this.X = x;
             this.Y = y;
-
+            this.Radius = r;
         }
     }
 }
