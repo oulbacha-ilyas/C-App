@@ -92,12 +92,14 @@ namespace AseProgramingLanguage1
                 else if (parse.command.Equals("clear") == true) //clear all the drawing area of OutputWindow,including the turtle
                 {
                     ClearCommand();
+                    myCanvass.Clear();
                     outputWindow.Refresh();
                 }
                 else if (parse.command.Equals("reset") == true) // reset can use ClearCommand but the pen position is set to (0,0)
                 {
-                    myCanvass.moveTo(0, 0);
-                    outputWindow.Refresh();
+                    ClearCommand();
+                    myCanvass.Reset();
+                    
                 }
                 else if (parse.command.Equals("drawcolor") == true)
                 {
@@ -184,13 +186,14 @@ namespace AseProgramingLanguage1
                 else if (parse.command.Equals("clear") == true)
                 {
                     ClearCommand();
+                    myCanvass.Clear();
                     outputWindow.Refresh();
                 }
                 else if (parse.command.Equals("reset") == true) // reset can use ClearCommand but the pen position is set to (0,0)
                 {
                     ClearCommand();
-                    myCanvass.moveTo(0, 0);
-                    outputWindow.Refresh();
+                    myCanvass.Reset();
+                    //outputWindow.Refresh();
                 }
                 else if (parse.command.Equals("drawcolor") == true)
                 {
