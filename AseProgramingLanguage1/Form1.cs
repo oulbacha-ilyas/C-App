@@ -26,8 +26,9 @@ namespace AseProgramingLanguage1
 
             myCanvass = new Canvass(Graphics.FromImage(OutputBitmap));// this will handle the drawing then pass it to the form
             myCanvass.ChangeFill("off");// sets the Fill to default option:Off,the subsequent draws will be outlined til the Fill is changed to On
-                                        //myCanvass.drawTo(0, 0); //sets the turle position in the top left once Form1 is loaded
-           myCanvass.moveTo(0, 0);
+            myCanvass.DrawColor("black");
+            myCanvass.FillColor("black");
+            myCanvass.moveTo(0, 0);  //myCanvass.moveTo(0, 0); //sets the turle position in the top left once Form1 is loaded
         }
 
 
@@ -38,30 +39,37 @@ namespace AseProgramingLanguage1
             g.DrawImageUnscaled(OutputBitmap, 0, 0);
             //ParseCommand parse = new ParseCommand(commandLine.Text);
            //myCanvass.moveTo(penPosition.X, y) ;
-
-            
-
         }
-
-
-
-
 
         private void commandLine_KeyDown(object sender, KeyEventArgs e)
         {
            //Once the Enter key is pressed,SynthaxCheck is called for checking the synthax errors,then the parameters are parsedn,then drawing methods and commands can be called
             if (e.KeyCode == Keys.Enter)
             {
-                SynthaxCommand synthax = new SynthaxCommand(commandLine.Text); //creating a Synthax object using the constructor SynthaxCommand()
-                synthax.SynthaxCheck(commandLine.Text);
-                ParseCommand parse = new ParseCommand(commandLine.Text); // creating a parse Object using the constructor ParseCommand
+                 //creating a Synthax object using the constructor SynthaxCommand()
+                 try
+                {
+                    SynthaxCommand synthax = new SynthaxCommand(commandLine.Text);
+                     synthax.SynthaxCheck(commandLine.Text);
+                     
+                }
+                catch (System.Exception argX0) //catching the whole exception message then extract only the customized message
+                {
 
+                    string trimMessage = argX0.Message.Trim();
+                    string[] splitMessage;
+                    splitMessage = trimMessage.Split('.');
+                
+                    synthaxMessages.Text =splitMessage[0]; //adding the message to the list of error messages concerning the typed program
+                }
+                  
+                 // creating a parse Object using the constructor ParseCommand
+                 ParseCommand parse = new ParseCommand(commandLine.Text);
                 //command = commandLine.Text.Trim().ToLower();// reads what is written in command Line, gets ride of spaces and convert the text to lower case
                 if (parse.command.Equals("drawto") == true)
                 {
                     myCanvass.drawTo(parse.param1, parse.param2);
 
-                    //Console.WriteLine("a line is drawn");
                 }
                 else if (parse.command.Equals("rectangle") == true)
                 {
@@ -114,7 +122,14 @@ namespace AseProgramingLanguage1
                 // update the drawing area to avoid drawing over past draws
 
                 outputWindow.Refresh(); //refreshing the drawing area so the new drawings can appears after each command is passed
+                
             }
+             
+                
+
+                
+           
+                
         }
 
         private void ClearCommand() // clearing all the previous drawings
@@ -140,7 +155,7 @@ namespace AseProgramingLanguage1
 
                 ParseCommand parse = new ParseCommand(ProgramLines.Lines[i]);
 
-                Console.WriteLine(ProgramLines.Lines[i]);
+               
                 if (parse.command.Equals("drawto") == true)
                 {
                     myCanvass.drawTo(parse.param1, parse.param2);
@@ -196,8 +211,54 @@ namespace AseProgramingLanguage1
         }
 
         private void ProgramLines_TextChanged(object sender, EventArgs e)
-        {   //program can be typed or past into here
+        {
+            int linesNumber = ProgramLines.Lines.Length;
+            //Console.WriteLine("number lines is" + linesNumber);
+            List<string> synthaxMessagesList = new List<string>();
+            for (int i = 0; i <= linesNumber - 1; i++)
+            {
 
+                SynthaxCommand ProgramSynthax = new SynthaxCommand(ProgramLines.Lines[i]);
+                // ProgramSynthax.SynthaxCheck(ProgramLines.Lines[i]);
+                try
+                {
+                    ProgramSynthax.SynthaxCheck(ProgramLines.Lines[i]);
+                }
+                catch (System.Exception argX0) //catching the whole exception message then extract only the customized message
+                {
+
+                    string trimMessage = argX0.Message.Trim();
+                    string[] splitMessage;
+                    splitMessage = trimMessage.Split('.');
+                    synthaxMessagesList.Add($"line {i + 1}: " + splitMessage[0]); //adding the message to the list of error messages concerning the typed program
+                }
+            }
+            int l = synthaxMessagesList.Count;
+            Console.WriteLine($"there are {l} errors in this program");
+            if (l == 0)
+            {
+                synthaxMessages.Text = "No synthax errors at the moment";
+            }
+            if (l == 1)
+            {
+                synthaxMessages.Text = synthaxMessagesList[0];
+            }
+            if (l == 2)
+            {
+                synthaxMessages.Text = synthaxMessagesList[0] + System.Environment.NewLine + synthaxMessagesList[1];
+            }
+            if (l == 3)
+            {
+                synthaxMessages.Text = synthaxMessagesList[0] + System.Environment.NewLine + synthaxMessagesList[1] + System.Environment.NewLine + synthaxMessagesList[2];
+            }
+            if (l == 4)
+            {
+                synthaxMessages.Text = synthaxMessagesList[0] + System.Environment.NewLine + synthaxMessagesList[1] + System.Environment.NewLine + synthaxMessagesList[2] + System.Environment.NewLine + synthaxMessagesList[3] + System.Environment.NewLine;
+            }
+            if (l == 5)
+            {
+                synthaxMessages.Text = synthaxMessagesList[0] + System.Environment.NewLine + synthaxMessagesList[1] + System.Environment.NewLine + synthaxMessagesList[2] + System.Environment.NewLine + synthaxMessagesList[3] + System.Environment.NewLine + synthaxMessagesList[4];
+            }
         }
 
 
@@ -255,7 +316,20 @@ namespace AseProgramingLanguage1
 
         private void commandLine_TextChanged(object sender, EventArgs e)
         {
+            SynthaxCommand ProgramSynthax = new SynthaxCommand(commandLine.Text);
+            // ProgramSynthax.SynthaxCheck(ProgramLines.Lines[i]);
+            try
+            {
+                ProgramSynthax.SynthaxCheck(commandLine.Text);
+            }
+            catch (System.Exception argX0) //catching the whole exception message then extract only the customized message
+            {
 
+                string trimMessage = argX0.Message.Trim();
+                string[] splitMessage;
+                splitMessage = trimMessage.Split('.');
+                synthaxMessages.Text= splitMessage[0]; //adding the message to the list of error messages concerning the typed program
+            }
         }
 
         private void synthaxMessage_TextChanged(object sender, EventArgs e)

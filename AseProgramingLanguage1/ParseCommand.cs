@@ -53,8 +53,6 @@ namespace AseProgramingLanguage1
                 string end_y = parameters[1];
                 this.param1 = Int32.Parse(end_x);
                 this.param2 = Int32.Parse(end_y);
-
-
             }
             else if (command.Equals("triangle"))
             {

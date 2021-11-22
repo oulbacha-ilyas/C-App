@@ -72,6 +72,7 @@
     <Compile Include="ParseCommand.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rectangles.cs" />
     <Compile Include="SynthaxCommand.cs" />
     <Compile Include="Turtle.cs" />
     <EmbeddedResource Include="Form1.resx">

@@ -26,8 +26,10 @@ namespace AseProgramingLanguage1
         public const string TrianglePoints = "Triangle points:x and y should be of type int.";
         public const string PositionsParameters = "the positions should have two parameters:x and y.";
         public const string PositionsPointsParse = "the positions parameters should be of type int.";
-        public const string ColorParametersMatch = "The color name does not match any of the existing;only one color can be choosen at a time.";
-        public const string FillParametersMatch = "Only two options can be choosen: On or Off.";
+        public const string ColorParametersMatch = "This color name matches the existing ones;black,blue,green,red.";
+        public const string ColorParametersDoesnotMatch = "The color name does not match any of the existing;only one color can be choosen at a time.";
+            public const string FillParametersMatch = "Only two options can be choosen: On or Off.";
+      
         public void SynthaxCheck(string line)
         {
             string[] split; //declaring an arry that will handle values after the first split
@@ -154,24 +156,26 @@ namespace AseProgramingLanguage1
                 for (int i=0;i<=colors.Length; i++)
                 {}
                 */
+                
                 if (split[1].Equals("black") || split[1].Equals("red") || split[1].Equals("blue") || split[1].Equals("green"))
                 {
-
+                    throw new System.ArgumentOutOfRangeException("Color Name", split[1], ColorParametersMatch);
                 }
-                else throw new System.ArgumentOutOfRangeException("Color Name", split[1], ColorParametersMatch);
+                else throw new System.ArgumentOutOfRangeException("Color Name", split[1], ColorParametersDoesnotMatch);
 
             }
             else if (command.Equals("fill"))
             {
-                if (split[1].Equals("on") || split[1].Equals("off"))
+                if(split[1].Equals("on") || split[1].Equals("off"))
                 {
+                  //throw new System.ArgumentOutOfRangeException("Fill choice", split[1], FillParametersMatch);
                 }
                 else throw new System.ArgumentOutOfRangeException("Fill choice", split[1], FillParametersMatch);
             }
             else {
                  throw new System.ArgumentOutOfRangeException("Unknown command", command, UnkownCommand);
                  //throw new System.ArgumentOutOfRangeException(command,)
-            }
+                 }
         
 
         /*
@@ -183,5 +187,5 @@ namespace AseProgramingLanguage1
         */
     } 
 
-    }
+   }
 }

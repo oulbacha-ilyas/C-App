@@ -11,6 +11,7 @@ namespace AseProgramingLanguage1
         public string Fill { get; }
         public int X { get; }
         public int Y { get; }
+        //public string Pencolor { get;}
 
         public Turtle(string fill)
         {
@@ -18,10 +19,11 @@ namespace AseProgramingLanguage1
             this.Fill=fill ;
             
         }
-        public Turtle(int x,int y)
+        public Turtle(int x,int y/*,string pencolor*/)
         {
             this.X = x;
             this.Y = y;
+            //this.Pencolor=pencolor;
 
         }
     }
