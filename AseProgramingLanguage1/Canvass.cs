@@ -29,6 +29,7 @@ namespace AseProgramingLanguage1
         List<Circles> Circles = new List<Circles>();
         List<Rectangles> Rectangles = new List<Rectangles>();
         List<Triangles> Triangles = new List<Triangles>();
+        List<Lines> Lines = new List<Lines>();
 
 
         public Canvass(Graphics g)
@@ -57,8 +58,16 @@ namespace AseProgramingLanguage1
         // drawing a line between tow points:the starting point (0,0) and another point defined by the user
         public void drawTo(int end_x, int end_y)
         {
-            g.DrawLine(myPen, start_x, start_y, end_x, end_y); //drawing a line first,
-            moveTo(end_x, end_y);//then moving the turtle to the last point of the drawn line
+          
+            Lines line = new Lines(start_x,start_y,end_x,end_y,Pen.Fill);
+            line.LinePoint_Type(end_x, end_y);
+            Lines.Add(line);
+            int l = Lines.Count;
+            g.DrawLine(myPen, Lines[l - 1].X1, Lines[l - 1].Y1, Lines[l - 1].X2, Lines[l - 1].Y2) ; //drawing a line first,
+            start_x = Lines[l-1].X2;
+            start_y = Lines[l - 1].Y2;
+            moveTo(Lines[l - 1].X2, Lines[l - 1].Y2);//then moving the turtle to the last point of the drawn line
+
         }
 
         public void DrawRectangle(int width, int heigth)
@@ -86,7 +95,17 @@ namespace AseProgramingLanguage1
             start_y = end_y;
             g.DrawEllipse(turtlePen, turtles[l - 1].X, turtles[l - 1].Y, 1, 1);
 
-            for (int i = 0; i < Circles.Count; i++)
+            for (int i = 0; i < Lines.Count; i++)
+            {   if (Lines[i].Pencolor == "black")
+                { g.DrawLine(myPen, Lines[i].X1, Lines[i].Y1, Lines[i].X2, Lines[i].Y2); }
+                if (Lines[i].Pencolor == "red")
+                { g.DrawLine(redPen, Lines[i].X1, Lines[i].Y1, Lines[i].X2, Lines[i].Y2); }
+                if (Lines[i].Pencolor == "blue")
+                { g.DrawLine(bluePen, Lines[i].X1, Lines[i].Y1, Lines[i].X2, Lines[i].Y2); }
+                if (Lines[i].Pencolor == "green")
+                { g.DrawLine(greenPen, Lines[i].X1, Lines[i].Y1, Lines[i].X2, Lines[i].Y2); }
+            }
+                for (int i = 0; i < Circles.Count; i++)
             {
                 if (Circles[i].Fill == "off")
                 {

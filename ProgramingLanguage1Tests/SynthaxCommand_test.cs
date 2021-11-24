@@ -256,7 +256,7 @@ namespace ProgramingLanguage1Tests
         public void MoveToPointsParse_test() //if the parameters cannot be parsed,an exception is thrown
         {
 
-            string line = "moveto x,y";
+            string line = "moveto x,100";
             SynthaxCommand synthax_test = new SynthaxCommand(line);
 
             try
@@ -265,7 +265,7 @@ namespace ProgramingLanguage1Tests
             }
             catch (System.ArgumentOutOfRangeException e)
             {
-                StringAssert.Contains(e.Message, SynthaxCommand.PositionsPointsParse);
+                StringAssert.Contains(e.Message, SynthaxCommand.Point_X_Parse);
                 return;
             }
             Assert.Fail("the expected exception was not thrown");
@@ -310,10 +310,10 @@ namespace ProgramingLanguage1Tests
             Assert.Fail("the expected exception was not thrown");
         }
         [TestMethod]
-        public void DarwToPointsParse_test() //if the parameters cannot be parsed,an exception is thrown
+        public void DrawToPointsParse_test() //if the parameters cannot be parsed,an exception is thrown
         {
 
-            string line = "drawto x,y";
+            string line = "drawto 50,y";
             SynthaxCommand synthax_test = new SynthaxCommand(line);
 
             try
@@ -322,7 +322,7 @@ namespace ProgramingLanguage1Tests
             }
             catch (System.ArgumentOutOfRangeException e)
             {
-                StringAssert.Contains(e.Message, SynthaxCommand.PositionsPointsParse);
+                StringAssert.Contains(e.Message, SynthaxCommand.Point_Y_Parse);
                 return;
             }
             Assert.Fail("the expected exception was not thrown");

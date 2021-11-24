@@ -25,11 +25,17 @@ namespace AseProgramingLanguage1
         public const string TriangleParametersNumber = "Tiangle should have 4 parameters;x and y for each point.";
         public const string TrianglePoints = "Triangle points:x and y should be of type int.";
         public const string PositionsParameters = "the positions should have two parameters:x and y.";
-        public const string PositionsPointsParse = "the positions parameters should be of type int.";
+        public const string Point_X_Parse = "the  parameter x should be of type int.";
+        public const string Point_Y_Parse = "the parameter Y should be of type int.";
         public const string ColorParametersMatch = "This color name matches the existing ones;black,blue,green,red.";
         public const string ColorParametersDoesnotMatch = "The color name does not match any of the existing;only one color can be choosen at a time.";
         public const string FillParametersMatch = "Only two options can be choosen: On or Off.";
         public const string CorrectSynthax = "There are no synthax errors at the moment.";
+        public const string Point1_X_parse= "The first parameter should be an int.";
+        public const string Point1_Y_parse= "The second parameter should be an int.";
+        public const string Point2_X_parse= "The third parameter should be an int.";
+        public const string Point2_Y_parse= "The fourth parameter should be an int.";
+
         public void SynthaxCheck(string line)
         {
             string[] split; //declaring an arry that will handle values after the first split
@@ -47,6 +53,7 @@ namespace AseProgramingLanguage1
                 {
                     throw new System.ArgumentOutOfRangeException("parameters", split[1], Command_withNoParameters);
                 }
+                else  throw new System.ArgumentOutOfRangeException("parameters", split[1], CorrectSynthax);
 
                 /* if (split.Length == 1)
                  {  command = split[0]; }
@@ -121,10 +128,18 @@ namespace AseProgramingLanguage1
                     {
                         bool res1 = int.TryParse(parameters[0], out int r1);
                         bool res2 = int.TryParse(parameters[1], out int r2);
-                        if (res1 != true) { throw new System.ArgumentOutOfRangeException("Parameter type", parameters[0], PositionsPointsParse); 
-                        if (res2 != true) { throw new System.ArgumentOutOfRangeException("Parameter", parameters[1], PositionsPointsParse); }
-                        if (res1 == true || res2 == true) 
-                        { throw new System.ArgumentOutOfRangeException("Correct position", split[1], CorrectSynthax);}
+                        if (res1 !=true ){throw new System.ArgumentOutOfRangeException("Parameter type", parameters[0], Point_X_Parse);}
+                        if (res2!=true) {throw new System.ArgumentOutOfRangeException("Parameter type", parameters[1], Point_Y_Parse); }
+
+                        if(res1==true && res2==true){ throw new System.ArgumentOutOfRangeException("Parameter type", split[1], CorrectSynthax);}
+                        /*   
+                        if (res1 != true) { 
+                            //throw new System.ArgumentOutOfRangeException("Parameter type", parameters[0], PositionsPointsParse); 
+                            if (res2 != true) { throw new System.ArgumentOutOfRangeException("Parameter", parameters[1], PositionsPointsParse);}
+                        }
+                        if (res1 == true || res2==true ) 
+                        { throw new System.ArgumentOutOfRangeException("Correct position", split[1], CorrectSynthax);} 
+                       */
                     }
                     else throw new System.ArgumentOutOfRangeException("Parameters number", split[1], PositionsParameters);
                 }
@@ -144,11 +159,11 @@ namespace AseProgramingLanguage1
                         bool res2 = int.TryParse(parameters[1], out int r2);
                         bool res3 = int.TryParse(parameters[2], out int r3);
                         bool res4 = int.TryParse(parameters[3], out int r4);
-                        if (res1 != true) { throw new System.ArgumentOutOfRangeException("points", parameters[0], TrianglePoints); }
-                        if (res2 != true) { throw new System.ArgumentOutOfRangeException("point", parameters[1], TrianglePoints); }
-                        if (res3 != true) { throw new System.ArgumentOutOfRangeException("points ", parameters[2], TrianglePoints); }
-                        if (res4 != true) { throw new System.ArgumentOutOfRangeException("points", parameters[3], TrianglePoints); }
-                        if (res1 ==true || res2 ==true || res3==true || res4==true)
+                        if (res1 != true) { throw new System.ArgumentOutOfRangeException("points", parameters[0], Point1_X_parse); }
+                        if (res2 != true) { throw new System.ArgumentOutOfRangeException("point", parameters[1], Point1_Y_parse); }
+                        if (res3 != true) { throw new System.ArgumentOutOfRangeException("points ", parameters[2], Point2_X_parse); }
+                        if (res4 != true) { throw new System.ArgumentOutOfRangeException("points", parameters[3], Point2_Y_parse); }
+                        if (res1 ==true && res2 ==true && res3==true && res4==true)
                             {
                               { throw new System.ArgumentOutOfRangeException("Correct position", split[1], CorrectSynthax);}
                             }
@@ -169,7 +184,7 @@ namespace AseProgramingLanguage1
                 
                 if (split[1].Equals("black") || split[1].Equals("red") || split[1].Equals("blue") || split[1].Equals("green"))
                 {
-                    throw new System.ArgumentOutOfRangeException("Color Name", split[1], ColorParametersMatch);
+                    throw new System.ArgumentOutOfRangeException("Color Name", split[1],CorrectSynthax);
                 }
                 else throw new System.ArgumentOutOfRangeException("Color Name", split[1], ColorParametersDoesnotMatch);
 
@@ -178,7 +193,7 @@ namespace AseProgramingLanguage1
             {
                 if(split[1].Equals("on") || split[1].Equals("off"))
                 {
-                  //throw new System.ArgumentOutOfRangeException("Fill choice", split[1], FillParametersMatch);
+                  throw new System.ArgumentOutOfRangeException("Fill choice", split[1], CorrectSynthax);
                 }
                 else throw new System.ArgumentOutOfRangeException("Fill choice", split[1], FillParametersMatch);
             }
@@ -195,7 +210,7 @@ namespace AseProgramingLanguage1
            Console.WriteLine($" Erro: {UnkownCommand}");
         };
         */
-            } 
+            
         }
     }
 }

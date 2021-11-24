@@ -55,6 +55,7 @@ namespace AseProgramingLanguage1
                  
                 if (parse.command.Equals("drawto") == true)
                 {
+                        ClearCommand();
                     myCanvass.drawTo(parse.param1, parse.param2);
 
                 }
