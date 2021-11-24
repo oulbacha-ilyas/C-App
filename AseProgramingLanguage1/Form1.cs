@@ -46,26 +46,13 @@ namespace AseProgramingLanguage1
            //Once the Enter key is pressed,SynthaxCheck is called for checking the synthax errors,then the parameters are parsedn,then drawing methods and commands can be called
             if (e.KeyCode == Keys.Enter)
             {
-                 //creating a Synthax object using the constructor SynthaxCommand()
-                 try
+               if (synthaxMessages.Text!="There are no synthax errors at the moment")
+                {synthaxMessages.Text="Check synthax first.";}
+                else
                 {
-                    SynthaxCommand synthax = new SynthaxCommand(commandLine.Text);
-                     synthax.SynthaxCheck(commandLine.Text);
-                     
-                }
-                catch (System.Exception argX0) //catching the whole exception message then extract only the customized message
-                {
-
-                    string trimMessage = argX0.Message.Trim();
-                    string[] splitMessage;
-                    splitMessage = trimMessage.Split('.');
-                
-                    synthaxMessages.Text =splitMessage[0]; //adding the message to the list of error messages concerning the typed program
-                }
-                  
-                 // creating a parse Object using the constructor ParseCommand
-                 ParseCommand parse = new ParseCommand(commandLine.Text);
-                //command = commandLine.Text.Trim().ToLower();// reads what is written in command Line, gets ride of spaces and convert the text to lower case
+                   ParseCommand parse = new ParseCommand(commandLine.Text);
+                     // creating a parse Object using the constructor ParseCommand
+                 
                 if (parse.command.Equals("drawto") == true)
                 {
                     myCanvass.drawTo(parse.param1, parse.param2);
@@ -124,14 +111,9 @@ namespace AseProgramingLanguage1
                 // update the drawing area to avoid drawing over past draws
 
                 outputWindow.Refresh(); //refreshing the drawing area so the new drawings can appears after each command is passed
-                
+ 
+                }
             }
-             
-                
-
-                
-           
-                
         }
 
         private void ClearCommand() // clearing all the previous drawings
@@ -321,6 +303,7 @@ namespace AseProgramingLanguage1
         {
             SynthaxCommand ProgramSynthax = new SynthaxCommand(commandLine.Text);
             // ProgramSynthax.SynthaxCheck(ProgramLines.Lines[i]);
+            
             try
             {
                 ProgramSynthax.SynthaxCheck(commandLine.Text);
@@ -331,9 +314,14 @@ namespace AseProgramingLanguage1
                 string trimMessage = argX0.Message.Trim();
                 string[] splitMessage;
                 splitMessage = trimMessage.Split('.');
-                synthaxMessages.Text= splitMessage[0]; //adding the message to the list of error messages concerning the typed program
+                synthaxMessages.Text= splitMessage[0];//adding the message to the list of error messages concerning the typed program
+                
             }
+
         }
+            
+            
+    
 
         private void synthaxMessage_TextChanged(object sender, EventArgs e)
         {

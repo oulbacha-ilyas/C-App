@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace AseProgramingLanguage1
 {
+    
     public class ParseCommand
     {
         public string line { get; }
@@ -16,6 +17,7 @@ namespace AseProgramingLanguage1
         public int param4 { get; }
         public string param5 { get; }
 
+        public const string InvalidParsing="Check synthax errors.";
 
         // the constructor ParseCommand takes 1 argument line,then split it, extract arguments and parse them
         // the if statements are checking the synthax,if it is not respected,it returns an exception error
@@ -92,6 +94,7 @@ namespace AseProgramingLanguage1
 
                 this.command = split[0];
             }
+            else { throw new System.ArgumentOutOfRangeException("Synthax errors",command,InvalidParsing);}
             this.command =split[0];
            
         }

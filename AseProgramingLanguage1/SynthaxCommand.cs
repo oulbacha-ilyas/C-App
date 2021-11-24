@@ -28,8 +28,8 @@ namespace AseProgramingLanguage1
         public const string PositionsPointsParse = "the positions parameters should be of type int.";
         public const string ColorParametersMatch = "This color name matches the existing ones;black,blue,green,red.";
         public const string ColorParametersDoesnotMatch = "The color name does not match any of the existing;only one color can be choosen at a time.";
-            public const string FillParametersMatch = "Only two options can be choosen: On or Off.";
-      
+        public const string FillParametersMatch = "Only two options can be choosen: On or Off.";
+        public const string CorrectSynthax = "There are no synthax errors at the moment.";
         public void SynthaxCheck(string line)
         {
             string[] split; //declaring an arry that will handle values after the first split
@@ -67,6 +67,10 @@ namespace AseProgramingLanguage1
                         bool res2 = int.TryParse(parameters[1], out int r2);
                         if (res1 != true) { throw new System.ArgumentOutOfRangeException("width", parameters[0], WidthInt); }
                         if (res2 != true) { throw new System.ArgumentOutOfRangeException("width", parameters[0], HeigthInt); }
+                        if (res1 == true || res2 == true)
+                        {
+                            throw new System.ArgumentOutOfRangeException("correct parameters", split[1], CorrectSynthax);
+                        }
                         /*if (res1)
                         {
                             int width = Int32.Parse(parameters[0]);
@@ -103,6 +107,7 @@ namespace AseProgramingLanguage1
                     {
                         throw new System.ArgumentOutOfRangeException("radius", split[1], RadiusShouldBeInt);
                     }
+                    else { throw new System.ArgumentOutOfRangeException("radius", split[1], CorrectSynthax);}
                 }
                 else if (split.Length > 2) { new System.ArgumentOutOfRangeException("radius", split[1], CircleShouldHaveRadius); }
 
@@ -116,9 +121,10 @@ namespace AseProgramingLanguage1
                     {
                         bool res1 = int.TryParse(parameters[0], out int r1);
                         bool res2 = int.TryParse(parameters[1], out int r2);
-                        if (res1 != true) { throw new System.ArgumentOutOfRangeException("Parameter type", parameters[0], PositionsPointsParse); }
+                        if (res1 != true) { throw new System.ArgumentOutOfRangeException("Parameter type", parameters[0], PositionsPointsParse); 
                         if (res2 != true) { throw new System.ArgumentOutOfRangeException("Parameter", parameters[1], PositionsPointsParse); }
-
+                        if (res1 == true || res2 == true) 
+                        { throw new System.ArgumentOutOfRangeException("Correct position", split[1], CorrectSynthax);}
                     }
                     else throw new System.ArgumentOutOfRangeException("Parameters number", split[1], PositionsParameters);
                 }
@@ -142,6 +148,10 @@ namespace AseProgramingLanguage1
                         if (res2 != true) { throw new System.ArgumentOutOfRangeException("point", parameters[1], TrianglePoints); }
                         if (res3 != true) { throw new System.ArgumentOutOfRangeException("points ", parameters[2], TrianglePoints); }
                         if (res4 != true) { throw new System.ArgumentOutOfRangeException("points", parameters[3], TrianglePoints); }
+                        if (res1 ==true || res2 ==true || res3==true || res4==true)
+                            {
+                              { throw new System.ArgumentOutOfRangeException("Correct position", split[1], CorrectSynthax);}
+                            }
 
                     }
                     else throw new System.ArgumentOutOfRangeException("Parameters Number", parameters, TriangleParametersNumber);
@@ -185,7 +195,7 @@ namespace AseProgramingLanguage1
            Console.WriteLine($" Erro: {UnkownCommand}");
         };
         */
-    } 
-
-   }
+            } 
+        }
+    }
 }
