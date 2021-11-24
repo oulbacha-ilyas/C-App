@@ -41,27 +41,23 @@ namespace AseProgramingLanguage1
             string[] split; //declaring an arry that will handle values after the first split
             string[] parameters;//declaring an arry that will handle values after the second split
             line = line.ToLower().Trim();//ignores in spaces and lowerCase every letter
-
-            if (line.Equals("circle") || line.Equals("rectangle") || line.Equals("triangle") || line.Equals("moveto") || line.Equals("drawto") || line.Equals("fill") || line.Equals("fillcolor") || line.Equals("drawcolor")) { throw new ArgumentOutOfRangeException("line", line, Command_WithParameter); }
-            split = line.Split(' ');
-            string command;
-            command = split[0];
-
-            if (command.Equals("clear") || command.Equals("reset") || command.Equals("run"))
+            if (line.Equals("clear") || line.Equals("reset") || line.Equals("run"))
             {
-                if (split.Length >= 2)
-                {
-                    throw new System.ArgumentOutOfRangeException("parameters", split[1], Command_withNoParameters);
-                }
+                /*if (split.Length == 2)
+                {*/
+                throw new System.ArgumentOutOfRangeException("parameters", line, CorrectSynthax);
+                /*}
                 else  throw new System.ArgumentOutOfRangeException("parameters", split[1], CorrectSynthax);
-
+                
                 /* if (split.Length == 1)
                  {  command = split[0]; }
                  else throw new System.ArgumentOutOfRangeException("command",command,Command_withNoParameters);
                 */
             }
-
-            else
+            if (line.Equals("circle") || line.Equals("rectangle") || line.Equals("triangle") || line.Equals("moveto") || line.Equals("drawto") || line.Equals("fill") || line.Equals("fillcolor") || line.Equals("drawcolor")) { throw new ArgumentOutOfRangeException("line", line, Command_WithParameter); }
+            split = line.Split(' ');
+            string command;
+            command = split[0];
             if (command.Equals("rectangle"))
             {
                 if (split.Length == 2)

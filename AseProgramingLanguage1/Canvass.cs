@@ -290,7 +290,7 @@ namespace AseProgramingLanguage1
             //g.FillEllipse(redBrush, 1, 1, 1, 1);
             start_x = 0;
             start_y = 0;
-            turtles.Clear();
+            //turtles.Clear();
             Circles.Clear();
             Triangles.Clear();
             Rectangles.Clear();
@@ -302,7 +302,7 @@ namespace AseProgramingLanguage1
             //g.FillEllipse(redBrush, 1, 1, 1, 1);
             int l = turtles.Count;
             g.DrawEllipse(turtlePen, turtles[l-1].X, turtles[l - 1].Y, 1, 1);
-            turtles.Clear();
+            //turtles.Clear();
             Circles.Clear();
             Triangles.Clear();
             Rectangles.Clear();

@@ -127,9 +127,11 @@ namespace AseProgramingLanguage1
     
         private void drawButton_Click(object sender, EventArgs e)//Once clicked,execute the program typed into ProgramLines richbox
         {
-            
-            ExecuteCommandProgram();
-            
+            if (synthaxMessages.Text == "")
+            {
+                ExecuteCommandProgram();
+            }
+
         }
         private void ExecuteCommandProgram() 
         {
@@ -143,9 +145,8 @@ namespace AseProgramingLanguage1
                
                 if (parse.command.Equals("drawto") == true)
                 {
+                    ClearCommand();
                     myCanvass.drawTo(parse.param1, parse.param2);
-
-                    //Console.WriteLine("a line is drawn");
                 }
                 else if (parse.command.Equals("rectangle") == true)
                 {
@@ -154,6 +155,7 @@ namespace AseProgramingLanguage1
                 }
                 else if (parse.command.Equals("moveto") == true)
                 {
+                    ClearCommand();
                     myCanvass.moveTo(parse.param1, parse.param2);
                   
                     outputWindow.Refresh();
@@ -216,14 +218,17 @@ namespace AseProgramingLanguage1
                     string trimMessage = argX0.Message.Trim();
                     string[] splitMessage;
                     splitMessage = trimMessage.Split('.');
-                    synthaxMessagesList.Add($"line {i + 1}: " + splitMessage[0]); //adding the message to the list of error messages concerning the typed program
+                    if (splitMessage[0] != "There are no synthax errors at the moment")
+                    {
+                        synthaxMessagesList.Add($"line {i + 1}: " + splitMessage[0]);//adding the message to the list of error messages concerning the typed program
+                    }
                 }
             }
             int l = synthaxMessagesList.Count;
             Console.WriteLine($"there are {l} errors in this program");
             if (l == 0)
             {
-                synthaxMessages.Text = "No synthax errors at the moment";
+                synthaxMessages.Text = "";
             }
             if (l == 1)
             {
