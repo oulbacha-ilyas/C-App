@@ -136,7 +136,7 @@ namespace AseProgramingLanguage1
         private void ExecuteCommandProgram() 
         {
             int linesNumber = ProgramLines.Lines.Length;
-            Console.WriteLine("number lines is" + linesNumber);
+            
             for (int i = 0; i <= linesNumber - 1; i++) //the program is run line by line using,after checkeing the synthax and parsing the parameters
             {
 
@@ -192,6 +192,10 @@ namespace AseProgramingLanguage1
                 {
                     myCanvass.FillColor(parse.param5); //calling the fill color setting method
                 }
+                else if (parse.command.Equals("var")== true)
+                {
+                    Console.WriteLine("var is declared");
+                }
 
             }
             outputWindow.Refresh();
@@ -225,7 +229,7 @@ namespace AseProgramingLanguage1
                 }
             }
             int l = synthaxMessagesList.Count;
-            Console.WriteLine($"there are {l} errors in this program");
+            
             if (l == 0)
             {
                 synthaxMessages.Text = "";

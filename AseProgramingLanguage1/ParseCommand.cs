@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AseProgramingLanguage1
 {
-    
+
     public class ParseCommand
     {
         public string line { get; }
@@ -17,18 +17,20 @@ namespace AseProgramingLanguage1
         public int param4 { get; }
         public string param5 { get; }
 
-        public const string InvalidParsing="Check synthax errors.";
+        public const string InvalidParsing = "Check synthax errors.";
+
+        List<Variables> Variables = new List<Variables>(); // a variable is considered to be declared once it is added to the list
 
         // the constructor ParseCommand takes 1 argument line,then split it, extract arguments and parse them
         // the if statements are checking the synthax,if it is not respected,it returns an exception error
-        
-        
-        public ParseCommand(string line) 
-            //input text is lowered,then trimed to ignore any spaces,then split to extract commands and parameters
+
+
+        public ParseCommand(string line)
+        //input text is lowered,then trimed to ignore any spaces,then split to extract commands and parameters
         {
             this.line = line;
-           
-           
+
+
             string[] split;
             string[] parameters;
             line = line.ToLower().Trim();
@@ -94,9 +96,21 @@ namespace AseProgramingLanguage1
 
                 this.command = split[0];
             }
-            else { throw new System.ArgumentOutOfRangeException("Synthax errors",command,InvalidParsing);}
-            this.command =split[0];
-           
+            else if (command.Equals("var"))
+            {
+                this.command = split[0];
+                this.param5 = split[1];
+                this.param4 = Int32.Parse(split[3]);
+                Variables var = new Variables(param5, param4);
+                if (param4 > 0)
+                {
+                    Variables.Add(var);
+                    
+                }
+                else { throw new System.ArgumentOutOfRangeException("Synthax errors", command, InvalidParsing); }
+                this.command = split[0];
+
+            }
         }
     }
 }
