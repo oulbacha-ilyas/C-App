@@ -15,6 +15,7 @@ namespace AseProgramingLanguage1
             this.line = line;
         }
         List<string> Var_liste = new List<string>();
+        
         public const string UnkownCommand = "Unkown comman.";
         public const string Command_withNoParameters = "This command shouldn't have any parameter.";
         public const string Command_WithParameter = "This command should have parameters.";
@@ -48,8 +49,12 @@ namespace AseProgramingLanguage1
         public const string loop_counter = "The loop counter should be a variable.";
         public const string loop_syntax = "The while loop should contain 4 elements: while i < x.";
         public const string command_checked = "command checked and correct.";
-        
-      
+        public const string lopp_limit_format = "The loop limit should be a number or a declared variable.";
+        public const string Var_dec = "The variable needs to be declared before use.";
+        public const string Var_name = "The variable name either letters or a combination of letters and numbers.";
+        public const string logical_operators = "The logical operators can be either +,-,* or /.";
+
+
 
         public const string Empty_command = "Type a command.";
         public void SynthaxCheck(string line)
@@ -217,87 +222,137 @@ namespace AseProgramingLanguage1
                     }
                     else throw new System.ArgumentOutOfRangeException("Fill choice", split[1], FillParametersMatch);
                 }
-                else if (command.Equals("var"))
+                else if (command.Count(char.IsLetterOrDigit) == 1 || command.Count(char.IsLetterOrDigit) == 2/*command.Equals("var")*/)
                 {
-                    // 
-                    if (split.Length == 4)
+                    if (split.Length == 3)
                     {
-                        
-                        bool res2 = int.TryParse(split[1], out int r2);
-                        bool res3 = int.TryParse(split[3], out int r3);
-                        
-                        if (split[1].All(v => char.IsLetterOrDigit(v)))
+                        bool res0 = int.TryParse(split[0], out int r0);
+                        bool res2 = int.TryParse(split[2], out int r2);
+
+                        if (split[0].All(v => char.IsLetterOrDigit(v)))
                         {
-                            if (res2 == true || split[1].Length==0)
+                            if (res0 != true && split[0].Length != 0)
                             {
-                                throw new System.ArgumentOutOfRangeException("var name", split[1], Var_dec_name1);
-                            }
-                            
-                            if (split[2].Equals("="))
-                            {
-           
-                                    if (res3 == true)
+                                if (split[1].Equals("="))
+                                {
+                                    if (res2 == true)
                                     {
-                                    Var_liste.Add(split[1]);
-                                    throw new System.ArgumentOutOfRangeException("var value", split[3], command_checked);
-                                }
-                                    else
-                                    {
-                                    throw new System.ArgumentOutOfRangeException("var value", split[3], Var_dec_value);
+                                        Var_liste.Add(split[0]);
+                                        Console.WriteLine("var just declared");
+                                        Var_liste.ForEach(Console.WriteLine);
                                     }
-                               
+                                    else if(Var_liste.Contains(split[2]) == false)
+                                        {
+                                        throw new System.ArgumentOutOfRangeException("var assing", split[2], Var_dec);
+                                        }
+                                        else { Console.WriteLine("var already declared"); }
+
+                                }
+                                else { throw new System.ArgumentOutOfRangeException("var assing", split[1], Var_dec_sign); }
                             }
-                                else throw new System.ArgumentOutOfRangeException("var assing", split[2], Var_dec_sign);
+                            else { throw new System.ArgumentOutOfRangeException("var name", split[0], Var_dec_name1); }
+
                         }
-                        else { throw new System.ArgumentOutOfRangeException("var name", split[1], Var_dec_name2); }
+                        else { throw new System.ArgumentOutOfRangeException("var name", split[0], Var_dec_name2); }
                     }
-                    else
+                    else if (split.Length > 3)
                     {
-                        throw new System.ArgumentOutOfRangeException("Unknown command", split,Var_dec_structure);
+
+
+                        int l = split.Length;
+                        int i = 2;
+                        int j = 3;
+                        while (i <= l)
+                        {
+
+                            if (split[i].All(v => char.IsLetterOrDigit(v)))
+                            {
+                                bool resi = int.TryParse(split[i], out int r1);
+                                if (resi == false)
+                                {
+                                    bool ci = Var_liste.Contains(split[i]);
+                                    if (ci == false)
+                                    {
+
+                                        throw new System.ArgumentOutOfRangeException("var declaration", split[i], Var_dec);
+                                    }
+                                    else { Console.WriteLine("var already declared"); }
+                                    //else { Console.WriteLine($" {i}:the variable is already decalred and can be called"); }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("value can be calculated");
+                                    
+                                }
+
+                            }
+                            else { throw new System.ArgumentOutOfRangeException("var name", split[i], Var_name); }
+
+                            i = i + 2;
+                        }
+
+                        while (j < l)
+                        {
+                            if (split[j].Equals("+") || split[j].Equals("-") || split[j].Equals("*") || split[j].Equals("/"))
+                            {
+                                Console.WriteLine($"{j} :the operator is correct");
+                            }
+                            else { throw new System.ArgumentOutOfRangeException("var assing", split[j], logical_operators); }
+                            j = j + 2;
+                        }
                     }
-                
+                    else { throw new System.ArgumentOutOfRangeException("var assing", split, loop_syntax); }
                 }
+
                 else if (command.Equals("while"))
                 {
-                    
-                    if (split.Length==4 )
+
+                    if (split.Length == 4)
                     {
                         bool res1 = int.TryParse(split[1], out int r1);
                         bool res3 = int.TryParse(split[3], out int r3);
-                        if  (split[1].All(i => char.IsLetterOrDigit(i)))
+                        if (split[1].All(i => char.IsLetterOrDigit(i)))
                         {
                             if (res1 != true)
                             {
 
-                                if (split[2].Equals("="))
+                                if (split[2].Equals("<"))
                                 {
                                     if (res3 != true)
                                     {
-
-                                        if (Var_liste.Contains(split[3]) != false)
+                                        if (split[3].All(x => char.IsLetterOrDigit(x)))
                                         {
-                                            throw new System.ArgumentOutOfRangeException("while limit", split[3], loop_limit_dec);
+                                            if (Var_liste.Contains(split[3]) == false)
+                                            {
+                                                {
+                                                    Var_liste.Add(split[1]);
+                                                    Console.WriteLine("the limit exist and counter add");
+                                                }
+                                                
+                                            }
+                                            else { throw new System.ArgumentOutOfRangeException("while limit", split[3], loop_limit_dec); }
                                         }
-
+                                        else { throw new System.ArgumentOutOfRangeException("while limit", split[3], lopp_limit_format); }
+                                            
                                     }
+                                    else { Var_liste.Add(split[1]);}
 
                                 }
-                                throw new System.ArgumentOutOfRangeException("while limit", split, loop_operator);
+                                else { throw new System.ArgumentOutOfRangeException("while limit", split[2], loop_operator); };
+
 
                             }
-                            throw new System.ArgumentOutOfRangeException("loop counter", split[1], loop_counter);
+                            else { throw new System.ArgumentOutOfRangeException("loop counter", split[1], loop_counter); }
                         }
-                        throw new System.ArgumentOutOfRangeException("loop counter", split[1], loop_counter);
+                        else { throw new System.ArgumentOutOfRangeException("loop counter", split[1], loop_counter); }
 
 
 
                     }
-                    throw new System.ArgumentOutOfRangeException("loop syntax", line, loop_syntax);
+                    else { throw new System.ArgumentOutOfRangeException("loop syntax", split, loop_syntax);}
 
                 }
-                {
-                throw new System.ArgumentOutOfRangeException("Unknown command", line, UnkownCommand);
-                }
+                else { throw new System.ArgumentOutOfRangeException("Unknown command", line, UnkownCommand); }
             }
 
         }
