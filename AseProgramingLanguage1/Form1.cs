@@ -200,21 +200,29 @@ namespace AseProgramingLanguage1
                     line = line.ToLower().Trim();
                     dec = line.Split('=');
                     split = dec[1].Split(' ');
-                    bool res0 = int.TryParse(split[0], out int r0);
+                    
                     int len = split.Length;
-                    if (len ==1)
-                    {
-                        if(res0)
+                    // if (len ==0)
+                    //{
+                        bool res0 = int.TryParse(dec[1], out int r0);
+                        if (res0)
                         {
-                            Console.WriteLine("form executed");
+                        //Canvass var_assign = new Canvass(parse.command, parse.val0);
+                        Console.WriteLine("assign called");
+                        myCanvass.Assign_var(parse.command, parse.val0);
                         }
                         else
                         {
-                            //Variables var_check = new Variables(parse.command, parse.param5);
-                            //var_check.Check_Var(parse.command, parse.param5);
+                        //Variables var_check = new Variables(parse.command, parse.param5);
+                        //var_check.Check_Var(parse.command, parse.param5);
+                        Console.WriteLine(" check called");
+                        myCanvass.Check_Var(parse.command, parse.param5);
+                        
                         }
-                    }
+                    //}
+                    //else { Console.WriteLine(" lent not set properly1"); }
                 }
+                
             }
             outputWindow.Refresh();
 

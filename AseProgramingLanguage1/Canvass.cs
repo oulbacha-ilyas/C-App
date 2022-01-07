@@ -332,23 +332,74 @@ namespace AseProgramingLanguage1
         }
         public void Check_Var(string v, string y)
         {
-            if (var_list.Exists(e => e.varname == y))
-            {
+            //if (var_list.Exists(e => e.varname == y))
+            //{
+            //    int i = var_list.FindIndex(e => e.varname == y);
+            //    int value_found = var_list[i].varvalue;
+            //    int j = var_list.FindIndex(e => e.varname == v);
+            //    //var_list.RemoveAll(e=>e.varname==v);
+            //    Assign_var(v, value_found);
+            //    Console.WriteLine("the new value is assigned");
+            //}
+            //{ throw new System.ArgumentOutOfRangeException("radius", y, Var_dec); }
+
+            //foreach(var item in var_list)
+            //{
+                if(var_list.Exists(e => e.varname == y))
+                {
                 int i = var_list.FindIndex(e => e.varname == y);
                 int value_found = var_list[i].varvalue;
-                int j = var_list.FindIndex(e => e.varname == v);
-                //var_list.RemoveAll(e=>e.varname==v);
+                Console.WriteLine(" var is there in "+i+" "+$"{value_found}");
+                Console.WriteLine($" var {v} will take its value");
                 Assign_var(v, value_found);
-                Console.WriteLine("the new value is assigned");
-            }
-            { throw new System.ArgumentOutOfRangeException("radius", y, Var_dec); }
+                //then
+                //if (var_list.Exists(e => e.varname == v))
+                //{
+                //    //int j = var_list.FindIndex(e => e.varname == v);
+                //    //int value_foundj = var_list[j].varvalue;
+                //    var_list.RemoveAll(e => e.varname == v);
+                //    Console.WriteLine(" var removed");
+                //    Assign_var(v, value_found);
+                //    Console.WriteLine(" var updated");
+                //}
+                //else 
+                //{
+                //    Assign_var(v, value_found);
+                //    Console.WriteLine("value assigne from another variable");
+                //}
+                    
+                }
+            else { Console.WriteLine(" var is not there"); }
+            //}
 
         }
         public void Assign_var(string v, int x)
         {
             Variables varibale = new Variables(v, x);
-            var_list.Add(varibale);
-            Console.WriteLine("the values are assigned " + var_list.Count);
+             if (var_list.Exists(e => e.varname == v))
+                {
+                    //int j = var_list.FindIndex(e => e.varname == v);
+                    //int value_foundj = var_list[j].varvalue;
+                    var_list.RemoveAll(e => e.varname == v);
+                    Console.WriteLine(" var removed");
+                    var_list.Add(varibale);
+                    Console.WriteLine($"var {v} updated");
+                }
+                else 
+                {
+                var_list.Add(varibale);
+                Console.WriteLine($" new var {v} added");
+                }
+        }
+        public void Update_val(string v, int x)
+        {
+            if (var_list.Exists(e => e.varname == v))
+            {
+                int i = var_list.FindIndex(e => e.varname == v);
+                Variables varibale = new Variables(v, x);
+                Console.WriteLine("value assigne from another variable");
+            }
+            else { Console.WriteLine(" var is not there"); }
         }
         public void Calcul_var(string v, int x)
         {

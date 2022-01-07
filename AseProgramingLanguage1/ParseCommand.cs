@@ -108,9 +108,7 @@ namespace AseProgramingLanguage1
                     {
                         this.command = split[0];
                         this.val0 = Int32.Parse(split[2]);
-                        Canvass var_assign = new Canvass(command,val0);
-                        var_assign.Assign_var(command,val0);
-                        Console.WriteLine("methof called");
+                        Console.WriteLine(" values parsed");
 
 
                     }
