@@ -332,19 +332,6 @@ namespace AseProgramingLanguage1
         }
         public void Check_Var(string v, string y)
         {
-            //if (var_list.Exists(e => e.varname == y))
-            //{
-            //    int i = var_list.FindIndex(e => e.varname == y);
-            //    int value_found = var_list[i].varvalue;
-            //    int j = var_list.FindIndex(e => e.varname == v);
-            //    //var_list.RemoveAll(e=>e.varname==v);
-            //    Assign_var(v, value_found);
-            //    Console.WriteLine("the new value is assigned");
-            //}
-            //{ throw new System.ArgumentOutOfRangeException("radius", y, Var_dec); }
-
-            //foreach(var item in var_list)
-            //{
                 if(var_list.Exists(e => e.varname == y))
                 {
                 int i = var_list.FindIndex(e => e.varname == y);
@@ -352,25 +339,10 @@ namespace AseProgramingLanguage1
                 Console.WriteLine(" var is there in "+i+" "+$"{value_found}");
                 Console.WriteLine($" var {v} will take its value");
                 Assign_var(v, value_found);
-                //then
-                //if (var_list.Exists(e => e.varname == v))
-                //{
-                //    //int j = var_list.FindIndex(e => e.varname == v);
-                //    //int value_foundj = var_list[j].varvalue;
-                //    var_list.RemoveAll(e => e.varname == v);
-                //    Console.WriteLine(" var removed");
-                //    Assign_var(v, value_found);
-                //    Console.WriteLine(" var updated");
-                //}
-                //else 
-                //{
-                //    Assign_var(v, value_found);
-                //    Console.WriteLine("value assigne from another variable");
-                //}
-                    
+         
                 }
             else { Console.WriteLine(" var is not there"); }
-            //}
+
 
         }
         public void Assign_var(string v, int x)
@@ -378,8 +350,6 @@ namespace AseProgramingLanguage1
             Variables varibale = new Variables(v, x);
              if (var_list.Exists(e => e.varname == v))
                 {
-                    //int j = var_list.FindIndex(e => e.varname == v);
-                    //int value_foundj = var_list[j].varvalue;
                     var_list.RemoveAll(e => e.varname == v);
                     Console.WriteLine(" var removed");
                     var_list.Add(varibale);
@@ -401,10 +371,232 @@ namespace AseProgramingLanguage1
             }
             else { Console.WriteLine(" var is not there"); }
         }
-        public void Calcul_var(string v, int x)
+        public void Calcul_var(string v, string x,string oper,string y)
         {
-            Variables varibale = new Variables(v, x);
-            var_list.Add(varibale);
+            int r=0;
+            bool resx = int.TryParse(x, out int rx);
+            bool resy = int.TryParse(y, out int ry);
+            if(resx && resy)
+            {
+                if(oper=="+")
+                {
+                    r = Int32.Parse(x) + Int32.Parse(y);
+                    if (r < 0)
+                    {
+                        Console.WriteLine("the first value should be greater than the second value");
+                    }
+                }
+                else if(oper == "-")
+                {
+                    r = Int32.Parse(x) - Int32.Parse(y);
+                    if(r<0)
+                    {
+                        Console.WriteLine("the first value should be greater than the second value");
+                    }
+                }
+                else if (oper == "*")
+                {
+                    r = Int32.Parse(x)*Int32.Parse(y);
+                    if (r < 0)
+                    {
+                        Console.WriteLine("both values should be positive");
+                    }
+                }
+                else if (oper == "/")
+                {
+                    if(Int32.Parse(y) == 0)
+                    {
+                        Console.WriteLine("this operation cannot be performed");
+                    }
+                    else
+                    {
+                        r = Int32.Parse(x)/Int32.Parse(y);
+                        if (r < 0)
+                        {
+                            Console.WriteLine("both values should be positive");
+                        }
+                    }
+                    
+                }
+                
+            }
+            if (resx==false && resy)
+            {
+                if (var_list.Exists(e => e.varname == x))
+                {
+                    int i = var_list.FindIndex(e => e.varname == x);
+                    int xf = var_list[i].varvalue;
+
+                    if (oper == "+")
+                    {
+                        r = xf + Int32.Parse(y);
+                        if (r < 0)
+                        {
+                            Console.WriteLine("the first value should be greater than the second value");
+                        }
+                    }
+                    else if (oper == "-")
+                    {
+                        r = xf - Int32.Parse(y);
+                        if (r < 0)
+                        {
+                            Console.WriteLine("the first value should be greater than the second value");
+                        }
+                    }
+                    else if (oper == "*")
+                    {
+                        r = xf * Int32.Parse(y);
+                        if (r < 0)
+                        {
+                            Console.WriteLine("both values should be positive");
+                        }
+                    }
+                    else if (oper == "/")
+                    {
+                        if (Int32.Parse(y) == 0)
+                        {
+                            Console.WriteLine("this operation cannot be performed");
+                        }
+                        else
+                        {
+                            r = xf / Int32.Parse(y);
+                            if (r < 0)
+                            {
+                                Console.WriteLine("both values should be positive");
+                            }
+                        }
+
+                    }
+                }
+                else { Console.WriteLine($"var {x} is not there"); }
+
+            }
+
+            if (resx  && resy == false)
+            {
+                if (var_list.Exists(e => e.varname == y))
+                {
+                    int i = var_list.FindIndex(e => e.varname == y);
+                    int yf = var_list[i].varvalue;
+
+                    if (oper == "+")
+                    {
+                        r = Int32.Parse(x) + yf;
+                        if (r < 0)
+                        {
+                            Console.WriteLine("the first value should be greater than the second value");
+                        }
+                    }
+                    else if (oper == "-")
+                    {
+                        r = Int32.Parse(x)-yf ;
+                        if (r < 0)
+                        {
+                            Console.WriteLine("the first value should be greater than the second value");
+                        }
+                    }
+                    else if (oper == "*")
+                    {
+                        r = Int32.Parse(x)*yf;
+                        if (r < 0)
+                        {
+                            Console.WriteLine("both values should be positive");
+                        }
+                    }
+                    else if (oper == "/")
+                    {
+                        if (Int32.Parse(y) == 0)
+                        {
+                            Console.WriteLine("this operation cannot be performed");
+                        }
+                        else
+                        {
+                            r = Int32.Parse(x)/yf;
+                            if (r < 0)
+                            {
+                                Console.WriteLine("both values should be positive");
+                            }
+                        }
+
+                    }
+                }
+                else { Console.WriteLine($"var {y} is not there"); }
+
+            }
+
+            if (resx==false && resy == false)
+            {
+                if (var_list.Exists(e => e.varname == y))
+                {
+                    if(var_list.Exists(e => e.varname == y))
+                    {
+                        int i = var_list.FindIndex(e => e.varname == y);
+                        int yf = var_list[i].varvalue;
+                        int j = var_list.FindIndex(e => e.varname == x);
+                        int xf = var_list[j].varvalue;
+
+                        if (oper == "+")
+                        {
+                            r = xf + yf;
+                            if (r < 0)
+                            {
+                                Console.WriteLine("the first value should be greater than the second value");
+                            }
+                        }
+                        else if (oper == "-")
+                        {
+                            r = xf - yf;
+                            if (r < 0)
+                            {
+                                Console.WriteLine("the first value should be greater than the second value");
+                            }
+                        }
+                        else if (oper == "*")
+                        {
+                            r = xf*yf;
+                            if (r < 0)
+                            {
+                                Console.WriteLine("both values should be positive");
+                            }
+                        }
+                        else if (oper == "/")
+                        {
+                            if (Int32.Parse(y) == 0)
+                            {
+                                Console.WriteLine("this operation cannot be performed");
+                            }
+                            else
+                            {
+                                r = xf/yf;
+                                if (r < 0)
+                                {
+                                    Console.WriteLine("both values should be positive");
+                                }
+                            }
+
+                        }
+
+                    }
+                    else { Console.WriteLine($" var {y} not declared yet"); }
+                }
+                else { Console.WriteLine($"var {x} not declared yet"); }
+
+            }
+
+            Variables varibale = new Variables(v, r);
+            Assign_var(v, r);
+            Console.WriteLine($"variable {v} calculated,res {r}");
+            //if (var_list.Exists(e => e.varname == x))
+            //{
+            //    int i = var_list.FindIndex(e => e.varname == x);
+            //    int value_found = var_list[i].varvalue;
+            //    Console.WriteLine(" var is there in " + i + " " + $"{value_found}");
+            //    Console.WriteLine($" var {v} will take its value");
+            //    Assign_var(v, value_found);
+
+
+            //    var_list.Add(varibale);
+            //}
         }
     }
 }

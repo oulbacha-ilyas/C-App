@@ -198,13 +198,12 @@ namespace AseProgramingLanguage1
                     string[] dec;
                     string[] split;
                     line = line.ToLower().Trim();
-                    dec = line.Split('=');
-                    split = dec[1].Split(' ');
+                    split = line.Split(' ');
                     
                     int len = split.Length;
-                    // if (len ==0)
-                    //{
-                        bool res0 = int.TryParse(dec[1], out int r0);
+                    if (split.Length==3)
+                    {
+                        bool res0 = int.TryParse(split[2], out int r0);
                         if (res0)
                         {
                         //Canvass var_assign = new Canvass(parse.command, parse.val0);
@@ -219,8 +218,9 @@ namespace AseProgramingLanguage1
                         myCanvass.Check_Var(parse.command, parse.param5);
                         
                         }
-                    //}
-                    //else { Console.WriteLine(" lent not set properly1"); }
+                    }
+                    else if (split.Length==5)
+                    { myCanvass.Calcul_var(parse.command, parse.val2,parse.oper1,parse.val3); }
                 }
                 
             }

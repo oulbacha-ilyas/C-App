@@ -19,7 +19,8 @@ namespace AseProgramingLanguage1
         public int val0 { get; }
         public int val1 { get; }
         public string oper1 { get; }
-
+        public string val2 { get; }
+        public string val3 { get; }
         public const string InvalidParsing = "Check synthax errors.";
         public const string Var_dec = "the val shoud be known.";
         // the constructor ParseCommand takes 1 argument line,then split it, extract arguments and parse them
@@ -114,22 +115,17 @@ namespace AseProgramingLanguage1
                     }
                     else if (split[2].Count(char.IsLetterOrDigit) == 1 || split[2].Count(char.IsLetterOrDigit) == 2)
                     {
-                        
                         this.command = split[0];
                         this.param5 = split[2];
-
-                       
-                    }
-                    else
-                    {
-                        this.command = split[0];
-                        this.val0 = Int32.Parse(split[2]);
-                        this.val1 = Int32.Parse(split[4]);
-                        this.oper1 = split[3];
-                        Console.WriteLine("paras parsed for  calcul");
                     }
                 }
-                else { Console.WriteLine("condition 2"); }
+                else if (split.Length == 5) //5 is the length of the synthax when there is an operator for calculating
+                {
+                    this.command = split[0];
+                    this.val2 = split[2];
+                    this.val3 = split[4];
+                    this.oper1 = split[3];
+                }
             }
             else { Console.WriteLine("condition 3"); }
 
