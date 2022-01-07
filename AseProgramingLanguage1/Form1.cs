@@ -127,10 +127,10 @@ namespace AseProgramingLanguage1
     
         private void drawButton_Click(object sender, EventArgs e)//Once clicked,execute the program typed into ProgramLines richbox
         {
-            if (synthaxMessages.Text == "")
-            {
+            //if (synthaxMessages.Text == "")
+            //{
                 ExecuteCommandProgram();
-            }
+            //}
 
         }
         private void ExecuteCommandProgram() 
@@ -142,7 +142,7 @@ namespace AseProgramingLanguage1
 
                 ParseCommand parse = new ParseCommand(ProgramLines.Lines[i]);
 
-               
+
                 if (parse.command.Equals("drawto") == true)
                 {
                     ClearCommand();
@@ -157,7 +157,7 @@ namespace AseProgramingLanguage1
                 {
                     ClearCommand();
                     myCanvass.moveTo(parse.param1, parse.param2);
-                  
+
                     outputWindow.Refresh();
                 }
                 else if (parse.command.Equals("circle") == true)
@@ -192,11 +192,29 @@ namespace AseProgramingLanguage1
                 {
                     myCanvass.FillColor(parse.param5); //calling the fill color setting method
                 }
-                else if (parse.command.Equals("var")== true)
+                else
                 {
-                    Console.WriteLine("var is declared");
+                    string line = ProgramLines.Lines[i];
+                    string[] dec;
+                    string[] split;
+                    line = line.ToLower().Trim();
+                    dec = line.Split('=');
+                    split = dec[1].Split(' ');
+                    bool res0 = int.TryParse(split[0], out int r0);
+                    int len = split.Length;
+                    if (len ==1)
+                    {
+                        if(res0)
+                        {
+                            Console.WriteLine("form executed");
+                        }
+                        else
+                        {
+                            //Variables var_check = new Variables(parse.command, parse.param5);
+                            //var_check.Check_Var(parse.command, parse.param5);
+                        }
+                    }
                 }
-
             }
             outputWindow.Refresh();
 
@@ -204,56 +222,56 @@ namespace AseProgramingLanguage1
 
         private void ProgramLines_TextChanged(object sender, EventArgs e)
         {
-            int linesNumber = ProgramLines.Lines.Length;
-            //Console.WriteLine("number lines is" + linesNumber);
-            List<string> synthaxMessagesList = new List<string>();
-            for (int i = 0; i <= linesNumber - 1; i++)
-            {
+            //int linesNumber = ProgramLines.Lines.Length;
+            ////Console.WriteLine("number lines is" + linesNumber);
+            //List<string> synthaxMessagesList = new List<string>();
+            //for (int i = 0; i <= linesNumber - 1; i++)
+            //{
 
-                SynthaxCommand ProgramSynthax = new SynthaxCommand(ProgramLines.Lines[i]);
-                // ProgramSynthax.SynthaxCheck(ProgramLines.Lines[i]);
-                try
-                {
-                    ProgramSynthax.SynthaxCheck(ProgramLines.Lines[i]);
-                }
-                catch (System.Exception argX0) //catching the whole exception message then extract only the customized message
-                {
+            //    SynthaxCommand ProgramSynthax = new SynthaxCommand(ProgramLines.Lines[i]);
+            //    // ProgramSynthax.SynthaxCheck(ProgramLines.Lines[i]);
+            //    try
+            //    {
+            //        ProgramSynthax.SynthaxCheck(ProgramLines.Lines[i]);
+            //    }
+            //    catch (System.Exception argX0) //catching the whole exception message then extract only the customized message
+            //    {
 
-                    string trimMessage = argX0.Message.Trim();
-                    string[] splitMessage;
-                    splitMessage = trimMessage.Split('.');
-                    if (splitMessage[0] != "There are no synthax errors at the moment")
-                    {
-                        synthaxMessagesList.Add($"line {i + 1}: " + splitMessage[0]);//adding the message to the list of error messages concerning the typed program
-                    }
-                }
-            }
-            int l = synthaxMessagesList.Count;
-            
-            if (l == 0)
-            {
-                synthaxMessages.Text = "";
-            }
-            if (l == 1)
-            {
-                synthaxMessages.Text = synthaxMessagesList[0];
-            }
-            if (l == 2)
-            {
-                synthaxMessages.Text = synthaxMessagesList[0] + System.Environment.NewLine + synthaxMessagesList[1];
-            }
-            if (l == 3)
-            {
-                synthaxMessages.Text = synthaxMessagesList[0] + System.Environment.NewLine + synthaxMessagesList[1] + System.Environment.NewLine + synthaxMessagesList[2];
-            }
-            if (l == 4)
-            {
-                synthaxMessages.Text = synthaxMessagesList[0] + System.Environment.NewLine + synthaxMessagesList[1] + System.Environment.NewLine + synthaxMessagesList[2] + System.Environment.NewLine + synthaxMessagesList[3] + System.Environment.NewLine;
-            }
-            if (l == 5)
-            {
-                synthaxMessages.Text = synthaxMessagesList[0] + System.Environment.NewLine + synthaxMessagesList[1] + System.Environment.NewLine + synthaxMessagesList[2] + System.Environment.NewLine + synthaxMessagesList[3] + System.Environment.NewLine + synthaxMessagesList[4];
-            }
+            //        string trimMessage = argX0.Message.Trim();
+            //        string[] splitMessage;
+            //        splitMessage = trimMessage.Split('.');
+            //        if (splitMessage[0] != "There are no synthax errors at the moment")
+            //        {
+            //            synthaxMessagesList.Add($"line {i + 1}: " + splitMessage[0]);//adding the message to the list of error messages concerning the typed program
+            //        }
+            //    }
+            //}
+            //int l = synthaxMessagesList.Count;
+
+            //if (l == 0)
+            //{
+            //    synthaxMessages.Text = "";
+            //}
+            //if (l == 1)
+            //{
+            //    synthaxMessages.Text = synthaxMessagesList[0];
+            //}
+            //if (l == 2)
+            //{
+            //    synthaxMessages.Text = synthaxMessagesList[0] + System.Environment.NewLine + synthaxMessagesList[1];
+            //}
+            //if (l == 3)
+            //{
+            //    synthaxMessages.Text = synthaxMessagesList[0] + System.Environment.NewLine + synthaxMessagesList[1] + System.Environment.NewLine + synthaxMessagesList[2];
+            //}
+            //if (l == 4)
+            //{
+            //    synthaxMessages.Text = synthaxMessagesList[0] + System.Environment.NewLine + synthaxMessagesList[1] + System.Environment.NewLine + synthaxMessagesList[2] + System.Environment.NewLine + synthaxMessagesList[3] + System.Environment.NewLine;
+            //}
+            //if (l == 5)
+            //{
+            //    synthaxMessages.Text = synthaxMessagesList[0] + System.Environment.NewLine + synthaxMessagesList[1] + System.Environment.NewLine + synthaxMessagesList[2] + System.Environment.NewLine + synthaxMessagesList[3] + System.Environment.NewLine + synthaxMessagesList[4];
+            //}
         }
 
 

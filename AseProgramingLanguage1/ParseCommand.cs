@@ -16,11 +16,12 @@ namespace AseProgramingLanguage1
         public int param3 { get; }
         public int param4 { get; }
         public string param5 { get; }
+        public int val0 { get; }
+        public int val1 { get; }
+        public string oper1 { get; }
 
         public const string InvalidParsing = "Check synthax errors.";
-
-        List<Variables> Variables = new List<Variables>(); // a variable is considered to be declared once it is added to the list
-
+        public const string Var_dec = "the val shoud be known.";
         // the constructor ParseCommand takes 1 argument line,then split it, extract arguments and parse them
         // the if statements are checking the synthax,if it is not respected,it returns an exception error
 
@@ -96,21 +97,55 @@ namespace AseProgramingLanguage1
 
                 this.command = split[0];
             }
-            else if (command.Equals("var"))
+            else if (command.Count(char.IsLetterOrDigit) == 1 || command.Count(char.IsLetterOrDigit) == 2/*command.Equals("var")*/)
             {
-                this.command = split[0];
-                this.param5 = split[1];
-                this.param4 = Int32.Parse(split[3]);
-                Variables var = new Variables(param5, param4);
-                if (param4 > 0)
+                if (split.Length == 3)
                 {
-                    Variables.Add(var);
-                    
-                }
-                else { throw new System.ArgumentOutOfRangeException("Synthax errors", command, InvalidParsing); }
-                this.command = split[0];
+                    //if the declared value is there,change its value
+                    //if its not,declare a new one
+                    bool res2 = int.TryParse(split[2], out int r2);
+                    if (res2 == true && split[0].Length != 0)
+                    {
+                        this.command = split[0];
+                        this.val0 = Int32.Parse(split[2]);
+                        Canvass var_assign = new Canvass(command,val0);
+                        var_assign.Assign_var(command,val0);
+                        Console.WriteLine("methof called");
 
+
+                    }
+                    else if (split[2].Count(char.IsLetterOrDigit) == 1 || split[2].Count(char.IsLetterOrDigit) == 2)
+                    {
+                        
+                        this.command = split[0];
+                        this.param5 = split[2];
+
+                       
+                    }
+                    else
+                    {
+                        this.command = split[0];
+                        this.val0 = Int32.Parse(split[2]);
+                        this.val1 = Int32.Parse(split[4]);
+                        this.oper1 = split[3];
+                        Console.WriteLine("paras parsed for  calcul");
+                    }
+                }
+                else { Console.WriteLine("condition 2"); }
             }
+            else { Console.WriteLine("condition 3"); }
+
+                    //this.command = split[0];
+                    //this.param5 = split[1];
+                    //this.param4 = Int32.Parse(split[3]);
+                    //Variables var = new Variables(param5, param4);
+                    //if (param4 > 0)
+                    //{
+                    //    Variables.Add(var);
+
+                    //}
+                    //else { throw new System.ArgumentOutOfRangeException("Synthax errors", command, InvalidParsing); }
+                    //this.command = split[0];
         }
     }
 }

@@ -32,6 +32,14 @@ namespace AseProgramingLanguage1
         List<Lines> Lines = new List<Lines>();
 
 
+        //variables setting
+        public string varname { get; }
+        public int varvalue { get; }
+        public string varvar { get; }
+        public const string Var_value = "The value assigned to the variable should be positive.";
+        public const string Var_dec = "The value assigned to the variable should be a number or a declared variable.";
+        List<Variables> var_list = new List<Variables>();
+
         public Canvass(Graphics g)
         {
             this.g = g;
@@ -306,6 +314,46 @@ namespace AseProgramingLanguage1
             Circles.Clear();
             Triangles.Clear();
             Rectangles.Clear();
+        }
+
+
+
+        // variables 
+        public Canvass(string v,int x)
+        {
+            this.varname = v;
+            this.varvalue = x;
+
+        }
+        public Canvass(string v, string x)
+        {
+            this.varname = v;
+            this.varvar = x;
+        }
+        public void Check_Var(string v, string y)
+        {
+            if (var_list.Exists(e => e.varname == y))
+            {
+                int i = var_list.FindIndex(e => e.varname == y);
+                int value_found = var_list[i].varvalue;
+                int j = var_list.FindIndex(e => e.varname == v);
+                //var_list.RemoveAll(e=>e.varname==v);
+                Assign_var(v, value_found);
+                Console.WriteLine("the new value is assigned");
+            }
+            { throw new System.ArgumentOutOfRangeException("radius", y, Var_dec); }
+
+        }
+        public void Assign_var(string v, int x)
+        {
+            Variables varibale = new Variables(v, x);
+            var_list.Add(varibale);
+            Console.WriteLine("the values are assigned " + var_list.Count);
+        }
+        public void Calcul_var(string v, int x)
+        {
+            Variables varibale = new Variables(v, x);
+            var_list.Add(varibale);
         }
     }
 }

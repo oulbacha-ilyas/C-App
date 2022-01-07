@@ -14,8 +14,8 @@ namespace AseProgramingLanguage1
         {
             this.line = line;
         }
-        List<string> Var_liste = new List<string>();
-        
+        List<Variables> Var_liste = new List<Variables>() { };
+        string[] names;
         public const string UnkownCommand = "Unkown comman.";
         public const string Command_withNoParameters = "This command shouldn't have any parameter.";
         public const string Command_WithParameter = "This command should have parameters.";
@@ -59,9 +59,11 @@ namespace AseProgramingLanguage1
         public const string Empty_command = "Type a command.";
         public void SynthaxCheck(string line)
         {
+            var names = new List<string>() {};
             string[] split; //declaring an arry that will handle values after the first split
             string[] parameters;//declaring an arry that will handle values after the second split
             line = line.ToLower().Trim();//ignores in spaces and lowerCase every letter
+
             if (line.Length == 0)
             {
                 throw new System.ArgumentOutOfRangeException("parameters", line, Empty_command);
@@ -235,18 +237,11 @@ namespace AseProgramingLanguage1
                             {
                                 if (split[1].Equals("="))
                                 {
-                                    if (res2 == true)
-                                    {
-                                        Var_liste.Add(split[0]);
-                                        Console.WriteLine("var just declared");
-                                        Var_liste.ForEach(Console.WriteLine);
-                                    }
-                                    else if(Var_liste.Contains(split[2]) == false)
-                                        {
-                                        throw new System.ArgumentOutOfRangeException("var assing", split[2], Var_dec);
-                                        }
-                                        else { Console.WriteLine("var already declared"); }
-
+                                    //if(res2)
+                                    //{
+                                        
+                                    //}
+                                   
                                 }
                                 else { throw new System.ArgumentOutOfRangeException("var assing", split[1], Var_dec_sign); }
                             }
@@ -270,15 +265,7 @@ namespace AseProgramingLanguage1
                                 bool resi = int.TryParse(split[i], out int r1);
                                 if (resi == false)
                                 {
-                                    bool ci = Var_liste.Contains(split[i]);
-                                    if (ci == false)
-                                    {
-
-                                        throw new System.ArgumentOutOfRangeException("var declaration", split[i], Var_dec);
-                                    }
-                                    else { Console.WriteLine("var already declared"); }
-                                    //else { Console.WriteLine($" {i}:the variable is already decalred and can be called"); }
-                                }
+                                                }
                                 else
                                 {
                                     Console.WriteLine("value can be calculated");
@@ -322,20 +309,11 @@ namespace AseProgramingLanguage1
                                     {
                                         if (split[3].All(x => char.IsLetterOrDigit(x)))
                                         {
-                                            if (Var_liste.Contains(split[3]) == false)
-                                            {
-                                                {
-                                                    Var_liste.Add(split[1]);
-                                                    Console.WriteLine("the limit exist and counter add");
-                                                }
-                                                
-                                            }
-                                            else { throw new System.ArgumentOutOfRangeException("while limit", split[3], loop_limit_dec); }
                                         }
                                         else { throw new System.ArgumentOutOfRangeException("while limit", split[3], lopp_limit_format); }
                                             
                                     }
-                                    else { Var_liste.Add(split[1]);}
+                                    else { };
 
                                 }
                                 else { throw new System.ArgumentOutOfRangeException("while limit", split[2], loop_operator); };
