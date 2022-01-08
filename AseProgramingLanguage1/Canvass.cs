@@ -561,7 +561,7 @@ namespace AseProgramingLanguage1
                         }
                         else if (oper == "/")
                         {
-                            if (Int32.Parse(y) == 0)
+                            if (yf == 0)
                             {
                                 Console.WriteLine("this operation cannot be performed");
                             }
