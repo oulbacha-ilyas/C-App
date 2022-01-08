@@ -136,12 +136,21 @@ namespace AseProgramingLanguage1
                      else */
                     if (split.Length == 2)
                     {
-                        bool res1 = int.TryParse(split[1], out int r1);
-                        if (res1 != true)
+                        if (split[1].Count(char.IsLetterOrDigit) == 1 || split[1].Count(char.IsLetterOrDigit) == 2)
                         {
-                            throw new System.ArgumentOutOfRangeException("radius", split[1], RadiusShouldBeInt);
+
                         }
-                        else { throw new System.ArgumentOutOfRangeException("radius", split[1], CorrectSynthax); }
+                        else
+                        {
+                            Console.WriteLine($"  {split[1]} should be a number,leter or both of them");
+                        }
+
+                        //bool res1 = int.TryParse(split[1], out int r1);
+                        //if (res1 != true)
+                        //{
+                        //    throw new System.ArgumentOutOfRangeException("radius", split[1], RadiusShouldBeInt);
+                        //}
+                        //else { throw new System.ArgumentOutOfRangeException("radius", split[1], CorrectSynthax); }
                     }
                     else if (split.Length > 2) { new System.ArgumentOutOfRangeException("radius", split[1], CircleShouldHaveRadius); }
 
@@ -239,9 +248,9 @@ namespace AseProgramingLanguage1
                                 {
                                     //if(res2)
                                     //{
-                                        
+
                                     //}
-                                   
+
                                 }
                                 else { throw new System.ArgumentOutOfRangeException("var assing", split[1], Var_dec_sign); }
                             }
@@ -265,11 +274,11 @@ namespace AseProgramingLanguage1
                                 bool resi = int.TryParse(split[i], out int r1);
                                 if (resi == false)
                                 {
-                                                }
+                                }
                                 else
                                 {
                                     Console.WriteLine("value can be calculated");
-                                    
+
                                 }
 
                             }

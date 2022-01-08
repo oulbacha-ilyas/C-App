@@ -201,25 +201,43 @@ namespace AseProgramingLanguage1
             }
         }
 
-        public void DrawCircle(int radius) // the circle is not drawn from the last position of moveTo,but the center is shifted
+        public void DrawCircle(string radius) // the circle is not drawn from the last position of moveTo,but the center is shifted
         {
+            int rad=10;
+            bool resRad = int.TryParse(radius, out int rx);
+            if(resRad)
+            {
+                rad = Int32.Parse(radius);
+            }
+            else
+            {
+                if (var_list.Exists(e => e.varname == radius))
+                {
+                    int i = var_list.FindIndex(e => e.varname == radius);
+                    int value_found = var_list[i].varvalue;
+                    rad = value_found;
+
+                }
+                else { Console.WriteLine($" var  radius {radius} is not there"); }
+            }
             float width;
             float higth;
-            width = higth = radius * 2;
-            Circles circle = new Circles(start_x, start_y, radius, fillOnOff.Fill, Pen.Fill, Brush.Fill);
-            circle.Radius_Type(radius);
+            width = higth = rad * 2;
+            Circles circle = new Circles(start_x, start_y, rad, fillOnOff.Fill, Pen.Fill, Brush.Fill);
+            circle.Radius_Type(rad);
             Circles.Add(circle);
 
             //g.DrawEllipse(myPen,start_x-(radius/2),start_y-(radius/2),width*2,higth*2);
             if (fillOnOff.Fill.Equals("off") == true)
             {
-                g.DrawEllipse(myPen, start_x - radius, start_y - radius, width, higth);
+                g.DrawEllipse(myPen, start_x - rad, start_y - rad, width, higth);
             }
             else if (fillOnOff.Fill.Equals("on") == true)
             {
-                g.FillEllipse(myBrush, start_x - radius, start_y - radius, width, higth);
+                g.FillEllipse(myBrush, start_x - rad, start_y - rad, width, higth);
             }
             else throw new ArgumentOutOfRangeException("You need to choose fill on or fill off for the shape drawing method");
+
         }
 
         public void DrawTriangle(int point1x, int point1y, int point2x, int point2y)

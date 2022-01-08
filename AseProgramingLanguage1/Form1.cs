@@ -71,7 +71,7 @@ namespace AseProgramingLanguage1
                 else if (parse.command.Equals("circle") == true)
                 {
                     
-                    myCanvass.DrawCircle(parse.param1);
+                    myCanvass.DrawCircle(parse.radius);
                 }
                 else if (parse.command.Equals("triangle") == true)
                 {
@@ -127,10 +127,10 @@ namespace AseProgramingLanguage1
     
         private void drawButton_Click(object sender, EventArgs e)//Once clicked,execute the program typed into ProgramLines richbox
         {
-            //if (synthaxMessages.Text == "")
-            //{
+            if (synthaxMessages.Text == "")
+            {
                 ExecuteCommandProgram();
-            //}
+            }
 
         }
         private void ExecuteCommandProgram() 
@@ -162,7 +162,7 @@ namespace AseProgramingLanguage1
                 }
                 else if (parse.command.Equals("circle") == true)
                 {
-                    myCanvass.DrawCircle(parse.param1);
+                    myCanvass.DrawCircle(parse.radius);
                 }
                 else if (parse.command.Equals("triangle") == true)
                 {
@@ -230,56 +230,56 @@ namespace AseProgramingLanguage1
 
         private void ProgramLines_TextChanged(object sender, EventArgs e)
         {
-            //int linesNumber = ProgramLines.Lines.Length;
-            ////Console.WriteLine("number lines is" + linesNumber);
-            //List<string> synthaxMessagesList = new List<string>();
-            //for (int i = 0; i <= linesNumber - 1; i++)
-            //{
+            int linesNumber = ProgramLines.Lines.Length;
+            Console.WriteLine("number lines is" + linesNumber);
+            List<string> synthaxMessagesList = new List<string>();
+            for (int i = 0; i <= linesNumber - 1; i++)
+            {
 
-            //    SynthaxCommand ProgramSynthax = new SynthaxCommand(ProgramLines.Lines[i]);
-            //    // ProgramSynthax.SynthaxCheck(ProgramLines.Lines[i]);
-            //    try
-            //    {
-            //        ProgramSynthax.SynthaxCheck(ProgramLines.Lines[i]);
-            //    }
-            //    catch (System.Exception argX0) //catching the whole exception message then extract only the customized message
-            //    {
+                SynthaxCommand ProgramSynthax = new SynthaxCommand(ProgramLines.Lines[i]);
+                //ProgramSynthax.SynthaxCheck(ProgramLines.Lines[i]);
+                try
+                {
+                    ProgramSynthax.SynthaxCheck(ProgramLines.Lines[i]);
+                }
+                catch (System.Exception argX0) //catching the whole exception message then extract only the customized message
+                {
 
-            //        string trimMessage = argX0.Message.Trim();
-            //        string[] splitMessage;
-            //        splitMessage = trimMessage.Split('.');
-            //        if (splitMessage[0] != "There are no synthax errors at the moment")
-            //        {
-            //            synthaxMessagesList.Add($"line {i + 1}: " + splitMessage[0]);//adding the message to the list of error messages concerning the typed program
-            //        }
-            //    }
-            //}
-            //int l = synthaxMessagesList.Count;
+                    string trimMessage = argX0.Message.Trim();
+                    string[] splitMessage;
+                    splitMessage = trimMessage.Split('.');
+                    if (splitMessage[0] != "There are no synthax errors at the moment")
+                    {
+                        synthaxMessagesList.Add($"line {i + 1}: " + splitMessage[0]);//adding the message to the list of error messages concerning the typed program
+                    }
+                }
+            }
+            int l = synthaxMessagesList.Count;
 
-            //if (l == 0)
-            //{
-            //    synthaxMessages.Text = "";
-            //}
-            //if (l == 1)
-            //{
-            //    synthaxMessages.Text = synthaxMessagesList[0];
-            //}
-            //if (l == 2)
-            //{
-            //    synthaxMessages.Text = synthaxMessagesList[0] + System.Environment.NewLine + synthaxMessagesList[1];
-            //}
-            //if (l == 3)
-            //{
-            //    synthaxMessages.Text = synthaxMessagesList[0] + System.Environment.NewLine + synthaxMessagesList[1] + System.Environment.NewLine + synthaxMessagesList[2];
-            //}
-            //if (l == 4)
-            //{
-            //    synthaxMessages.Text = synthaxMessagesList[0] + System.Environment.NewLine + synthaxMessagesList[1] + System.Environment.NewLine + synthaxMessagesList[2] + System.Environment.NewLine + synthaxMessagesList[3] + System.Environment.NewLine;
-            //}
-            //if (l == 5)
-            //{
-            //    synthaxMessages.Text = synthaxMessagesList[0] + System.Environment.NewLine + synthaxMessagesList[1] + System.Environment.NewLine + synthaxMessagesList[2] + System.Environment.NewLine + synthaxMessagesList[3] + System.Environment.NewLine + synthaxMessagesList[4];
-            //}
+            if (l == 0)
+            {
+                synthaxMessages.Text = "";
+            }
+            if (l == 1)
+            {
+                synthaxMessages.Text = synthaxMessagesList[0];
+            }
+            if (l == 2)
+            {
+                synthaxMessages.Text = synthaxMessagesList[0] + System.Environment.NewLine + synthaxMessagesList[1];
+            }
+            if (l == 3)
+            {
+                synthaxMessages.Text = synthaxMessagesList[0] + System.Environment.NewLine + synthaxMessagesList[1] + System.Environment.NewLine + synthaxMessagesList[2];
+            }
+            if (l == 4)
+            {
+                synthaxMessages.Text = synthaxMessagesList[0] + System.Environment.NewLine + synthaxMessagesList[1] + System.Environment.NewLine + synthaxMessagesList[2] + System.Environment.NewLine + synthaxMessagesList[3] + System.Environment.NewLine;
+            }
+            if (l == 5)
+            {
+                synthaxMessages.Text = synthaxMessagesList[0] + System.Environment.NewLine + synthaxMessagesList[1] + System.Environment.NewLine + synthaxMessagesList[2] + System.Environment.NewLine + synthaxMessagesList[3] + System.Environment.NewLine + synthaxMessagesList[4];
+            }
         }
 
 

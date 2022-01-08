@@ -11,6 +11,7 @@ namespace AseProgramingLanguage1
     {
         public string line { get; }
         public string command { get; }
+        public string radius { get; }
         public int param1 { get; }
         public int param2 { get; }
         public int param3 { get; }
@@ -49,8 +50,9 @@ namespace AseProgramingLanguage1
             }
             else if (command.Equals("circle"))
             {
-                string radius = split[1];
-                this.param1 = Int32.Parse(radius);
+                //string radius = split[1];
+                //this.param1 = Int32.Parse(radius);
+                this.radius = split[1];
             }
             else if (command.Equals("moveto") || command.Equals("drawto"))
             {
