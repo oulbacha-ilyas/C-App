@@ -136,9 +136,12 @@ namespace AseProgramingLanguage1
                      else */
                     if (split.Length == 2)
                     {
-                        if (split[1].Count(char.IsLetterOrDigit) == 1 || split[1].Count(char.IsLetterOrDigit) == 2)
+                        if (split[1].All(char.IsLetterOrDigit)==true)
                         {
-
+                            if(split[1].Length!=1 && split[1].Length != 2)
+                            {
+                                Console.WriteLine(" var name too long");
+                            }
                         }
                         else
                         {
@@ -339,7 +342,23 @@ namespace AseProgramingLanguage1
                     else { throw new System.ArgumentOutOfRangeException("loop syntax", split, loop_syntax);}
 
                 }
-                else { throw new System.ArgumentOutOfRangeException("Unknown command", line, UnkownCommand); }
+                else if( command.Equals("endwhile"))
+                {
+                    if (split.Length == 2)
+                    {
+                        bool res1 = int.TryParse(split[1], out int r1);
+                        if (split[1].All(i => char.IsLetterOrDigit(i)))
+                        {
+                            if (res1 == true)
+                            {
+                                Console.WriteLine("the while loop counter cannot be a number");
+                            }
+                        }
+                        else { Console.WriteLine("this loop counter is not valid"); }
+                    }
+                    else { Console.WriteLine("loop should have one parameter and one only"); }
+                }
+                 else { throw new System.ArgumentOutOfRangeException("Unknown command", line, UnkownCommand); }
             }
 
         }

@@ -31,6 +31,10 @@ namespace AseProgramingLanguage1
         List<Triangles> Triangles = new List<Triangles>();
         List<Lines> Lines = new List<Lines>();
 
+        List<Variables> var_list = new List<Variables>(); // variables list
+        Variables default_loop = new Variables("default", 0, "off");
+        List<Variables> counters = new List<Variables>(); //while counters list
+
 
         //variables setting
         public string varname { get; }
@@ -38,7 +42,7 @@ namespace AseProgramingLanguage1
         public string varvar { get; }
         public const string Var_value = "The value assigned to the variable should be positive.";
         public const string Var_dec = "The value assigned to the variable should be a number or a declared variable.";
-        List<Variables> var_list = new List<Variables>();
+
 
         public Canvass(Graphics g)
         {
@@ -66,13 +70,13 @@ namespace AseProgramingLanguage1
         // drawing a line between tow points:the starting point (0,0) and another point defined by the user
         public void drawTo(int end_x, int end_y)
         {
-          
-            Lines line = new Lines(start_x,start_y,end_x,end_y,Pen.Fill);
+
+            Lines line = new Lines(start_x, start_y, end_x, end_y, Pen.Fill);
             line.LinePoint_Type(end_x, end_y);
             Lines.Add(line);
             int l = Lines.Count;
-            g.DrawLine(myPen, Lines[l - 1].X1, Lines[l - 1].Y1, Lines[l - 1].X2, Lines[l - 1].Y2) ; //drawing a line first,
-            start_x = Lines[l-1].X2;
+            g.DrawLine(myPen, Lines[l - 1].X1, Lines[l - 1].Y1, Lines[l - 1].X2, Lines[l - 1].Y2); //drawing a line first,
+            start_x = Lines[l - 1].X2;
             start_y = Lines[l - 1].Y2;
             moveTo(Lines[l - 1].X2, Lines[l - 1].Y2);//then moving the turtle to the last point of the drawn line
 
@@ -104,7 +108,7 @@ namespace AseProgramingLanguage1
             g.DrawEllipse(turtlePen, turtles[l - 1].X, turtles[l - 1].Y, 1, 1);
 
             for (int i = 0; i < Lines.Count; i++)
-            {   if (Lines[i].Pencolor == "black")
+            { if (Lines[i].Pencolor == "black")
                 { g.DrawLine(myPen, Lines[i].X1, Lines[i].Y1, Lines[i].X2, Lines[i].Y2); }
                 if (Lines[i].Pencolor == "red")
                 { g.DrawLine(redPen, Lines[i].X1, Lines[i].Y1, Lines[i].X2, Lines[i].Y2); }
@@ -113,7 +117,7 @@ namespace AseProgramingLanguage1
                 if (Lines[i].Pencolor == "green")
                 { g.DrawLine(greenPen, Lines[i].X1, Lines[i].Y1, Lines[i].X2, Lines[i].Y2); }
             }
-                for (int i = 0; i < Circles.Count; i++)
+            for (int i = 0; i < Circles.Count; i++)
             {
                 if (Circles[i].Fill == "off")
                 {
@@ -203,9 +207,9 @@ namespace AseProgramingLanguage1
 
         public void DrawCircle(string radius) // the circle is not drawn from the last position of moveTo,but the center is shifted
         {
-            int rad=10;
+            int rad = 0;
             bool resRad = int.TryParse(radius, out int rx);
-            if(resRad)
+            if (resRad)
             {
                 rad = Int32.Parse(radius);
             }
@@ -327,7 +331,7 @@ namespace AseProgramingLanguage1
         {
             //g.FillEllipse(redBrush, 1, 1, 1, 1);
             int l = turtles.Count;
-            g.DrawEllipse(turtlePen, turtles[l-1].X, turtles[l - 1].Y, 1, 1);
+            g.DrawEllipse(turtlePen, turtles[l - 1].X, turtles[l - 1].Y, 1, 1);
             //turtles.Clear();
             Circles.Clear();
             Triangles.Clear();
@@ -337,7 +341,7 @@ namespace AseProgramingLanguage1
 
 
         // variables 
-        public Canvass(string v,int x)
+        public Canvass(string v, int x)
         {
             this.varname = v;
             this.varvalue = x;
@@ -348,6 +352,29 @@ namespace AseProgramingLanguage1
             this.varname = v;
             this.varvar = x;
         }
+
+        //mother mehtod
+        public void Mother_Calcul_var(string v, string x, string oper, string y)
+        {
+            int end = counters.Count;
+            if (counters[end-1].status == "on")
+            {
+                int i = 0;
+                int l = counters[end-1].limit;
+                while (i < l)
+                {
+                    Calcul_var(v, x, oper, y);
+                    Console.WriteLine("loop result");
+                    i++;
+                }
+            }
+            else
+            {
+                Calcul_var(v, x, oper, y);
+                Console.WriteLine("loop ended");
+            }
+        }
+
         public void Check_Var(string v, string y)
         {
                 if(var_list.Exists(e => e.varname == y))
@@ -368,10 +395,11 @@ namespace AseProgramingLanguage1
             Variables varibale = new Variables(v, x);
              if (var_list.Exists(e => e.varname == v))
                 {
-                    var_list.RemoveAll(e => e.varname == v);
-                    Console.WriteLine(" var removed");
-                    var_list.Add(varibale);
-                    Console.WriteLine($"var {v} updated");
+                //var_list.RemoveAll(e => e.varname == v);
+                //Console.WriteLine(" var removed");
+                //var_list.Add(varibale);
+                var_list.Where(w => w.varname == v).ToList().ForEach(s => s.varvalue =x);
+                Console.WriteLine($"var {v} updated");
                 }
                 else 
                 {
@@ -615,6 +643,57 @@ namespace AseProgramingLanguage1
 
             //    var_list.Add(varibale);
             //}
+        }
+        
+
+        //while loop methods
+        public void Create_while(string c,string l) // Flag on
+        {
+            bool resl = int.TryParse(l, out int rl);
+            string s = "on";
+          
+            if (counters.Exists(e => e.counter== c))
+            {
+                
+                Console.WriteLine($"a loop with the same counter {c} already exists");
+            }
+            else  if (resl == true)
+                {
+                int l_parsed = Int32.Parse(l);
+                    Variables loop = new Variables(c,l_parsed,s);
+                    counters.Add(loop);
+                    Console.WriteLine($"a loop {c} just been added limit {l}");
+                }
+                else if (var_list.Exists(e => e.varname == l))
+                {
+                    int i = var_list.FindIndex(e => e.varname == l);
+                    int value_found = var_list[i].varvalue;
+                    Variables loop = new Variables(c, value_found,s);
+                    counters.Add(loop);
+                    Console.WriteLine($"a loop {c} just been added limit {value_found}");
+                }
+                else
+                {
+                    Console.WriteLine($" the limit {l} needs to be declared or number");
+                }
+        }
+
+        //
+        public void End_while(string counter)
+        {
+            if (counters.Exists(e => e.counter == counter))
+            {
+                int i = counters.FindIndex(e => e.counter == counter);
+                string s_found = counters[i].status;
+                if (s_found == "off")
+                {
+                    Console.WriteLine($"loop {counter} is already ended ");
+                }
+                else { counters.Where(w => w.counter == counter).ToList().ForEach(s => s.status = "off"); }
+
+
+            }
+            else { Console.WriteLine($" loop {counter} is not declared"); }
         }
     }
 }

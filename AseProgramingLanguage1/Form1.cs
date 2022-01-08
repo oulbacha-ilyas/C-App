@@ -46,13 +46,12 @@ namespace AseProgramingLanguage1
            //Once the Enter key is pressed,SynthaxCheck is called for checking the synthax errors,then the parameters are parsedn,then drawing methods and commands can be called
             if (e.KeyCode == Keys.Enter)
             {
-               if (synthaxMessages.Text!="There are no synthax errors at the moment")
-                {synthaxMessages.Text="Check synthax first.";}
-                else
-                {
+               //if (synthaxMessages.Text!="There are no synthax errors at the moment")
+               // {synthaxMessages.Text="Check synthax first.";}
+               // else
+               // {
                    ParseCommand parse = new ParseCommand(commandLine.Text);
-                     // creating a parse Object using the constructor ParseCommand
-                 
+                    // creating a parse Object using the constructor ParseCommand
                 if (parse.command.Equals("drawto") == true)
                 {
                         ClearCommand();
@@ -114,7 +113,7 @@ namespace AseProgramingLanguage1
                 outputWindow.Refresh(); //refreshing the drawing area so the new drawings can appears after each command is passed
  
                 }
-            }
+            //}
         }
 
         private void ClearCommand() // clearing all the previous drawings
@@ -192,7 +191,15 @@ namespace AseProgramingLanguage1
                 {
                     myCanvass.FillColor(parse.param5); //calling the fill color setting method
                 }
-                else
+                else if (parse.command.Equals("while") == true)
+                {
+                    myCanvass.Create_while(parse.param5,parse.param6);
+                }
+                else if(parse.command.Equals("endwhile")==true)
+                {
+                    myCanvass.End_while(parse.counter);
+                }
+                else 
                 {
                     string line = ProgramLines.Lines[i];
                     string[] dec;
@@ -220,7 +227,10 @@ namespace AseProgramingLanguage1
                         }
                     }
                     else if (split.Length==5)
-                    { myCanvass.Calcul_var(parse.command, parse.val2,parse.oper1,parse.val3); }
+                    {
+                        myCanvass.Mother_Calcul_var(parse.command, parse.val2, parse.oper1, parse.val3);
+                        //myCanvass.Calcul_var(parse.command, parse.val2, parse.oper1, parse.val3);
+                    }
                 }
                 
             }
