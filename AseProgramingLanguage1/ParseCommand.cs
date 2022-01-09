@@ -30,6 +30,10 @@ namespace AseProgramingLanguage1
         public string p2 { get; }
         public string p3 { get; }
         public string p4 { get; }
+        public string color { get; }
+        public string rgb1 { get; }
+        public string rgb2 { get; }
+        public string rgb3 { get; }
 
         public const string InvalidParsing = "Check synthax errors.";
         public const string Var_dec = "the val shoud be known.";
@@ -70,10 +74,10 @@ namespace AseProgramingLanguage1
             {
                 this.command = split[0];
                 parameters = split[1].Split(',');
-                string end_x = parameters[0];
-                string end_y = parameters[1];
-                this.param1 = Int32.Parse(end_x);
-                this.param2 = Int32.Parse(end_y);
+                //string end_x = parameters[0];
+                //string end_y = parameters[1];
+                this.p1 = parameters[0];
+                this.p2 = parameters[1];
             }
             else if (command.Equals("triangle"))
             {
@@ -91,10 +95,15 @@ namespace AseProgramingLanguage1
             }
             else if (command.Equals("drawcolor"))
             {
-                string colors = split[1];
-                this.param5 = colors;
-
-                this.command = split[0];
+                //string colors = split[1];
+                parameters = split[1].Split(',');
+                if (parameters.Length == 3)
+                {
+                    this.command = split[0];
+                    this.rgb1 = parameters[0];
+                    this.rgb2 = parameters[1];
+                    this.rgb3 = parameters[2];
+                }
             }
             else if (command.Equals("fill"))
             {
@@ -105,10 +114,15 @@ namespace AseProgramingLanguage1
             }
             else if (command.Equals("fillcolor"))
             {
-                string fillcolor = split[1];//only one parameter(On or Off) is taken after the commmand
-                this.param5 = fillcolor;
-
-                this.command = split[0];
+                /*string fillcolor = split[1];*///only one parameter(On or Off) is taken after the commmand
+                parameters = split[1].Split(',');
+                if (parameters.Length == 3)
+                {
+                    this.command = split[0];
+                    this.rgb1 = parameters[0];
+                    this.rgb2 = parameters[1];
+                    this.rgb3 = parameters[2];
+                }
             }
             else if(command.Count(char.IsLetterOrDigit) == 1 || command.Count(char.IsLetterOrDigit) == 2) // declaring the variables
             //else if (command.Count(char.IsLetterOrDigit) == 1 || command.Count(char.IsLetterOrDigit) == 2/*command.Equals("var")*/)

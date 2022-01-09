@@ -54,6 +54,8 @@ namespace AseProgramingLanguage1
         public const string Var_name = "The variable name either letters or a combination of letters and numbers.";
         public const string logical_operators = "The logical operators can be either +,-,* or /.";
         public const string WHformat = "The height and height can be either a letter,a number or combination of them.";
+        public const string RGBcode_length = "The color  rgb code should be of 3 digits or declared variables.";
+        public const string RGBcode_values = "The color be variables should be letters or a combination of letters and digits.";
 
 
         public const string Empty_command = "Type a command.";
@@ -173,20 +175,12 @@ namespace AseProgramingLanguage1
                         parameters = split[1].Split(',');
                         if (parameters.Length == 2)
                         {
-                            bool res1 = int.TryParse(parameters[0], out int r1);
-                            bool res2 = int.TryParse(parameters[1], out int r2);
-                            if (res1 != true) { throw new System.ArgumentOutOfRangeException("Parameter type", parameters[0], Point_X_Parse); }
-                            if (res2 != true) { throw new System.ArgumentOutOfRangeException("Parameter type", parameters[1], Point_Y_Parse); }
+                        //    bool res1 = int.TryParse(parameters[0], out int r1);
+                        //    bool res2 = int.TryParse(parameters[1], out int r2);
+                        //    if (res1 != true) { throw new System.ArgumentOutOfRangeException("Parameter type", parameters[0], Point_X_Parse); }
+                        //    if (res2 != true) { throw new System.ArgumentOutOfRangeException("Parameter type", parameters[1], Point_Y_Parse); }
 
-                            if (res1 == true && res2 == true) { throw new System.ArgumentOutOfRangeException("Parameter type", split[1], CorrectSynthax); }
-                            /*   
-                            if (res1 != true) { 
-                                //throw new System.ArgumentOutOfRangeException("Parameter type", parameters[0], PositionsPointsParse); 
-                                if (res2 != true) { throw new System.ArgumentOutOfRangeException("Parameter", parameters[1], PositionsPointsParse);}
-                            }
-                            if (res1 == true || res2==true ) 
-                            { throw new System.ArgumentOutOfRangeException("Correct position", split[1], CorrectSynthax);} 
-                           */
+                        //    if (res1 == true && res2 == true) { throw new System.ArgumentOutOfRangeException("Parameter type", split[1], CorrectSynthax); }
                         }
                         else throw new System.ArgumentOutOfRangeException("Parameters number", split[1], PositionsParameters);
                     }
@@ -228,13 +222,19 @@ namespace AseProgramingLanguage1
                     for (int i=0;i<=colors.Length; i++)
                     {}
                     */
-
-                    if (split[1].Equals("black") || split[1].Equals("red") || split[1].Equals("blue") || split[1].Equals("green"))
+                    parameters = split[1].Split(',');
+                    if (parameters.Length != 3)
                     {
-                        throw new System.ArgumentOutOfRangeException("Color Name", split[1], CorrectSynthax);
+                        throw new System.ArgumentOutOfRangeException("RGB Code", parameters, RGBcode_length);
                     }
-                    else throw new System.ArgumentOutOfRangeException("Color Name", split[1], ColorParametersDoesnotMatch);
-
+                    foreach(string para in parameters)
+                    {
+                        if(para.All(v => char.IsLetterOrDigit(v) ==false))
+                        {
+                            throw new System.ArgumentOutOfRangeException("RGB Code", parameters, RGBcode_values);
+                        }
+                    }
+                    
                 }
                 else if (command.Equals("fill"))
                 {

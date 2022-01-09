@@ -59,7 +59,7 @@ namespace AseProgramingLanguage1
             turtlePen = new Pen(Color.Red, 5);
             //Point turtle = new Point();
             // Brush myBrush = new Brush();
-            myBrush = new SolidBrush(Color.Black);
+            myBrush = new SolidBrush(Color.FromArgb(0,0,0));
             redBrush = new SolidBrush(Color.Red);
             greenBrush = new SolidBrush(Color.Green);
             blueBrush = new SolidBrush(Color.Blue);
@@ -73,17 +73,36 @@ namespace AseProgramingLanguage1
         }
 
         // drawing a line between tow points:the starting point (0,0) and another point defined by the user
-        public void drawTo(int end_x, int end_y)
-        {
 
-            Lines line = new Lines(start_x, start_y, end_x, end_y, Pen.Fill);
-            line.LinePoint_Type(end_x, end_y);
+        //drawto methods
+        public void Mother_drawTo(string end_x, string end_y)
+        {
+            //int[] para = Get_Whith_height(w,h);
+            int end = counters.Count;
+            if (counters[end - 1].status == "on")
+            {
+                Console.WriteLine("flag On waiting");
+            }
+            else            //if the command is outside a loop
+            {
+                Console.WriteLine("flag on go");
+                drawTo(end_x, end_y);
+                Console.WriteLine($"1 rectangle out of loop :w {end_x} h {end_y}");
+            }
+        }
+        public void drawTo(string end_x, string end_y)
+        {
+            int[] para = Get_Whith_height(end_x, end_y);
+            Lines line = new Lines(start_x, start_y, para[0], para[1], Pen.Fill);
+            line.LinePoint_Type(para[0], para[1]);
             Lines.Add(line);
             int l = Lines.Count;
             g.DrawLine(myPen, Lines[l - 1].X1, Lines[l - 1].Y1, Lines[l - 1].X2, Lines[l - 1].Y2); //drawing a line first,
             start_x = Lines[l - 1].X2;
             start_y = Lines[l - 1].Y2;
-            moveTo(Lines[l - 1].X2, Lines[l - 1].Y2);//then moving the turtle to the last point of the drawn line
+            string x = Lines[l - 1].X2.ToString();
+            string y = Lines[l - 1].X2.ToString();
+            moveTo(x, y);//then moving the turtle to the last point of the drawn line
 
         }
 
@@ -121,14 +140,29 @@ namespace AseProgramingLanguage1
         }
 
         //moveto 
-
-        public void moveTo(int end_x, int end_y)
+        public void Mother_moveTo(string end_x, string end_y)
         {
-            Turtle turtle = new Turtle(end_x, end_y);
+            //int[] para = Get_Whith_height(end_x,end_y);
+            int end = counters.Count;
+            if (counters[end - 1].status == "on")
+            {
+                Console.WriteLine("flag On waiting");
+            }
+            else            //if the command is outside a loop
+            {
+                Console.WriteLine("flag on go");
+                moveTo(end_x, end_y);
+                Console.WriteLine($"1 rectangle out of loop :w {end_x} h {end_y}");
+            }
+        }
+        public void moveTo(string end_x, string end_y)
+        {
+            int[] para = Get_Whith_height(end_x, end_y);
+            Turtle turtle = new Turtle(para[0], para[1]);
             turtles.Add(turtle);
             int l = turtles.Count;
-            start_x = end_x;
-            start_y = end_y;
+            start_x = para[0];
+            start_y = para[0];
             g.DrawEllipse(turtlePen, turtles[l - 1].X, turtles[l - 1].Y, 1, 1);
 
             for (int i = 0; i < Lines.Count; i++)
@@ -291,13 +325,10 @@ namespace AseProgramingLanguage1
             int end = counters.Count;
             if (counters[end - 1].status == "on")
             {
-                Console.WriteLine("flag On waiting");
             }
             else            //if the command is outside a loop
             {
-                Console.WriteLine("flag on go");
                 DrawTriangle( point1x, point1y, point2x,point2y);
-                Console.WriteLine("1 circle out of loop");
             }
         }
         public void DrawTriangle (string point1x, string point1y, string point2x, string point2y)
@@ -322,48 +353,46 @@ namespace AseProgramingLanguage1
                 g.FillPolygon(myBrush, TPoints);
             }
         }
-
-        public void DrawColor(string pencolor)
+        public void Mother_DrawColor(string r, string g, string b)
         {
-            Pen = new Turtle(pencolor);
-            if (pencolor.Equals("red") == true)
+            int end = counters.Count;
+            if (counters[end - 1].status == "on")
             {
-
-                myPen = new Pen(Color.Red);
             }
-            else if (pencolor.Equals("green") == true)
+            else
             {
-                myPen = new Pen(Color.Green);
-            }
-            else if (pencolor.Equals("blue") == true)
-            {
-                myPen = new Pen(Color.Blue);
-            }
-            else if (pencolor.Equals("black") == true)
-            {
-                myPen = new Pen(Color.Black);
+                DrawColor(r, g, b);
             }
         }
 
-        public void FillColor(string fillcolor)
+        public void DrawColor(string r,string g,string b)
         {
-            Brush = new Turtle(fillcolor);
-            if (fillcolor.Equals("red") == true)
+            
+            int[] rgb = Get_rgb(r,g,b);
+            Pen = new Turtle(rgb[0], rgb[1], rgb[2]);
+
+            myPen = new Pen(Color.FromArgb(rgb[0],rgb[1], rgb[2]));
+
+        }
+
+        public void Mother_FillColor(string r, string g, string b)
+        {
+            int end = counters.Count;
+            if (counters[end - 1].status == "on")
             {
-                myBrush = new SolidBrush(Color.Red);
             }
-            else if (fillcolor.Equals("green") == true)
+            else
             {
-                myBrush = new SolidBrush(Color.Green);
+                FillColor(r, g, b);
             }
-            else if (fillcolor.Equals("blue") == true)
-            {
-                myBrush = new SolidBrush(Color.Blue);
-            }
-            else if (fillcolor.Equals("black") == true)
-            {
-                myBrush = new SolidBrush(Color.Black);
-            }
+        }
+
+        public void FillColor(string r, string g, string b)
+        {
+            int[] rgb = Get_rgb(r, g, b);
+            Brush = new Turtle(rgb[0], rgb[1], rgb[2]);
+            myBrush = new SolidBrush(Color.FromArgb(rgb[0], rgb[1], rgb[2]));
+
         }
 
         public void drawline()
@@ -558,6 +587,32 @@ namespace AseProgramingLanguage1
                 {
                     Console.WriteLine($"point {i} is not declared");
                 }                
+            }
+            return rec_params;
+        }
+        public int[] Get_rgb(string r, string g, string b)
+        {
+            string[] pars = {r,g,b};
+            int[] rec_params = { 0, 0, 0 };
+
+            for (int i = 0; i <3; i++)
+            {
+                bool ress = int.TryParse(pars[i], out int rs);
+                if (ress)
+                {
+                    rec_params[i] = int.Parse(pars[i]);
+                }
+                else if (var_list.Exists(e => e.varname == pars[i]))
+                {
+                    int j = var_list.FindIndex(e => e.varname == pars[i]);
+                    int s_found = var_list[j].varvalue;
+                    rec_params[i] = s_found;
+
+                }
+                else
+                {
+                    Console.WriteLine($"point {i} is not declared");
+                }
             }
             return rec_params;
         }

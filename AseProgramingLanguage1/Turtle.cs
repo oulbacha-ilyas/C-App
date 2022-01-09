@@ -12,6 +12,9 @@ namespace AseProgramingLanguage1
         public int X { get; }
         public int Y { get; }
         //public string Pencolor { get;}
+        public int R { get; }
+        public int G { get; }
+        public int B { get; }
 
         public Turtle(string fill)
         {
@@ -23,6 +26,14 @@ namespace AseProgramingLanguage1
         {
             this.X = x;
             this.Y = y;
+            //this.Pencolor=pencolor;
+
+        }
+        public Turtle(int r, int g,int b/*,string pencolor*/)
+        {
+            this.R = r;
+            this.G = g;
+            this.B = b;
             //this.Pencolor=pencolor;
 
         }

@@ -26,9 +26,15 @@ namespace AseProgramingLanguage1
 
             myCanvass = new Canvass(Graphics.FromImage(OutputBitmap));// this will handle the drawing then pass it to the form
             myCanvass.ChangeFill("off");// sets the Fill to default option:Off,the subsequent draws will be outlined til the Fill is changed to On
-            myCanvass.DrawColor("black");
-            myCanvass.FillColor("black");
-            myCanvass.moveTo(0, 0);  //myCanvass.moveTo(0, 0); //sets the turle position in the top left once Form1 is loaded
+            string zer1 = 0.ToString();
+            string zer2 = 0.ToString();
+            string zer3 = 0.ToString();
+            myCanvass.DrawColor(zer1,zer2,zer3);
+            myCanvass.FillColor(zer1, zer2, zer3);
+            int zero = 0;
+            string zero_x = zero.ToString();
+            string zero_y = zero.ToString();
+            myCanvass.moveTo(zero_x, zero_y);  //myCanvass.moveTo(0, 0); //sets the turle position in the top left once Form1 is loaded
         }
 
 
@@ -51,11 +57,11 @@ namespace AseProgramingLanguage1
                // else
                // {
                    ParseCommand parse = new ParseCommand(commandLine.Text);
-                    // creating a parse Object using the constructor ParseCommand
+                // creating a parse Object using the constructor ParseCommand
                 if (parse.command.Equals("drawto") == true)
                 {
-                        ClearCommand();
-                    myCanvass.drawTo(parse.param1, parse.param2);
+                    ClearCommand();
+                    myCanvass.drawTo(parse.p1, parse.p2);
 
                 }
                 else if (parse.command.Equals("rectangle") == true)
@@ -65,11 +71,11 @@ namespace AseProgramingLanguage1
                 else if (parse.command.Equals("moveto") == true)
                 {
                     ClearCommand();
-                    myCanvass.moveTo(parse.param1, parse.param2);
+                    myCanvass.moveTo(parse.p1, parse.p2);
                 }
                 else if (parse.command.Equals("circle") == true)
                 {
-                    
+
                     myCanvass.DrawCircle(parse.radius);
                 }
                 else if (parse.command.Equals("triangle") == true)
@@ -86,19 +92,21 @@ namespace AseProgramingLanguage1
                 {
                     ClearCommand();
                     myCanvass.Reset();
-                    
+
                 }
                 else if (parse.command.Equals("drawcolor") == true)
                 {
-                    myCanvass.DrawColor(parse.param5); //calling the the drawing color setting method
+                    //myCanvass.DrawColor(parse.param5); //calling the the drawing color setting method
+                    myCanvass.DrawColor(parse.rgb1, parse.rgb2, parse.rgb3);
                 }
+
                 else if (parse.command.Equals("fill") == true)
                 {
                     myCanvass.ChangeFill(parse.param5); //calling the fill setting method
                 }
                 else if (parse.command.Equals("fillcolor") == true)
                 {
-                    myCanvass.FillColor(parse.param5); //calling the fill color setting method
+                    myCanvass.FillColor(parse.rgb1, parse.rgb2, parse.rgb3); //calling the fill color setting method
                 }
                 else if (parse.command.Equals("run") == true)//executes the programe typed into ProgramLines richBox
                 {
@@ -181,6 +189,31 @@ namespace AseProgramingLanguage1
                             {
                                 myCanvass.Mother_DrawTriangle(parse1.p1, parse1.p2, parse1.p3, parse1.p4);
                             }
+                            if (parse1.command.Equals("drawcolor") == true)
+                            {
+
+                                myCanvass.Mother_DrawColor(parse1.rgb1, parse1.rgb2, parse1.rgb3);
+                                //calling the the drawing color setting method
+                            }
+                            if (parse1.command.Equals("fillcolor") == true)
+                            {
+                                myCanvass.Mother_FillColor(parse1.rgb1, parse1.rgb2, parse1.rgb1); //calling the fill color setting method
+                            }
+                            else if (parse1.command.Equals("drawto") == true)
+
+                            {
+                                ClearCommand();
+                                //myCanvass.drawTo(parse.param1, parse.param2);
+                                myCanvass.Mother_drawTo(parse1.p1, parse1.p2);
+                            }
+                            if (parse1.command.Equals("moveto") == true)
+                            {
+                                ClearCommand();
+                                //myCanvass.moveTo(parse.p1, parse.p2);
+                                myCanvass.Mother_moveTo(parse1.p1, parse1.p2);
+                                outputWindow.Refresh();
+                            }
+
                             else
                             {
                                 string line1 = ProgramLines.Lines[j];
@@ -228,7 +261,7 @@ namespace AseProgramingLanguage1
 
                 {
                     ClearCommand();
-                    myCanvass.drawTo(parse.param1, parse.param2);
+                    myCanvass.drawTo(parse.p1, parse.p2);
                 }
                 else if (parse.command.Equals("rectangle") == true)
                 {
@@ -238,7 +271,7 @@ namespace AseProgramingLanguage1
                 else if (parse.command.Equals("moveto") == true)
                 {
                     ClearCommand();
-                    myCanvass.moveTo(parse.param1, parse.param2);
+                    myCanvass.moveTo(parse.p1, parse.p2);
 
                     outputWindow.Refresh();
                 }
@@ -266,7 +299,9 @@ namespace AseProgramingLanguage1
                 }
                 else if (parse.command.Equals("drawcolor") == true)
                 {
-                    myCanvass.DrawColor(parse.param5); //calling the the drawing color setting method
+        
+                        myCanvass.DrawColor(parse.rgb1, parse.rgb2, parse.rgb3);
+                         //calling the the drawing color setting method
                 }
                 else if (parse.command.Equals("fill") == true)
                 {
@@ -274,7 +309,7 @@ namespace AseProgramingLanguage1
                 }
                 else if (parse.command.Equals("fillcolor") == true)
                 {
-                    myCanvass.FillColor(parse.param5); //calling the fill color setting method
+                    myCanvass.Mother_FillColor(parse.rgb1, parse.rgb2, parse.rgb3); //calling the fill color setting method
                 }
                 else
                 {
