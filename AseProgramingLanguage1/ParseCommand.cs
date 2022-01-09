@@ -24,6 +24,8 @@ namespace AseProgramingLanguage1
         public string val2 { get; }
         public string val3 { get; }
         public string counter { get; }
+        public string width { get; }
+        public string heigth { get; }
 
         public const string InvalidParsing = "Check synthax errors.";
         public const string Var_dec = "the val shoud be known.";
@@ -47,10 +49,10 @@ namespace AseProgramingLanguage1
             {
                 this.command = split[0];
                 parameters = split[1].Split(',');
-                string width = parameters[0];
-                string length = parameters[1];
-                this.param1 = Int32.Parse(width); //parse the width value so it it can be used as an integer in the drawing method rectangle()
-                this.param2 = Int32.Parse(length);
+                //string width = parameters[0];
+                //string length = parameters[1];
+                this.width = parameters[0]; //parse the width value so it it can be used as an integer in the drawing method rectangle()
+                this.heigth= parameters[1];
             }
             else if (command.Equals("circle"))
             {

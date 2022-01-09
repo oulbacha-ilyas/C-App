@@ -53,7 +53,7 @@ namespace AseProgramingLanguage1
         public const string Var_dec = "The variable needs to be declared before use.";
         public const string Var_name = "The variable name either letters or a combination of letters and numbers.";
         public const string logical_operators = "The logical operators can be either +,-,* or /.";
-
+        public const string WHformat = "The height and height can be either a letter,a number or combination of them.";
 
 
         public const string Empty_command = "Type a command.";
@@ -97,14 +97,22 @@ namespace AseProgramingLanguage1
                         if (parameters.Length == 1) { throw new System.ArgumentOutOfRangeException("Width and Heigth ", split[1], RectangleParametersNumber); }
                         if (parameters.Length == 2)
                         {
-                            bool res1 = int.TryParse(parameters[0], out int r1);
-                            bool res2 = int.TryParse(parameters[1], out int r2);
-                            if (res1 != true) { throw new System.ArgumentOutOfRangeException("width", parameters[0], WidthInt); }
-                            if (res2 != true) { throw new System.ArgumentOutOfRangeException("width", parameters[0], HeigthInt); }
-                            if (res1 == true || res2 == true)
-                            {
-                                throw new System.ArgumentOutOfRangeException("correct parameters", split[1], CorrectSynthax);
-                            }
+                            //if(parameters[0].Count(char.IsLetterOrDigit) != 1 && parameters[0].Count(char.IsLetterOrDigit) != 2)
+                            //{
+                            //    throw new System.ArgumentOutOfRangeException("height", parameters[1], WHformat);
+                            //    if (parameters[1].Count(char.IsLetterOrDigit) != 1 && parameters[1].Count(char.IsLetterOrDigit) != 2)
+                            //    {
+                            //        throw new System.ArgumentOutOfRangeException("height", parameters[1], WHformat);
+                            //    }
+                            //}
+                            //bool res1 = int.TryParse(parameters[0], out int r1);
+                            //bool res2 = int.TryParse(parameters[1], out int r2);
+                            //if (res1 != true) { throw new System.ArgumentOutOfRangeException("width", parameters[0], WidthInt); }
+                            //if (res2 != true) { throw new System.ArgumentOutOfRangeException("width", parameters[0], HeigthInt); }
+                            //if (res1 == true || res2 == true)
+                            //{
+                            //    throw new System.ArgumentOutOfRangeException("correct parameters", split[1], CorrectSynthax);
+                            //}
                             /*if (res1)
                             {
                                 int width = Int32.Parse(parameters[0]);

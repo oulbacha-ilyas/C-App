@@ -137,7 +137,7 @@ namespace AseProgramingLanguage1
             int linesNumber = ProgramLines.Lines.Length;
             int loop_start_line =0;
             int loop_end_line =0;
-            int iterations = 0;
+            int iterations =0;
             for (int i = 0; i <= linesNumber - 1; i++) //the program is run line by line using,after checkeing the synthax and parsing the parameters
             {
                 
@@ -152,6 +152,8 @@ namespace AseProgramingLanguage1
                 {
                     myCanvass.Create_while(parse.param5, parse.param6);
                     loop_start_line = i;
+                    iterations = myCanvass.Get_iterations(parse.param6);
+                    Console.WriteLine($"there are {iterations} iterations");
                     //iterations = parse.param6;
                 }
                 else if (parse.command.Equals("endwhile") == true)
@@ -159,8 +161,7 @@ namespace AseProgramingLanguage1
                     myCanvass.End_while(parse.counter);
                     loop_end_line = i;
                     int e = 0;
-
-                    while (e <=100)
+                    while (e <=iterations)
                     {
                         for (int j = loop_start_line+1; j <= loop_end_line-1; j++)
                         {
@@ -221,8 +222,8 @@ namespace AseProgramingLanguage1
                 }
                 else if (parse.command.Equals("rectangle") == true)
                 {
-                    myCanvass.DrawRectangle(parse.param1, parse.param2);
-                    // Console.WriteLine("a square is draws");
+                    myCanvass.Mother_DrawRectangle(parse.width, parse.heigth);
+                    //myCanvass.DrawRectangle(parse.param1, parse.param2);
                 }
                 else if (parse.command.Equals("moveto") == true)
                 {

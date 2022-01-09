@@ -87,6 +87,22 @@ namespace AseProgramingLanguage1
 
         }
 
+        // rectangles
+        public void Mother_DrawRectangle(string w,string h)
+        {
+            int[] para = Get_Whith_height(w,h);
+            int end = counters.Count;
+            if (counters[end - 1].status == "on")
+            {
+                Console.WriteLine("flag On waiting");
+            }
+            else            //if the command is outside a loop
+            {
+                Console.WriteLine("flag on go");
+                DrawRectangle(para[0],para[1]);
+                Console.WriteLine("1 circle out of loop");
+            }
+        }
         public void DrawRectangle(int width, int heigth)
         {
             Rectangles rectangle = new Rectangles(start_x, start_y, width, heigth, fillOnOff.Fill, Pen.Fill, Brush.Fill);
@@ -102,6 +118,8 @@ namespace AseProgramingLanguage1
                 g.FillRectangle(myBrush, start_x, start_y, width, heigth);
             }
         }
+
+        //moveto 
 
         public void moveTo(int end_x, int end_y)
         {
@@ -265,6 +283,7 @@ namespace AseProgramingLanguage1
 
         }
 
+        // triangle
         public void DrawTriangle(int point1x, int point1y, int point2x, int point2y)
         {
 
@@ -388,6 +407,75 @@ namespace AseProgramingLanguage1
                 Calcul_var(v, x, oper, y);
                 Console.WriteLine("loop ended");
             }
+        }
+
+        //get parameters for loop and operations
+        public int Get_iterations(string v)
+        {
+            int it = 0;
+            bool resit = int.TryParse(v, out int rit);
+            if(resit)
+            {
+                it = Int32.Parse(v);
+            }
+            if (var_list.Exists(e => e.varname == v))
+            {
+                int i = var_list.FindIndex(e => e.varname == v);
+                it = var_list[i].varvalue;
+            }
+            return it;
+        }
+        public int[] Get_Whith_height(string w, string h)
+        {
+            int[] rec_params= {0,0};
+            int w_val = 0;
+            int h_val = 0;
+            bool resw = int.TryParse(w, out int rw);
+            bool reh = int.TryParse(h, out int rh);
+            if (resw && reh)
+            {
+                w_val = Int32.Parse(w);
+                h_val = Int32.Parse(h);
+                rec_params[0] = w_val;
+                rec_params[1] = h_val;
+            }
+            if (resw && reh == false)
+            {
+                if (var_list.Exists(e => e.varname == h))
+                {
+                    int i = var_list.FindIndex(e => e.varname == h);
+                    int h_found = var_list[i].varvalue;
+                    rec_params[0] = Int32.Parse(w);
+                    rec_params[1] = h_found;
+                }
+                Console.WriteLine($" var {h} not declared");
+            }
+            if (resw==false && reh)
+            {
+                if (var_list.Exists(e => e.varname == w))
+                {
+                    int i = var_list.FindIndex(e => e.varname == w);
+                    int w_found = var_list[i].varvalue;
+                    rec_params[0] = w_found;
+                    rec_params[1] = Int32.Parse(h);
+                    
+                }
+                Console.WriteLine($" var {w} not declared");
+            }
+            if (resw == false && reh==false)
+            {
+                if (var_list.Exists(e => e.varname == w) && var_list.Exists(e => e.varname == h))
+                {
+                    int i = var_list.FindIndex(e => e.varname == w);
+                    int w_found = var_list[i].varvalue;
+                    int j = var_list.FindIndex(e => e.varname == h);
+                    int h_found = var_list[j].varvalue;
+                    rec_params[0] = w_found;
+                    rec_params[1] = h_found;
+                }
+                Console.WriteLine($" var {w} or {h} not declared");
+            }
+            return rec_params;
         }
 
         public  void Check_Var(string v, string y)
