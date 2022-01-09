@@ -135,14 +135,86 @@ namespace AseProgramingLanguage1
         private void ExecuteCommandProgram() 
         {
             int linesNumber = ProgramLines.Lines.Length;
-            
+            int loop_start_line =0;
+            int loop_end_line =0;
+            int iterations = 0;
             for (int i = 0; i <= linesNumber - 1; i++) //the program is run line by line using,after checkeing the synthax and parsing the parameters
             {
-
+                
                 ParseCommand parse = new ParseCommand(ProgramLines.Lines[i]);
 
+                //if while is off
+                //if while is on ==> line i
+                // while status on ==> read only
+                //while off ==> line j
+                //execute from i to j
+                if (parse.command.Equals("while") == true)
+                {
+                    myCanvass.Create_while(parse.param5, parse.param6);
+                    loop_start_line = i;
+                    //iterations = parse.param6;
+                }
+                else if (parse.command.Equals("endwhile") == true)
+                {
+                    myCanvass.End_while(parse.counter);
+                    loop_end_line = i;
+                    int e = 0;
 
-                if (parse.command.Equals("drawto") == true)
+                    while (e <=100)
+                    {
+                        for (int j = loop_start_line+1; j <= loop_end_line-1; j++)
+                        {
+                            ParseCommand parse1 = new ParseCommand(ProgramLines.Lines[j]);
+                            if (parse1.command.Equals("circle") == true)
+                            {
+                                //myCanvass.DrawCircle(parse1.radius);
+                                myCanvass.Mother_DrawCircle(parse1.radius);
+                            }
+                            else
+                            {
+                                string line1 = ProgramLines.Lines[j];
+                                string[] dec;
+                                string[] split1;
+                                line1 = line1.ToLower().Trim();
+                                split1 = line1.Split(' ');
+
+                                int len = split1.Length;
+                                if (split1.Length == 3)
+                                {
+                                    bool res0 = int.TryParse(split1[2], out int r0);
+                                    if (res0)
+                                    {
+                                        //Canvass var_assign = new Canvass(parse.command, parse.val0);
+                                        Console.WriteLine("assign called");
+                                        myCanvass.Assign_var(parse1.command, parse1.val0);
+                                    }
+                                    else
+                                    {
+                                        //Variables var_check = new Variables(parse.command, parse.param5);
+                                        //var_check.Check_Var(parse.command, parse.param5);
+                                        Console.WriteLine(" check called");
+                                        myCanvass.Check_Var(parse1.command, parse1.param5);
+
+                                    }
+                                }
+                                else if (split1.Length == 5)
+                                {
+                                    myCanvass.Mother_Calcul_var(parse1.command, parse1.val2, parse1.oper1, parse1.val3);
+                                    // myCanvass.Calcul_var(parse1.command, parse1.val2, parse1.oper1, parse1.val3);
+                                }
+                                
+                            }
+                            
+                        }
+                        Console.WriteLine(" for is executed");
+                        e++;
+                    
+
+                    }
+                    Console.WriteLine(" loop is executed");
+                }
+                else if (parse.command.Equals("drawto") == true)
+
                 {
                     ClearCommand();
                     myCanvass.drawTo(parse.param1, parse.param2);
@@ -161,7 +233,9 @@ namespace AseProgramingLanguage1
                 }
                 else if (parse.command.Equals("circle") == true)
                 {
-                    myCanvass.DrawCircle(parse.radius);
+                    //myCanvass.DrawCircle(parse.radius);
+                    myCanvass.Mother_DrawCircle(parse.radius);
+
                 }
                 else if (parse.command.Equals("triangle") == true)
                 {
@@ -191,45 +265,37 @@ namespace AseProgramingLanguage1
                 {
                     myCanvass.FillColor(parse.param5); //calling the fill color setting method
                 }
-                else if (parse.command.Equals("while") == true)
-                {
-                    myCanvass.Create_while(parse.param5,parse.param6);
-                }
-                else if(parse.command.Equals("endwhile")==true)
-                {
-                    myCanvass.End_while(parse.counter);
-                }
-                else 
+                else
                 {
                     string line = ProgramLines.Lines[i];
                     string[] dec;
                     string[] split;
                     line = line.ToLower().Trim();
                     split = line.Split(' ');
-                    
+
                     int len = split.Length;
-                    if (split.Length==3)
+                    if (split.Length == 3)
                     {
                         bool res0 = int.TryParse(split[2], out int r0);
                         if (res0)
                         {
-                        //Canvass var_assign = new Canvass(parse.command, parse.val0);
-                        Console.WriteLine("assign called");
-                        myCanvass.Assign_var(parse.command, parse.val0);
+                            //Canvass var_assign = new Canvass(parse.command, parse.val0);
+                            Console.WriteLine("assign called");
+                            myCanvass.Assign_var(parse.command, parse.val0);
                         }
                         else
                         {
-                        //Variables var_check = new Variables(parse.command, parse.param5);
-                        //var_check.Check_Var(parse.command, parse.param5);
-                        Console.WriteLine(" check called");
-                        myCanvass.Check_Var(parse.command, parse.param5);
-                        
+                            //Variables var_check = new Variables(parse.command, parse.param5);
+                            //var_check.Check_Var(parse.command, parse.param5);
+                            Console.WriteLine(" check called");
+                            myCanvass.Check_Var(parse.command, parse.param5);
+
                         }
                     }
-                    else if (split.Length==5)
+                    else if (split.Length == 5)
                     {
-                        myCanvass.Mother_Calcul_var(parse.command, parse.val2, parse.oper1, parse.val3);
-                        //myCanvass.Calcul_var(parse.command, parse.val2, parse.oper1, parse.val3);
+                        //myCanvass.Mother_Calcul_var(parse.command, parse.val2, parse.oper1, parse.val3);
+                        myCanvass.Calcul_var(parse.command, parse.val2, parse.oper1, parse.val3);
                     }
                 }
                 

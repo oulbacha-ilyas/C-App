@@ -26,7 +26,10 @@ namespace AseProgramingLanguage1
         Turtle Pen;
         Turtle Brush;
         List<Turtle> turtles = new List<Turtle>();
+
         List<Circles> Circles = new List<Circles>();
+        List<Circles> Loop_Circles = new List<Circles>();
+
         List<Rectangles> Rectangles = new List<Rectangles>();
         List<Triangles> Triangles = new List<Triangles>();
         List<Lines> Lines = new List<Lines>();
@@ -35,6 +38,7 @@ namespace AseProgramingLanguage1
         Variables default_loop = new Variables("default", 0, "off");
         List<Variables> counters = new List<Variables>(); //while counters list
 
+     
 
         //variables setting
         public string varname { get; }
@@ -59,6 +63,7 @@ namespace AseProgramingLanguage1
             redBrush = new SolidBrush(Color.Red);
             greenBrush = new SolidBrush(Color.Green);
             blueBrush = new SolidBrush(Color.Blue);
+            counters.Add(default_loop);
         }
 
         public void ChangeFill(string Fill) // the circle is not drawn from the last position of moveTo,but the center is shifted
@@ -205,6 +210,22 @@ namespace AseProgramingLanguage1
             }
         }
 
+        //circle
+        public void Mother_DrawCircle(string radius)
+        {
+            ////if the command is inside a loop
+            int end = counters.Count;
+            if (counters[end - 1].status == "on")
+            {
+                Console.WriteLine("flag On waiting");
+            }
+            else            //if the command is outside a loop
+            {
+                Console.WriteLine("flag on go");
+                DrawCircle(radius);
+                Console.WriteLine("1 circle out of loop");
+            }
+        }
         public void DrawCircle(string radius) // the circle is not drawn from the last position of moveTo,but the center is shifted
         {
             int rad = 0;
@@ -359,23 +380,17 @@ namespace AseProgramingLanguage1
             int end = counters.Count;
             if (counters[end-1].status == "on")
             {
-                int i = 0;
-                int l = counters[end-1].limit;
-                while (i < l)
-                {
-                    Calcul_var(v, x, oper, y);
-                    Console.WriteLine("loop result");
-                    i++;
-                }
+                Console.WriteLine(" Flag on waiting");
             }
             else
             {
+                Console.WriteLine(" Flag on go");
                 Calcul_var(v, x, oper, y);
                 Console.WriteLine("loop ended");
             }
         }
 
-        public void Check_Var(string v, string y)
+        public  void Check_Var(string v, string y)
         {
                 if(var_list.Exists(e => e.varname == y))
                 {
@@ -384,11 +399,9 @@ namespace AseProgramingLanguage1
                 Console.WriteLine(" var is there in "+i+" "+$"{value_found}");
                 Console.WriteLine($" var {v} will take its value");
                 Assign_var(v, value_found);
-         
-                }
+            }
             else { Console.WriteLine(" var is not there"); }
-
-
+           
         }
         public void Assign_var(string v, int x)
         {
@@ -644,9 +657,10 @@ namespace AseProgramingLanguage1
             //    var_list.Add(varibale);
             //}
         }
-        
+
 
         //while loop methods
+ 
         public void Create_while(string c,string l) // Flag on
         {
             bool resl = int.TryParse(l, out int rl);

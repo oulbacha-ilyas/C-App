@@ -27,6 +27,10 @@ namespace AseProgramingLanguage1
             this.limit = l;
             this.status = s;
         }
+        public Variables()
+        {
+ 
+        }
 
 
 
