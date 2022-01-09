@@ -202,18 +202,18 @@ namespace AseProgramingLanguage1
                         parameters = split[1].Split(',');
                         if (parameters.Length == 4)
                         {
-                            bool res1 = int.TryParse(parameters[0], out int r1);
-                            bool res2 = int.TryParse(parameters[1], out int r2);
-                            bool res3 = int.TryParse(parameters[2], out int r3);
-                            bool res4 = int.TryParse(parameters[3], out int r4);
-                            if (res1 != true) { throw new System.ArgumentOutOfRangeException("points", parameters[0], Point1_X_parse); }
-                            if (res2 != true) { throw new System.ArgumentOutOfRangeException("point", parameters[1], Point1_Y_parse); }
-                            if (res3 != true) { throw new System.ArgumentOutOfRangeException("points ", parameters[2], Point2_X_parse); }
-                            if (res4 != true) { throw new System.ArgumentOutOfRangeException("points", parameters[3], Point2_Y_parse); }
-                            if (res1 == true && res2 == true && res3 == true && res4 == true)
-                            {
-                                { throw new System.ArgumentOutOfRangeException("Correct position", split[1], CorrectSynthax); }
-                            }
+                            //bool res1 = int.TryParse(parameters[0], out int r1);
+                            //bool res2 = int.TryParse(parameters[1], out int r2);
+                            //bool res3 = int.TryParse(parameters[2], out int r3);
+                            //bool res4 = int.TryParse(parameters[3], out int r4);
+                            //if (res1 != true) { throw new System.ArgumentOutOfRangeException("points", parameters[0], Point1_X_parse); }
+                            //if (res2 != true) { throw new System.ArgumentOutOfRangeException("point", parameters[1], Point1_Y_parse); }
+                            //if (res3 != true) { throw new System.ArgumentOutOfRangeException("points ", parameters[2], Point2_X_parse); }
+                            //if (res4 != true) { throw new System.ArgumentOutOfRangeException("points", parameters[3], Point2_Y_parse); }
+                            //if (res1 == true && res2 == true && res3 == true && res4 == true)
+                            //{
+                            //    { throw new System.ArgumentOutOfRangeException("Correct position", split[1], CorrectSynthax); }
+                            //}
 
                         }
                         else throw new System.ArgumentOutOfRangeException("Parameters Number", parameters, TriangleParametersNumber);

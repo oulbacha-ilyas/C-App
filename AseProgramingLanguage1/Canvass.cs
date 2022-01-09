@@ -90,7 +90,7 @@ namespace AseProgramingLanguage1
         // rectangles
         public void Mother_DrawRectangle(string w,string h)
         {
-            int[] para = Get_Whith_height(w,h);
+            //int[] para = Get_Whith_height(w,h);
             int end = counters.Count;
             if (counters[end - 1].status == "on")
             {
@@ -99,23 +99,24 @@ namespace AseProgramingLanguage1
             else            //if the command is outside a loop
             {
                 Console.WriteLine("flag on go");
-                DrawRectangle(para[0],para[1]);
-                Console.WriteLine("1 circle out of loop");
+                DrawRectangle(w,h);
+                Console.WriteLine($"1 rectangle out of loop :w {w} h {h}");
             }
         }
-        public void DrawRectangle(int width, int heigth)
+        public void DrawRectangle(string width, string heigth)
         {
-            Rectangles rectangle = new Rectangles(start_x, start_y, width, heigth, fillOnOff.Fill, Pen.Fill, Brush.Fill);
-            rectangle.Width_Heigth_Types(width, heigth);
+            int[] para = Get_Whith_height(width,heigth);
+            Rectangles rectangle = new Rectangles(start_x, start_y, para[0], para[1], fillOnOff.Fill, Pen.Fill, Brush.Fill);
+            rectangle.Width_Heigth_Types(para[0], para[1]);
             Rectangles.Add(rectangle);
             if (fillOnOff.Fill.Equals("off") == true)
             {
-                g.DrawRectangle(myPen, start_x, start_y, width, heigth);
+                g.DrawRectangle(myPen, start_x, start_y, para[0], para[1]);
 
             }
             else if (fillOnOff.Fill.Equals("on") == true)
             {
-                g.FillRectangle(myBrush, start_x, start_y, width, heigth);
+                g.FillRectangle(myBrush, start_x, start_y, para[0], para[1]);
             }
         }
 
@@ -284,16 +285,31 @@ namespace AseProgramingLanguage1
         }
 
         // triangle
-        public void DrawTriangle(int point1x, int point1y, int point2x, int point2y)
+        public void Mother_DrawTriangle(string point1x, string point1y, string point2x, string point2y)
         {
-
-            Triangles triangle = new Triangles(start_x, start_y, point1x, point1y, point2x, point2y, fillOnOff.Fill, Pen.Fill, Brush.Fill);
-            triangle.Tpoint1_TPoint2_Types(point1x, point1y, point2x, point2y);
+            ////if the command is inside a loop
+            int end = counters.Count;
+            if (counters[end - 1].status == "on")
+            {
+                Console.WriteLine("flag On waiting");
+            }
+            else            //if the command is outside a loop
+            {
+                Console.WriteLine("flag on go");
+                DrawTriangle( point1x, point1y, point2x,point2y);
+                Console.WriteLine("1 circle out of loop");
+            }
+        }
+        public void DrawTriangle (string point1x, string point1y, string point2x, string point2y)
+        {
+            int[] para = Get_Points(point1x, point1y, point2x, point2y);
+            Triangles triangle = new Triangles(start_x, start_y, para[0], para[1], para[2], para[3], fillOnOff.Fill, Pen.Fill, Brush.Fill);
+            triangle.Tpoint1_TPoint2_Types(para[0], para[1], para[2], para[3]);
             Triangles.Add(triangle);
             PointF[] TPoints = new PointF[]
         { new PointF { X = start_x,Y=start_y },
-              new PointF {X= point1x , Y=point1y},
-              new PointF {X=point2x, Y=point2y}
+              new PointF {X= para[0] , Y=para[1]},
+              new PointF {X=para[2], Y=para[3]}
         };
             if (fillOnOff.Fill.Equals("off") == true)
             {
@@ -477,36 +493,35 @@ namespace AseProgramingLanguage1
             }
             return rec_params;
         }
-
-        public  void Check_Var(string v, string y)
+        public void Check_Var(string v, string y)
         {
-                if(var_list.Exists(e => e.varname == y))
-                {
+            if (var_list.Exists(e => e.varname == y))
+            {
                 int i = var_list.FindIndex(e => e.varname == y);
                 int value_found = var_list[i].varvalue;
-                Console.WriteLine(" var is there in "+i+" "+$"{value_found}");
+                Console.WriteLine(" var is there in " + i + " " + $"{value_found}");
                 Console.WriteLine($" var {v} will take its value");
                 Assign_var(v, value_found);
             }
             else { Console.WriteLine(" var is not there"); }
-           
+
         }
         public void Assign_var(string v, int x)
         {
             Variables varibale = new Variables(v, x);
-             if (var_list.Exists(e => e.varname == v))
-                {
+            if (var_list.Exists(e => e.varname == v))
+            {
                 //var_list.RemoveAll(e => e.varname == v);
                 //Console.WriteLine(" var removed");
                 //var_list.Add(varibale);
-                var_list.Where(w => w.varname == v).ToList().ForEach(s => s.varvalue =x);
+                var_list.Where(w => w.varname == v).ToList().ForEach(s => s.varvalue = x);
                 Console.WriteLine($"var {v} updated");
-                }
-                else 
-                {
+            }
+            else
+            {
                 var_list.Add(varibale);
                 Console.WriteLine($" new var {v} added");
-                }
+            }
         }
         public void Update_val(string v, int x)
         {
@@ -517,6 +532,34 @@ namespace AseProgramingLanguage1
                 Console.WriteLine("value assigne from another variable");
             }
             else { Console.WriteLine(" var is not there"); }
+        }
+
+
+        public int[] Get_Points(string a, string b,string c, string d)
+        {
+            string[] pars = { a, b, c, d };
+            int[] rec_params = { 0, 0, 0, 0 };
+
+            for (int i = 0; i <= 3; i++)
+            {
+                bool ress = int.TryParse(pars[i], out int rs);
+                if (ress)
+                {
+                    rec_params[i] = int.Parse(pars[i]);
+                }
+                else if (var_list.Exists(e => e.varname == pars[i]))
+                {
+                    int j = var_list.FindIndex(e => e.varname == pars[i]);
+                    int s_found = var_list[j].varvalue;
+                    rec_params[i] = s_found;
+
+                }
+                else
+                {
+                    Console.WriteLine($"point {i} is not declared");
+                }                
+            }
+            return rec_params;
         }
         public void Calcul_var(string v, string x,string oper,string y)
         {

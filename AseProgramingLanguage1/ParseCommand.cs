@@ -26,6 +26,10 @@ namespace AseProgramingLanguage1
         public string counter { get; }
         public string width { get; }
         public string heigth { get; }
+        public string p1 { get; }
+        public string p2 { get; }
+        public string p3 { get; }
+        public string p4 { get; }
 
         public const string InvalidParsing = "Check synthax errors.";
         public const string Var_dec = "the val shoud be known.";
@@ -75,14 +79,10 @@ namespace AseProgramingLanguage1
             {
                 this.command = split[0];
                 parameters = split[1].Split(',');
-                string point1x = parameters[0];
-                string point1y = parameters[1];
-                string point2x = parameters[2];
-                string point2y = parameters[3];
-                this.param1 = Int32.Parse(point1x);
-                this.param2 = Int32.Parse(point1y);
-                this.param3 = Int32.Parse(point2x);
-                this.param4 = Int32.Parse(point2y);
+                this.p1 = parameters[0];
+                this.p2 = parameters[1];
+                this.p3 = parameters[2];
+                this.p4 = parameters[3];
 
             }
             else if (command.Equals("clear") || command.Equals("reset") || command.Equals("run"))

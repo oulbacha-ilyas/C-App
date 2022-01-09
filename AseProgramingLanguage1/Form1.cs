@@ -60,7 +60,7 @@ namespace AseProgramingLanguage1
                 }
                 else if (parse.command.Equals("rectangle") == true)
                 {
-                    myCanvass.DrawRectangle(parse.param1, parse.param2);
+                    myCanvass.DrawRectangle(parse.width, parse.heigth);
                 }
                 else if (parse.command.Equals("moveto") == true)
                 {
@@ -74,7 +74,7 @@ namespace AseProgramingLanguage1
                 }
                 else if (parse.command.Equals("triangle") == true)
                 {
-                    myCanvass.DrawTriangle(parse.param1, parse.param2, parse.param3, parse.param4);
+                    myCanvass.DrawTriangle(parse.p1, parse.p2, parse.p3, parse.p4);
                 }
                 else if (parse.command.Equals("clear") == true) //clear all the drawing area of OutputWindow,including the turtle
                 {
@@ -168,8 +168,18 @@ namespace AseProgramingLanguage1
                             ParseCommand parse1 = new ParseCommand(ProgramLines.Lines[j]);
                             if (parse1.command.Equals("circle") == true)
                             {
-                                //myCanvass.DrawCircle(parse1.radius);
+                                
                                 myCanvass.Mother_DrawCircle(parse1.radius);
+                            }
+                            else
+                            if (parse1.command.Equals("rectangle") == true)
+                            {
+                                myCanvass.Mother_DrawRectangle(parse1.width, parse1.heigth);
+                                
+                            }
+                            else if (parse1.command.Equals("triangle") == true)
+                            {
+                                myCanvass.Mother_DrawTriangle(parse1.p1, parse1.p2, parse1.p3, parse1.p4);
                             }
                             else
                             {
@@ -240,7 +250,7 @@ namespace AseProgramingLanguage1
                 }
                 else if (parse.command.Equals("triangle") == true)
                 {
-                    myCanvass.DrawTriangle(parse.param1, parse.param2, parse.param3, parse.param4);
+                    myCanvass.DrawTriangle(parse.p1, parse.p2, parse.p3, parse.p4);
                 }
                 else if (parse.command.Equals("clear") == true)
                 {
