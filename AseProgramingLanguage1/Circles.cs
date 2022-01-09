@@ -29,10 +29,7 @@ namespace AseProgramingLanguage1
         }
         public void Radius_Type(int r)
         {
-            if (r<=0)
-            {
-                throw new ArgumentOutOfRangeException("Radius type", r,RadiusType);
-            }
+            
         }
     }
 }

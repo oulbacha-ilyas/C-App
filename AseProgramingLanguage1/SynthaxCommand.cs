@@ -144,6 +144,10 @@ namespace AseProgramingLanguage1
                 {
                     /*if (split.Length == 1 ) { new System.ArgumentOutOfRangeException("radius", split[0], CircleShouldHaveRadius); }
                      else */
+                if(split[1].All(v => char.IsLetterOrDigit(v)))
+                    {
+                        Canvass check = new Canvass(split[1]);
+                    }
                     if (split.Length == 2)
                     {
                         if (split[1].All(char.IsLetterOrDigit)==true)

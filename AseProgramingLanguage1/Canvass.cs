@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
+using System.Linq;
 //using System.Drawing.TextureBrush;
 
 namespace AseProgramingLanguage1
@@ -41,12 +39,16 @@ namespace AseProgramingLanguage1
      
 
         //variables setting
-        public string varname { get; }
-        public int varvalue { get; }
-        public string varvar { get; }
+        public string S { get; }
+
         public const string Var_value = "The value assigned to the variable should be positive.";
         public const string Var_dec = "The value assigned to the variable should be a number or a declared variable.";
-
+        public const string counter_var = "To end up  a while,use the while counter."; 
+        public const string iterations_var = "Iterations should be a digit or a declared variable.";
+        public const string counter_dec = "A loop with the same counter already exist,use another one."; 
+        public const string values_comp = "The differenece between the two parameters should be positive.";
+        public const string calc_result = "The operation cannot be performed.";
+        public const string var_dec = "At least one of the variables is not declared.";
 
         public Canvass(Graphics g)
         {
@@ -65,8 +67,11 @@ namespace AseProgramingLanguage1
             blueBrush = new SolidBrush(Color.Blue);
             counters.Add(default_loop);
         }
-
-        public void ChangeFill(string Fill) // the circle is not drawn from the last position of moveTo,but the center is shifted
+        public Canvass(string s)
+        {
+            this.S = s;
+        }
+        public void ChangeFill(string Fill) // 
         {
             // outline or fill off is the default value of drawing,but this method should be called before DrawRectangle
             fillOnOff = new Turtle(Fill);
@@ -402,41 +407,23 @@ namespace AseProgramingLanguage1
         }
         public void Reset()
         {
-            //g.FillEllipse(redBrush, 1, 1, 1, 1);
             start_x = 0;
             start_y = 0;
-            //turtles.Clear();
             Circles.Clear();
             Triangles.Clear();
             Rectangles.Clear();
             g.DrawEllipse(turtlePen, start_x, start_y, 1, 1);
-
         }
         public void Clear()
         {
-            //g.FillEllipse(redBrush, 1, 1, 1, 1);
             int l = turtles.Count;
             g.DrawEllipse(turtlePen, turtles[l - 1].X, turtles[l - 1].Y, 1, 1);
-            //turtles.Clear();
             Circles.Clear();
             Triangles.Clear();
             Rectangles.Clear();
         }
 
 
-
-        // variables 
-        public Canvass(string v, int x)
-        {
-            this.varname = v;
-            this.varvalue = x;
-
-        }
-        public Canvass(string v, string x)
-        {
-            this.varname = v;
-            this.varvar = x;
-        }
 
         //mother mehtod
         public void Mother_Calcul_var(string v, string x, string oper, string y)
@@ -448,9 +435,7 @@ namespace AseProgramingLanguage1
             }
             else
             {
-                Console.WriteLine(" Flag on go");
                 Calcul_var(v, x, oper, y);
-                Console.WriteLine("loop ended");
             }
         }
 
@@ -463,11 +448,13 @@ namespace AseProgramingLanguage1
             {
                 it = Int32.Parse(v);
             }
+            else
             if (var_list.Exists(e => e.varname == v))
             {
                 int i = var_list.FindIndex(e => e.varname == v);
                 it = var_list[i].varvalue;
             }
+            else { throw new System.ArgumentOutOfRangeException("a greater than b", v, var_dec); }
             return it;
         }
         public int[] Get_Whith_height(string w, string h)
@@ -493,7 +480,7 @@ namespace AseProgramingLanguage1
                     rec_params[0] = Int32.Parse(w);
                     rec_params[1] = h_found;
                 }
-                Console.WriteLine($" var {h} not declared");
+                else { throw new System.ArgumentOutOfRangeException("a greater than b", h, var_dec); }
             }
             if (resw==false && reh)
             {
@@ -505,7 +492,7 @@ namespace AseProgramingLanguage1
                     rec_params[1] = Int32.Parse(h);
                     
                 }
-                Console.WriteLine($" var {w} not declared");
+                else { throw new System.ArgumentOutOfRangeException("a greater than b", w, var_dec); }
             }
             if (resw == false && reh==false)
             {
@@ -518,7 +505,7 @@ namespace AseProgramingLanguage1
                     rec_params[0] = w_found;
                     rec_params[1] = h_found;
                 }
-                Console.WriteLine($" var {w} or {h} not declared");
+                else { throw new System.ArgumentOutOfRangeException("a greater than b", h, var_dec); }
             }
             return rec_params;
         }
@@ -528,11 +515,9 @@ namespace AseProgramingLanguage1
             {
                 int i = var_list.FindIndex(e => e.varname == y);
                 int value_found = var_list[i].varvalue;
-                Console.WriteLine(" var is there in " + i + " " + $"{value_found}");
-                Console.WriteLine($" var {v} will take its value");
                 Assign_var(v, value_found);
             }
-            else { Console.WriteLine(" var is not there"); }
+            else { throw new System.ArgumentOutOfRangeException("a greater than b", y,var_dec); }
 
         }
         public void Assign_var(string v, int x)
@@ -540,16 +525,11 @@ namespace AseProgramingLanguage1
             Variables varibale = new Variables(v, x);
             if (var_list.Exists(e => e.varname == v))
             {
-                //var_list.RemoveAll(e => e.varname == v);
-                //Console.WriteLine(" var removed");
-                //var_list.Add(varibale);
                 var_list.Where(w => w.varname == v).ToList().ForEach(s => s.varvalue = x);
-                Console.WriteLine($"var {v} updated");
             }
             else
             {
                 var_list.Add(varibale);
-                Console.WriteLine($" new var {v} added");
             }
         }
         public void Update_val(string v, int x)
@@ -560,7 +540,7 @@ namespace AseProgramingLanguage1
                 Variables varibale = new Variables(v, x);
                 Console.WriteLine("value assigne from another variable");
             }
-            else { Console.WriteLine(" var is not there"); }
+            else { throw new System.ArgumentOutOfRangeException("a greater than b", v, var_dec); }
         }
 
 
@@ -585,7 +565,7 @@ namespace AseProgramingLanguage1
                 }
                 else
                 {
-                    Console.WriteLine($"point {i} is not declared");
+                    throw new System.ArgumentOutOfRangeException("a greater than b", rec_params, var_dec);
                 }                
             }
             return rec_params;
@@ -611,7 +591,7 @@ namespace AseProgramingLanguage1
                 }
                 else
                 {
-                    Console.WriteLine($"point {i} is not declared");
+                    throw new System.ArgumentOutOfRangeException("a greater than b", rec_params, var_dec);
                 }
             }
             return rec_params;
@@ -628,7 +608,7 @@ namespace AseProgramingLanguage1
                     r = Int32.Parse(x) + Int32.Parse(y);
                     if (r < 0)
                     {
-                        Console.WriteLine("the first value should be greater than the second value");
+                        throw new System.ArgumentOutOfRangeException("a greater than b", r, values_comp);
                     }
                 }
                 else if(oper == "-")
@@ -636,7 +616,7 @@ namespace AseProgramingLanguage1
                     r = Int32.Parse(x) - Int32.Parse(y);
                     if(r<0)
                     {
-                        Console.WriteLine("the first value should be greater than the second value");
+                        throw new System.ArgumentOutOfRangeException("a greater than b", r, values_comp);
                     }
                 }
                 else if (oper == "*")
@@ -644,21 +624,21 @@ namespace AseProgramingLanguage1
                     r = Int32.Parse(x)*Int32.Parse(y);
                     if (r < 0)
                     {
-                        Console.WriteLine("both values should be positive");
+                        throw new System.ArgumentOutOfRangeException("a greater than b", r, values_comp);
                     }
                 }
                 else if (oper == "/")
                 {
                     if(Int32.Parse(y) == 0)
                     {
-                        Console.WriteLine("this operation cannot be performed");
+                        throw new System.ArgumentOutOfRangeException("a greater than b", r, calc_result);
                     }
                     else
                     {
                         r = Int32.Parse(x)/Int32.Parse(y);
                         if (r < 0)
                         {
-                            Console.WriteLine("both values should be positive");
+                            throw new System.ArgumentOutOfRangeException("a greater than b", r, values_comp);
                         }
                     }
                     
@@ -677,7 +657,7 @@ namespace AseProgramingLanguage1
                         r = xf + Int32.Parse(y);
                         if (r < 0)
                         {
-                            Console.WriteLine("the first value should be greater than the second value");
+                            throw new System.ArgumentOutOfRangeException("a greater than b", r, values_comp);
                         }
                     }
                     else if (oper == "-")
@@ -685,7 +665,7 @@ namespace AseProgramingLanguage1
                         r = xf - Int32.Parse(y);
                         if (r < 0)
                         {
-                            Console.WriteLine("the first value should be greater than the second value");
+                            throw new System.ArgumentOutOfRangeException("a greater than b", r, values_comp);
                         }
                     }
                     else if (oper == "*")
@@ -693,27 +673,27 @@ namespace AseProgramingLanguage1
                         r = xf * Int32.Parse(y);
                         if (r < 0)
                         {
-                            Console.WriteLine("both values should be positive");
+                            throw new System.ArgumentOutOfRangeException("a greater than b", r, values_comp);
                         }
                     }
                     else if (oper == "/")
                     {
                         if (Int32.Parse(y) == 0)
                         {
-                            Console.WriteLine("this operation cannot be performed");
+                            throw new System.ArgumentOutOfRangeException("a greater than b", r, calc_result);
                         }
                         else
                         {
                             r = xf / Int32.Parse(y);
                             if (r < 0)
                             {
-                                Console.WriteLine("both values should be positive");
+                                throw new System.ArgumentOutOfRangeException("a greater than b", r, values_comp);
                             }
                         }
 
                     }
                 }
-                else { Console.WriteLine($"var {x} is not there"); }
+                else { throw new System.ArgumentOutOfRangeException("a greater than b", x, var_dec); }
 
             }
 
@@ -729,7 +709,7 @@ namespace AseProgramingLanguage1
                         r = Int32.Parse(x) + yf;
                         if (r < 0)
                         {
-                            Console.WriteLine("the first value should be greater than the second value");
+                            throw new System.ArgumentOutOfRangeException("a greater than b", r, values_comp);
                         }
                     }
                     else if (oper == "-")
@@ -737,7 +717,7 @@ namespace AseProgramingLanguage1
                         r = Int32.Parse(x)-yf ;
                         if (r < 0)
                         {
-                            Console.WriteLine("the first value should be greater than the second value");
+                            throw new System.ArgumentOutOfRangeException("a greater than b", r, values_comp);
                         }
                     }
                     else if (oper == "*")
@@ -745,27 +725,27 @@ namespace AseProgramingLanguage1
                         r = Int32.Parse(x)*yf;
                         if (r < 0)
                         {
-                            Console.WriteLine("both values should be positive");
+                            throw new System.ArgumentOutOfRangeException("a greater than b", r, values_comp);
                         }
                     }
                     else if (oper == "/")
                     {
                         if (Int32.Parse(y) == 0)
                         {
-                            Console.WriteLine("this operation cannot be performed");
+                            throw new System.ArgumentOutOfRangeException("a greater than b", r, calc_result);
                         }
                         else
                         {
                             r = Int32.Parse(x)/yf;
                             if (r < 0)
                             {
-                                Console.WriteLine("both values should be positive");
+                                throw new System.ArgumentOutOfRangeException("a greater than b", r, values_comp);
                             }
                         }
 
                     }
                 }
-                else { Console.WriteLine($"var {y} is not there"); }
+                else { throw new System.ArgumentOutOfRangeException("variable dec", y, var_dec);}
 
             }
 
@@ -785,7 +765,7 @@ namespace AseProgramingLanguage1
                             r = xf + yf;
                             if (r < 0)
                             {
-                                Console.WriteLine("the first value should be greater than the second value");
+                                throw new System.ArgumentOutOfRangeException("a greater than b", r, values_comp);
                             }
                         }
                         else if (oper == "-")
@@ -793,7 +773,7 @@ namespace AseProgramingLanguage1
                             r = xf - yf;
                             if (r < 0)
                             {
-                                Console.WriteLine("the first value should be greater than the second value");
+                                throw new System.ArgumentOutOfRangeException("variable dec", r, values_comp); ; 
                             }
                         }
                         else if (oper == "*")
@@ -801,47 +781,35 @@ namespace AseProgramingLanguage1
                             r = xf*yf;
                             if (r < 0)
                             {
-                                Console.WriteLine("both values should be positive");
+                                throw new System.ArgumentOutOfRangeException("result", r, calc_result);
                             }
                         }
                         else if (oper == "/")
                         {
                             if (yf == 0)
                             {
-                                Console.WriteLine("this operation cannot be performed");
+                                throw new System.ArgumentOutOfRangeException("variable dec", r, calc_result);
                             }
                             else
                             {
                                 r = xf/yf;
                                 if (r < 0)
                                 {
-                                    Console.WriteLine("both values should be positive");
+                                    throw new System.ArgumentOutOfRangeException("variable dec", r, calc_result);
                                 }
                             }
 
                         }
 
                     }
-                    else { Console.WriteLine($" var {y} not declared yet"); }
+                    else {  throw new System.ArgumentOutOfRangeException("variable dec", y, var_dec); }
                 }
-                else { Console.WriteLine($"var {x} not declared yet"); }
+                else {  throw new System.ArgumentOutOfRangeException("variable dec", x, var_dec); }
 
             }
 
             Variables varibale = new Variables(v, r);
             Assign_var(v, r);
-            Console.WriteLine($"variable {v} calculated,res {r}");
-            //if (var_list.Exists(e => e.varname == x))
-            //{
-            //    int i = var_list.FindIndex(e => e.varname == x);
-            //    int value_found = var_list[i].varvalue;
-            //    Console.WriteLine(" var is there in " + i + " " + $"{value_found}");
-            //    Console.WriteLine($" var {v} will take its value");
-            //    Assign_var(v, value_found);
-
-
-            //    var_list.Add(varibale);
-            //}
         }
 
 
@@ -854,15 +822,13 @@ namespace AseProgramingLanguage1
           
             if (counters.Exists(e => e.counter== c))
             {
-                
-                Console.WriteLine($"a loop with the same counter {c} already exists");
+              throw new System.ArgumentOutOfRangeException("counter", c, counter_dec);
             }
             else  if (resl == true)
                 {
                 int l_parsed = Int32.Parse(l);
                     Variables loop = new Variables(c,l_parsed,s);
                     counters.Add(loop);
-                    Console.WriteLine($"a loop {c} just been added limit {l}");
                 }
                 else if (var_list.Exists(e => e.varname == l))
                 {
@@ -870,11 +836,10 @@ namespace AseProgramingLanguage1
                     int value_found = var_list[i].varvalue;
                     Variables loop = new Variables(c, value_found,s);
                     counters.Add(loop);
-                    Console.WriteLine($"a loop {c} just been added limit {value_found}");
                 }
                 else
                 {
-                    Console.WriteLine($" the limit {l} needs to be declared or number");
+                throw new System.ArgumentOutOfRangeException("iterations ", l, iterations_var);
                 }
         }
 
@@ -893,7 +858,10 @@ namespace AseProgramingLanguage1
 
 
             }
-            else { Console.WriteLine($" loop {counter} is not declared"); }
+            else
+            {
+                throw new System.ArgumentOutOfRangeException("end while ", counter, counter_var);
+            }
         }
     }
 }
