@@ -13,7 +13,7 @@ namespace ProgramingLanguage1Tests
         public void UnkownCommand_Test() // if an unkown command,if any paramters is entered it throws an exception
         {
 
-            string line = "go";
+            string line = "got"; //two indefinite letters  could be an initiation to a variable
             SynthaxCommand synthax_test = new SynthaxCommand(line);
             //ACT
             try
@@ -40,11 +40,13 @@ namespace ProgramingLanguage1Tests
             }
             catch (System.ArgumentOutOfRangeException e)
             {
-                StringAssert.Contains(e.Message, SynthaxCommand.Command_withNoParameters);
+                StringAssert.Contains(e.Message, SynthaxCommand.UnkownCommand);
                 return;
             }
             Assert.Fail("the expected exception was not thrown");
         }
+
+        //=========circle=======
 
         [TestMethod]
         public void CircleWithNoParameter_test() //if circle command is not followed by any parameter,an exception is thrown
@@ -65,24 +67,25 @@ namespace ProgramingLanguage1Tests
             Assert.Fail("the expected exception was not thrown");
         }
         [TestMethod]
-        public void CircleRadiusInt_test() //if the parameter cannot be parsed,an exception is thrown
+        public void CircleWithIndefiniteParameter_test() //if circle command is not followed by any parameter,an exception is thrown
         {
 
-            string line = "Circle 100x";
+            string line = "Circle q%"; //or q,d or q, or % .....
             SynthaxCommand synthax_test = new SynthaxCommand(line);
- 
+
             try
             {
                 synthax_test.SynthaxCheck(line);
             }
             catch (System.ArgumentOutOfRangeException e)
             {
-    
-                StringAssert.Contains(e.Message, SynthaxCommand.RadiusShouldBeInt);
+                StringAssert.Contains(e.Message, SynthaxCommand.Var_name);
                 return;
             }
             Assert.Fail("the expected exception was not thrown");
         }
+
+
 
         //===============Tests for rectangle command=======
         [TestMethod]
@@ -121,29 +124,13 @@ namespace ProgramingLanguage1Tests
             }
             Assert.Fail("the expected exception was not thrown");
         }
-            [TestMethod]
-        public void RectangleWidthInt_test() //if the width cannot be parsed,an exception is thrown
-        {
-
-            string line = "rectangle x,100";
-            SynthaxCommand synthax_test = new SynthaxCommand(line);
-
-            try
-            {
-                synthax_test.SynthaxCheck(line);
-            }
-            catch (System.ArgumentOutOfRangeException e)
-            {
-                StringAssert.Contains(e.Message, SynthaxCommand.WidthInt);
-                return;
-            }
-            Assert.Fail("the expected exception was not thrown");
-        }
+         
+      
         [TestMethod]
-        public void RectangleHeigthInt_test() //if the heigth cannot be parsed,an exception is thrown
+        public void RectangleIndefiniteParameters_test() //if the heigth cannot be parsed,an exception is thrown
         {
 
-            string line = "rectangle 100,100;10";
+            string line = "rectangle 100,100;10"; // all exceptions handled
             SynthaxCommand synthax_test = new SynthaxCommand(line);
 
             try
@@ -152,7 +139,7 @@ namespace ProgramingLanguage1Tests
             }
             catch (System.ArgumentOutOfRangeException e)
             {
-                StringAssert.Contains(e.Message, SynthaxCommand.HeigthInt);
+                StringAssert.Contains(e.Message, SynthaxCommand.Var_name);
                 return;
             }
             Assert.Fail("the expected exception was not thrown");
@@ -199,7 +186,7 @@ namespace ProgramingLanguage1Tests
         public void TrianglePointsParse_test() //if one of the trinagle parameters cannot be parsed,an exception is thrown
         {
 
-            string line = "triangle c,100,130,x";
+            string line = "triangle c,100,130,x§";
             SynthaxCommand synthax_test = new SynthaxCommand(line);
 
             try
@@ -208,7 +195,7 @@ namespace ProgramingLanguage1Tests
             }
             catch (System.ArgumentOutOfRangeException e)
             {
-                StringAssert.Contains(e.Message, SynthaxCommand.TrianglePoints);
+                StringAssert.Contains(e.Message, SynthaxCommand.Var_name);
                 return;
             }
             Assert.Fail("the expected exception was not thrown");
@@ -256,7 +243,7 @@ namespace ProgramingLanguage1Tests
         public void MoveToPointsParse_test() //if the parameters cannot be parsed,an exception is thrown
         {
 
-            string line = "moveto x,100";
+            string line = "moveto x,100%";
             SynthaxCommand synthax_test = new SynthaxCommand(line);
 
             try
@@ -265,7 +252,7 @@ namespace ProgramingLanguage1Tests
             }
             catch (System.ArgumentOutOfRangeException e)
             {
-                StringAssert.Contains(e.Message, SynthaxCommand.Point_X_Parse);
+                StringAssert.Contains(e.Message, SynthaxCommand.Var_name);
                 return;
             }
             Assert.Fail("the expected exception was not thrown");
@@ -313,7 +300,7 @@ namespace ProgramingLanguage1Tests
         public void DrawToPointsParse_test() //if the parameters cannot be parsed,an exception is thrown
         {
 
-            string line = "drawto 50,y";
+            string line = "drawto 50,%";
             SynthaxCommand synthax_test = new SynthaxCommand(line);
 
             try
@@ -322,7 +309,7 @@ namespace ProgramingLanguage1Tests
             }
             catch (System.ArgumentOutOfRangeException e)
             {
-                StringAssert.Contains(e.Message, SynthaxCommand.Point_Y_Parse);
+                StringAssert.Contains(e.Message, SynthaxCommand.Var_name);
                 return;
             }
             Assert.Fail("the expected exception was not thrown");
@@ -362,16 +349,16 @@ namespace ProgramingLanguage1Tests
             }
             catch (System.ArgumentOutOfRangeException e)
             {
-                StringAssert.Contains(e.Message, SynthaxCommand.ColorParametersMatch);
+                StringAssert.Contains(e.Message, SynthaxCommand.RGBcode_length);
                 return;
             }
             Assert.Fail("the expected exception was not thrown");
         }
         [TestMethod]
-        public void DrawColorParmetersMatch_test() //if the  parameters does not match an existing color,an exception is thrown
+        public void DrawColorParmetersType_test() //if the  parameters does not match an existing color,an exception is thrown
         {
 
-            string line = "drawcolor ble";
+            string line = "drawcolor %,100,30";
             SynthaxCommand synthax_test = new SynthaxCommand(line);
 
             try
@@ -380,7 +367,7 @@ namespace ProgramingLanguage1Tests
             }
             catch (System.ArgumentOutOfRangeException e)
             {
-                StringAssert.Contains(e.Message, SynthaxCommand.ColorParametersMatch);
+                StringAssert.Contains(e.Message, SynthaxCommand.RGBcode_values);
                 return;
             }
             Assert.Fail("the expected exception was not thrown");
@@ -410,7 +397,7 @@ namespace ProgramingLanguage1Tests
         public void FillColorParametersNumber_test() //if the parameters cannot be parsed,an exception is thrown
         {
 
-            string line = "fillcolor x,y";
+            string line = "fillcolor x,s";
             SynthaxCommand synthax_test = new SynthaxCommand(line);
 
             try
@@ -419,16 +406,16 @@ namespace ProgramingLanguage1Tests
             }
             catch (System.ArgumentOutOfRangeException e)
             {
-                StringAssert.Contains(e.Message, SynthaxCommand.ColorParametersMatch);
+                StringAssert.Contains(e.Message, SynthaxCommand.RGBcode_length);
                 return;
             }
             Assert.Fail("the expected exception was not thrown");
         }
         [TestMethod]
-        public void FillColorParmetersMatch_test() //if the  parameters does not match an existing color,an exception is thrown
+        public void FillColorParmeterType_test() //if the  parameters does not match an existing color,an exception is thrown
         {
 
-            string line = "fillcolor r";
+            string line = "fillcolor r,100,#";
             SynthaxCommand synthax_test = new SynthaxCommand(line);
 
             try
@@ -437,7 +424,7 @@ namespace ProgramingLanguage1Tests
             }
             catch (System.ArgumentOutOfRangeException e)
             {
-                StringAssert.Contains(e.Message, SynthaxCommand.ColorParametersMatch);
+                StringAssert.Contains(e.Message, SynthaxCommand.RGBcode_values);
                 return;
             }
             Assert.Fail("the expected exception was not thrown");

@@ -52,7 +52,7 @@ namespace AseProgramingLanguage1
         public const string command_checked = "command checked and correct.";
         public const string lopp_limit_format = "The loop limit should be a number or a declared variable.";
         public const string Var_dec = "The variable needs to be declared before use.";
-        public const string Var_name = "The variable name either letters or a combination of letters and numbers.";
+        public const string Var_name = "The variable name should be either letters or a combination of letters and numbers.";
         public const string logical_operators = "The logical operators can be either +,-,* or /.";
         public const string WHformat = "The height and height can be either a letter,a number or combination of them.";
         public const string RGBcode_length = "The color  rgb code should be of 3 digits or declared variables.";
@@ -76,8 +76,8 @@ namespace AseProgramingLanguage1
             }
                 if (line.Equals("clear") || line.Equals("reset") || line.Equals("run"))
                 {
-                    throw new System.ArgumentOutOfRangeException("parameters", line, CorrectSynthax);
-                }
+                // throw new System.ArgumentOutOfRangeException("parameters", line, CorrectSynthax);
+            }
                 else if (line.Equals("circle") || line.Equals("rectangle") || line.Equals("triangle") || line.Equals("moveto") || line.Equals("drawto") || line.Equals("fill") || line.Equals("fillcolor") || line.Equals("drawcolor") || line.Equals("var")) { throw new ArgumentOutOfRangeException("line", line, Command_WithParameter); }
             else
             {
@@ -89,15 +89,19 @@ namespace AseProgramingLanguage1
                     if (split.Length == 2)
                     {
                         parameters = split[1].Split(',');
-                        if (parameters.Length == 1) { throw new System.ArgumentOutOfRangeException("Width and Heigth ", split[1], RectangleParametersNumber); }
+                       // if (parameters.Length == 1) { throw new System.ArgumentOutOfRangeException("Width and Heigth ", split[1], RectangleParametersNumber); }
                         if (parameters.Length == 2)
                         {
-                            if (parameters[0].Length==0 || parameters[1].Length==0)
+                            foreach (string p in parameters)
+
                             {
-                                throw new ArgumentOutOfRangeException("Width and Heigth ", split[1], RectangleParametersNumber);
+                                if (parameters[0].All(v => char.IsLetterOrDigit(v))==false || parameters[0].Length == 0 || parameters[1].All(v => char.IsLetterOrDigit(v))==false || parameters[1].Length == 0)
+                                {
+                                    throw new ArgumentOutOfRangeException("Width and Heigth ", split[1], Var_name);
+                                }
                             }
                         }
-                        if (parameters.Length > 2) { throw new System.ArgumentOutOfRangeException("Width and Heigth ", parameters, RectangleParametersNumber); }
+                        else { throw new System.ArgumentOutOfRangeException("Width and Heigth ", parameters, RectangleParametersNumber); }
 
                     }
                     else if (split.Length > 2) { throw new ArgumentOutOfRangeException("Width and Heigth ", split[1], RectangleParametersNumber); }
@@ -109,7 +113,7 @@ namespace AseProgramingLanguage1
                 if(split[1].All(v => char.IsLetterOrDigit(v)))
                     {
                     }
-                    else { throw new System.ArgumentOutOfRangeException("radius", split[1], Var_dec_name1); }
+                    else { throw new System.ArgumentOutOfRangeException("radius", split[1], Var_name); }
                     if (split.Length == 2)
                     {
                         if (split[1].All(char.IsLetterOrDigit)==true)
@@ -136,6 +140,10 @@ namespace AseProgramingLanguage1
                         parameters = split[1].Split(',');
                         if (parameters.Length == 2)
                         {
+                            if (parameters[0].All(char.IsLetterOrDigit) == false || parameters[0].Length == 0 || parameters[1].All(char.IsLetterOrDigit) == false || parameters[1].Length == 0)
+                            {
+                                throw new System.ArgumentOutOfRangeException("Parameters number", parameters, Var_name);
+                            }
                         }
                         else throw new System.ArgumentOutOfRangeException("Parameters number", split[1], PositionsParameters);
                     }
@@ -150,6 +158,10 @@ namespace AseProgramingLanguage1
                         parameters = split[1].Split(',');
                         if (parameters.Length == 4)
                         {
+                            if (parameters[0].All(char.IsLetterOrDigit) == false || parameters[0].Length == 0 || parameters[1].All(char.IsLetterOrDigit) == false || parameters[1].Length == 0 || parameters[2].All(char.IsLetterOrDigit) == false || parameters[2].Length == 0 || parameters[3].All(char.IsLetterOrDigit) == false || parameters[3].Length == 0)
+                            {
+                                throw new System.ArgumentOutOfRangeException("Parameters number", parameters, Var_name);
+                            }
                         }
                         else throw new System.ArgumentOutOfRangeException("Parameters Number", parameters, TriangleParametersNumber);
                     }
