@@ -19,7 +19,7 @@ namespace AseProgramingLanguage1
         public const string UnkownCommand = "Unkown comman.";
         public const string Command_withNoParameters = "This command shouldn't have any parameter.";
         public const string Command_WithParameter = "This command should have parameters.";
-        public const string CircleShouldHaveRadius = "Cirlce should have a radius of type int.";
+        public const string CircleShouldHaveRadius = "Cirlce should have only one parameter, radius, of type string.";
         public const string RadiusShouldBeInt = "The radius should be an int.";
         public const string RectangleParametersNumber = "Rectangle should have two parameters:width and heigth.";
         public const string WidthInt = "The width should be an int.";
@@ -41,6 +41,7 @@ namespace AseProgramingLanguage1
         public const string Var_dec_value = "The assigned value should be an integer.";
         public const string Var_dec_sign = "The variable should be declared using =.";
         public const string Var_dec_name1 = "The variable name should of type string and not empty.";
+
         public const string Var_dec_name2 = "The variable name can contain only letters an numbers.";
         public const string Var_dec_elements_number = "The variable declaration should have 3 elements.";
         public const string Var_dec_length = "The declaration command should be 4 elements.";
@@ -56,7 +57,9 @@ namespace AseProgramingLanguage1
         public const string WHformat = "The height and height can be either a letter,a number or combination of them.";
         public const string RGBcode_length = "The color  rgb code should be of 3 digits or declared variables.";
         public const string RGBcode_values = "The color be variables should be letters or a combination of letters and digits.";
-
+        public const string end_while = "The loop should be ended with a valid counter.";
+        public const string method_name = "A method should have one name and one only.";
+        public const string method_name_type = "The method name can be only letters or combination of letters and digit.";
 
         public const string Empty_command = "Type a command.";
         public void SynthaxCheck(string line)
@@ -73,19 +76,9 @@ namespace AseProgramingLanguage1
             }
                 if (line.Equals("clear") || line.Equals("reset") || line.Equals("run"))
                 {
-                    /*if (split.Length == 2)
-                    {*/
                     throw new System.ArgumentOutOfRangeException("parameters", line, CorrectSynthax);
-                    /*}
-                    else  throw new System.ArgumentOutOfRangeException("parameters", split[1], CorrectSynthax);
-
-                    /* if (split.Length == 1)
-                     {  command = split[0]; }
-                     else throw new System.ArgumentOutOfRangeException("command",command,Command_withNoParameters);
-                    */
                 }
                 else if (line.Equals("circle") || line.Equals("rectangle") || line.Equals("triangle") || line.Equals("moveto") || line.Equals("drawto") || line.Equals("fill") || line.Equals("fillcolor") || line.Equals("drawcolor") || line.Equals("var")) { throw new ArgumentOutOfRangeException("line", line, Command_WithParameter); }
-                //else { throw new System.ArgumentOutOfRangeException("Unown command", line, UnkownCommand); }
             else
             {
                 split = line.Split(' ');
@@ -99,34 +92,10 @@ namespace AseProgramingLanguage1
                         if (parameters.Length == 1) { throw new System.ArgumentOutOfRangeException("Width and Heigth ", split[1], RectangleParametersNumber); }
                         if (parameters.Length == 2)
                         {
-                            //if(parameters[0].Count(char.IsLetterOrDigit) != 1 && parameters[0].Count(char.IsLetterOrDigit) != 2)
-                            //{
-                            //    throw new System.ArgumentOutOfRangeException("height", parameters[1], WHformat);
-                            //    if (parameters[1].Count(char.IsLetterOrDigit) != 1 && parameters[1].Count(char.IsLetterOrDigit) != 2)
-                            //    {
-                            //        throw new System.ArgumentOutOfRangeException("height", parameters[1], WHformat);
-                            //    }
-                            //}
-                            //bool res1 = int.TryParse(parameters[0], out int r1);
-                            //bool res2 = int.TryParse(parameters[1], out int r2);
-                            //if (res1 != true) { throw new System.ArgumentOutOfRangeException("width", parameters[0], WidthInt); }
-                            //if (res2 != true) { throw new System.ArgumentOutOfRangeException("width", parameters[0], HeigthInt); }
-                            //if (res1 == true || res2 == true)
-                            //{
-                            //    throw new System.ArgumentOutOfRangeException("correct parameters", split[1], CorrectSynthax);
-                            //}
-                            /*if (res1)
+                            if (parameters[0].Length==0 || parameters[1].Length==0)
                             {
-                                int width = Int32.Parse(parameters[0]);
-                                if (res2)
-                                {
-                                    int heigth = Int32.Parse(parameters[1]);
-                                }
-                                else throw new ArgumentOutOfRangeException("parameter 2 should be number");
-
+                                throw new ArgumentOutOfRangeException("Width and Heigth ", split[1], RectangleParametersNumber);
                             }
-                            else throw new ArgumentOutOfRangeException("parameter 1 should be number");
-                           */
                         }
                         if (parameters.Length > 2) { throw new System.ArgumentOutOfRangeException("Width and Heigth ", parameters, RectangleParametersNumber); }
 
@@ -134,42 +103,30 @@ namespace AseProgramingLanguage1
                     else if (split.Length > 2) { throw new ArgumentOutOfRangeException("Width and Heigth ", split[1], RectangleParametersNumber); }
 
 
-                    // string param1 = parameters[0];
-                    // string param2 = parameters[1];
-                    //bool res;
-                    //int r;
-
                 }
                 else if (command.Equals("circle"))
                 {
-                    /*if (split.Length == 1 ) { new System.ArgumentOutOfRangeException("radius", split[0], CircleShouldHaveRadius); }
-                     else */
                 if(split[1].All(v => char.IsLetterOrDigit(v)))
                     {
-                        Canvass check = new Canvass(split[1]);
                     }
+                    else { throw new System.ArgumentOutOfRangeException("radius", split[1], Var_dec_name1); }
                     if (split.Length == 2)
                     {
                         if (split[1].All(char.IsLetterOrDigit)==true)
                         {
-                            if(split[1].Length!=1 && split[1].Length != 2)
+                            if(split[1].Length==0)
                             {
-                                Console.WriteLine(" var name too long");
+                                throw new System.ArgumentOutOfRangeException("radius", split[1], CircleShouldHaveRadius);
                             }
+                            
                         }
                         else
                         {
-                            Console.WriteLine($"  {split[1]} should be a number,leter or both of them");
+                            throw new System.ArgumentOutOfRangeException("radius", split[1], Var_name);
                         }
 
-                        //bool res1 = int.TryParse(split[1], out int r1);
-                        //if (res1 != true)
-                        //{
-                        //    throw new System.ArgumentOutOfRangeException("radius", split[1], RadiusShouldBeInt);
-                        //}
-                        //else { throw new System.ArgumentOutOfRangeException("radius", split[1], CorrectSynthax); }
                     }
-                    else if (split.Length > 2) { new System.ArgumentOutOfRangeException("radius", split[1], CircleShouldHaveRadius); }
+                    else if (split.Length > 2) {throw new System.ArgumentOutOfRangeException("radius", split[1], CircleShouldHaveRadius); }
 
                 }
                 else if (command.Equals("moveto") || command.Equals("drawto"))
@@ -179,12 +136,6 @@ namespace AseProgramingLanguage1
                         parameters = split[1].Split(',');
                         if (parameters.Length == 2)
                         {
-                        //    bool res1 = int.TryParse(parameters[0], out int r1);
-                        //    bool res2 = int.TryParse(parameters[1], out int r2);
-                        //    if (res1 != true) { throw new System.ArgumentOutOfRangeException("Parameter type", parameters[0], Point_X_Parse); }
-                        //    if (res2 != true) { throw new System.ArgumentOutOfRangeException("Parameter type", parameters[1], Point_Y_Parse); }
-
-                        //    if (res1 == true && res2 == true) { throw new System.ArgumentOutOfRangeException("Parameter type", split[1], CorrectSynthax); }
                         }
                         else throw new System.ArgumentOutOfRangeException("Parameters number", split[1], PositionsParameters);
                     }
@@ -194,25 +145,11 @@ namespace AseProgramingLanguage1
                 }
                 else if (command.Equals("triangle"))
                 {
-                    //if(split.Length == 1) { throw new System.ArgumentOutOfRangeException("Parameters number", split[1],TriangleParametersNumber); }
                     if (split.Length == 2)
                     {
                         parameters = split[1].Split(',');
                         if (parameters.Length == 4)
                         {
-                            //bool res1 = int.TryParse(parameters[0], out int r1);
-                            //bool res2 = int.TryParse(parameters[1], out int r2);
-                            //bool res3 = int.TryParse(parameters[2], out int r3);
-                            //bool res4 = int.TryParse(parameters[3], out int r4);
-                            //if (res1 != true) { throw new System.ArgumentOutOfRangeException("points", parameters[0], Point1_X_parse); }
-                            //if (res2 != true) { throw new System.ArgumentOutOfRangeException("point", parameters[1], Point1_Y_parse); }
-                            //if (res3 != true) { throw new System.ArgumentOutOfRangeException("points ", parameters[2], Point2_X_parse); }
-                            //if (res4 != true) { throw new System.ArgumentOutOfRangeException("points", parameters[3], Point2_Y_parse); }
-                            //if (res1 == true && res2 == true && res3 == true && res4 == true)
-                            //{
-                            //    { throw new System.ArgumentOutOfRangeException("Correct position", split[1], CorrectSynthax); }
-                            //}
-
                         }
                         else throw new System.ArgumentOutOfRangeException("Parameters Number", parameters, TriangleParametersNumber);
                     }
@@ -221,11 +158,6 @@ namespace AseProgramingLanguage1
                 }
                 else if (command.Equals("drawcolor") || command.Equals("fillcolor"))
                 {
-                    /* can be used for second part to add other colors
-                    object[] colors = { "black", "red", "blue", "green" };
-                    for (int i=0;i<=colors.Length; i++)
-                    {}
-                    */
                     parameters = split[1].Split(',');
                     if (parameters.Length != 3)
                     {
@@ -261,11 +193,6 @@ namespace AseProgramingLanguage1
                             {
                                 if (split[1].Equals("="))
                                 {
-                                    //if(res2)
-                                    //{
-
-                                    //}
-
                                 }
                                 else { throw new System.ArgumentOutOfRangeException("var assing", split[1], Var_dec_sign); }
                             }
@@ -363,14 +290,47 @@ namespace AseProgramingLanguage1
                         {
                             if (res1 == true)
                             {
-                                Console.WriteLine("the while loop counter cannot be a number");
+                                throw new System.ArgumentOutOfRangeException("loop syntax", split, loop_counter);
                             }
                         }
-                        else { Console.WriteLine("this loop counter is not valid"); }
+                        else { throw new System.ArgumentOutOfRangeException("loop syntax", split, loop_counter); }
                     }
-                    else { Console.WriteLine("loop should have one parameter and one only"); }
+                    else { throw new System.ArgumentOutOfRangeException("loop syntax", split, end_while); }
                 }
-                 else { throw new System.ArgumentOutOfRangeException("Unknown command", line, UnkownCommand); }
+                 else if (command.Equals("method"))
+                {
+                    if (split.Length == 2)
+                    {
+                        bool res1 = int.TryParse(split[1], out int r1);
+                        if (split[1].All(i => char.IsLetterOrDigit(i)))
+                        {
+                            if (res1 == true)
+                            {
+                                throw new System.ArgumentOutOfRangeException("loop syntax", split, method_name_type);
+                            }
+                        }
+                        else { throw new System.ArgumentOutOfRangeException("loop syntax", split, method_name_type); }
+                    }
+                    else { throw new System.ArgumentOutOfRangeException("loop syntax", split, method_name ); }
+                }
+                else if (command.Equals("endmethod"))
+                {
+                    if (split.Length == 2)
+                    {
+                        bool res1 = int.TryParse(split[1], out int r1);
+                        if (split[1].All(i => char.IsLetterOrDigit(i)))
+                        {
+                            if (res1 == true)
+                            {
+                                throw new System.ArgumentOutOfRangeException("loop syntax", split, method_name_type);
+                            }
+                        }
+                        else { throw new System.ArgumentOutOfRangeException("loop syntax", split, method_name_type); }
+                    }
+                    else { throw new System.ArgumentOutOfRangeException("loop syntax", split, method_name); }
+                }
+
+                else { throw new System.ArgumentOutOfRangeException("Unknown command", line, UnkownCommand); }
             }
 
         }

@@ -34,6 +34,7 @@ namespace AseProgramingLanguage1
         public string rgb1 { get; }
         public string rgb2 { get; }
         public string rgb3 { get; }
+        public string M { get; }
 
         public const string InvalidParsing = "Check synthax errors.";
         public const string Var_dec = "the val shoud be known.";
@@ -165,18 +166,18 @@ namespace AseProgramingLanguage1
                 this.command = split[0];
                 this.counter = split[1];
             }
+            else if (command.Equals("method"))
+            {
+                this.command = split[0];
+                this.M = split[1];
+            }
+            else if (command.Equals("endmethod"))
+            {
+                this.command = split[0];
+                this.M = split[1];
+            }
 
-            //this.command = split[0];
-            //this.param5 = split[1];
-            //this.param4 = Int32.Parse(split[3]);
-            //Variables var = new Variables(param5, param4);
-            //if (param4 > 0)
-            //{
-            //    Variables.Add(var);
-
-            //}
-            //else { throw new System.ArgumentOutOfRangeException("Synthax errors", command, InvalidParsing); }
-            //this.command = split[0];
+ 
         }
     }
 }

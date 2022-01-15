@@ -29,6 +29,5 @@ C:\Users\21269\source\repos\AsePL2\aseprograminglanguage1\ProgramingLanguage1Tes
 C:\Users\21269\source\repos\AsePL2\aseprograminglanguage1\ProgramingLanguage1Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
 C:\Users\21269\source\repos\AsePL2\aseprograminglanguage1\ProgramingLanguage1Tests\obj\Debug\ProgramingLanguage1Tests.csproj.AssemblyReference.cache
 C:\Users\21269\source\repos\AsePL2\aseprograminglanguage1\ProgramingLanguage1Tests\obj\Debug\ProgramingLanguage1Tests.csproj.CoreCompileInputs.cache
-C:\Users\21269\source\repos\AsePL2\aseprograminglanguage1\ProgramingLanguage1Tests\obj\Debug\ProgramingLanguage1Tests.csproj.CopyComplete
 C:\Users\21269\source\repos\AsePL2\aseprograminglanguage1\ProgramingLanguage1Tests\obj\Debug\ProgramingLanguage1Tests.dll
 C:\Users\21269\source\repos\AsePL2\aseprograminglanguage1\ProgramingLanguage1Tests\obj\Debug\ProgramingLanguage1Tests.pdb

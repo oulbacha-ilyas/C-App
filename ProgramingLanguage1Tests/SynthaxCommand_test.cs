@@ -481,8 +481,113 @@ namespace ProgramingLanguage1Tests
             Assert.Fail("the expected exception was not thrown");
         }
 
+        //=======Tests for part 2==========
+        //variables declaration loop tests
+        //test for invalid name
+        [TestMethod]
+        public void  Var_dec_invalid_name_test() //if the  parameters does not match an existing color,an exception is thrown
+        {
+
+            string line = "a/ = 0";
+            SynthaxCommand synthax_test = new SynthaxCommand(line);
+
+            try
+            {
+                synthax_test.SynthaxCheck(line);
+            }
+            catch (System.ArgumentOutOfRangeException e)
+            {
+                StringAssert.Contains(e.Message, SynthaxCommand.Var_dec_name2);
+                return;
+            }
+            Assert.Fail("the expected exception was not thrown");
+        }
+        [TestMethod]
+        public void Var_value_Ivalid_test() //if the  parameters does not match an existing color,an exception is thrown
+        {
+
+            string line = "a = x";
+            SynthaxCommand synthax_test = new SynthaxCommand(line);
+
+            try
+            {
+                synthax_test.SynthaxCheck(line);
+            }
+            catch (System.ArgumentOutOfRangeException e)
+            {
+                StringAssert.Contains(e.Message, SynthaxCommand.Var_dec);
+                return;
+            }
+            Assert.Fail("the expected exception was not thrown");
+        }
+
+        [TestMethod]
+        public void loop_counter() //if the  parameters does not match an existing color,an exception is thrown
+        {
+
+            string line = "while 1 < 10";
+            SynthaxCommand synthax_test = new SynthaxCommand(line);
+
+            try
+            {
+                synthax_test.SynthaxCheck(line);
+            }
+            catch (System.ArgumentOutOfRangeException e)
+            {
+                StringAssert.Contains(e.Message, SynthaxCommand.loop_counter);
+                return;
+            }
+            Assert.Fail("the expected exception was not thrown");
+        }
+
+
+        [TestMethod]
+        public void loop_operator() //if the  parameters does not match an existing color,an exception is thrown
+        {
+
+            string line = "while i = 10";
+            SynthaxCommand synthax_test = new SynthaxCommand(line);
+
+            try
+            {
+                synthax_test.SynthaxCheck(line);
+            }
+            catch (System.ArgumentOutOfRangeException e)
+            {
+                StringAssert.Contains(e.Message, SynthaxCommand.loop_operator);
+                return;
+            }
+            Assert.Fail("the expected exception was not thrown");
+        }
+        [TestMethod]
+        public void loop_end() //if the  parameters does not match an existing color,an exception is thrown
+        {
+
+            string line = "endwhile ";   //x is not 
+            SynthaxCommand synthax_test = new SynthaxCommand(line);
+
+            try
+            {
+                synthax_test.SynthaxCheck(line);
+            }
+            catch (System.ArgumentOutOfRangeException e)
+            {
+                StringAssert.Contains(e.Message, SynthaxCommand.end_while);
+                return;
+            }
+            Assert.Fail("the expected exception was not thrown");
+        }
+
+
+
+
+
+
+
+        //variable declaration tests
+
     }
-   
+
 }
 
 
