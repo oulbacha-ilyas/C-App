@@ -67,6 +67,10 @@ namespace AseProgramingLanguage1
             blueBrush = new SolidBrush(Color.Blue);
             counters.Add(default_loop);
         }
+        public Canvass()
+        {
+           
+        }
         public Canvass(string s)
         {
             this.S = s;
@@ -284,25 +288,31 @@ namespace AseProgramingLanguage1
                 Console.WriteLine("1 circle out of loop");
             }
         }
-        public void DrawCircle(string radius) // the circle is not drawn from the last position of moveTo,but the center is shifted
+        public int Get_Radius(string r)
         {
             int rad = 0;
-            bool resRad = int.TryParse(radius, out int rx);
+            bool resRad = int.TryParse(r, out int rx);
             if (resRad)
             {
-                rad = Int32.Parse(radius);
+                rad = Int32.Parse(r);
             }
             else
             {
-                if (var_list.Exists(e => e.varname == radius))
+                if (var_list.Exists(e => e.varname == r))
                 {
-                    int i = var_list.FindIndex(e => e.varname == radius);
+                    int i = var_list.FindIndex(e => e.varname == r);
                     int value_found = var_list[i].varvalue;
                     rad = value_found;
 
                 }
-                else { Console.WriteLine($" var  radius {radius} is not there"); }
+                else { throw new System.ArgumentOutOfRangeException("a greater than b", r, var_dec); }
             }
+            
+            return rad;
+        }
+        public void DrawCircle(string radius) // the circle is not drawn from the last position of moveTo,but the center is shifted
+        {
+            int rad = Get_Radius(radius);
             float width;
             float higth;
             width = higth = rad * 2;
@@ -440,6 +450,7 @@ namespace AseProgramingLanguage1
         }
 
         //get parameters for loop and operations
+
         public int Get_iterations(string v)
         {
             int it = 0;
@@ -517,7 +528,7 @@ namespace AseProgramingLanguage1
                 int value_found = var_list[i].varvalue;
                 Assign_var(v, value_found);
             }
-            else { throw new System.ArgumentOutOfRangeException("a greater than b", y,var_dec); }
+            else { throw new System.ArgumentOutOfRangeException("a greater than b", y,Var_dec); }
 
         }
         public void Assign_var(string v, int x)

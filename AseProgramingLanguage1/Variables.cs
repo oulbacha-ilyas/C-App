@@ -15,7 +15,7 @@ namespace AseProgramingLanguage1
         public string counter { get; }
         public string status { get; set; }
         public int limit { get; }
-
+        List<string> vars_trial = new List<string>();
         public Variables (string v,int x)
         {
             this.varname = v;
@@ -32,7 +32,28 @@ namespace AseProgramingLanguage1
  
         }
 
+        public int check(string x)
+        {
+            int b;
+            
+            if (vars_trial.Contains(x))
+            {
+                b = 1;
+                Console.WriteLine("var exist " + vars_trial.Count);
+            }
+            else
+            {
 
+                b = 0;
+            }
+            return b;
+        }
+        public void Add_Var(string v)
+        {
+
+            vars_trial.Add(v);
+            Console.WriteLine($" var {v} just added");
+        }
 
 
 

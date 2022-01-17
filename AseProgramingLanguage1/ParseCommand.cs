@@ -70,6 +70,7 @@ namespace AseProgramingLanguage1
                 this.command = split[0];
                 //this.param1 = Int32.Parse(radius);
                 this.radius = split[1];
+
             }
             else if (command.Equals("moveto") || command.Equals("drawto"))
             {

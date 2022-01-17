@@ -134,10 +134,29 @@ namespace AseProgramingLanguage1
     
         private void drawButton_Click(object sender, EventArgs e)//Once clicked,execute the program typed into ProgramLines richbox
         {
+           
             if (synthaxMessages.Text == "")
             {
-                ExecuteCommandProgram();
+                List<string> synthaxMessagesList = new List<string>();
+                try
+                {
+                    ExecuteCommandProgram();
+                }
+                catch (System.Exception argX1) //catching the whole exception message then extract only the customized message
+                {
+
+                    string trimMessage = argX1.Message.Trim();
+                    string[] splitMessage;
+                    splitMessage = trimMessage.Split('.');
+                    if (splitMessage[0] != "There are no synthax errors at the moment")
+                    {
+                        synthaxMessagesList.Add("line : " + splitMessage[0]);//adding the message to the list of error messages concerning the typed program
+                        synthaxMessages.Text = splitMessage[0];
+                    }
+
+                }
             }
+
 
         }
         private void ExecuteCommandProgram() 
@@ -353,7 +372,6 @@ namespace AseProgramingLanguage1
         private void ProgramLines_TextChanged(object sender, EventArgs e)
         {
             int linesNumber = ProgramLines.Lines.Length;
-            Console.WriteLine("number lines is" + linesNumber);
             List<string> synthaxMessagesList = new List<string>();
             for (int i = 0; i <= linesNumber - 1; i++)
             {
@@ -374,6 +392,7 @@ namespace AseProgramingLanguage1
                     {
                         synthaxMessagesList.Add($"line {i + 1}: " + splitMessage[0]);//adding the message to the list of error messages concerning the typed program
                     }
+
                 }
             }
             int l = synthaxMessagesList.Count;
@@ -460,11 +479,13 @@ namespace AseProgramingLanguage1
         private void commandLine_TextChanged(object sender, EventArgs e)
         {
             SynthaxCommand ProgramSynthax = new SynthaxCommand(commandLine.Text);
+            //Canvass ckeck = new Canvass();
             // ProgramSynthax.SynthaxCheck(ProgramLines.Lines[i]);
             
             try
             {
                 ProgramSynthax.SynthaxCheck(commandLine.Text);
+               
             }
             catch (System.Exception argX0) //catching the whole exception message then extract only the customized message
             {

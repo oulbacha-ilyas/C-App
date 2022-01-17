@@ -14,7 +14,8 @@ namespace AseProgramingLanguage1
         {
             this.line = line;
         }
-        List<Variables> Var_liste = new List<Variables>() { };
+        List<string> vars = new List<string>{"a"};
+
         string[] names;
         public const string UnkownCommand = "Unkown comman.";
         public const string Command_withNoParameters = "This command shouldn't have any parameter.";
@@ -60,8 +61,11 @@ namespace AseProgramingLanguage1
         public const string end_while = "The loop should be ended with a valid counter.";
         public const string method_name = "A method should have one name and one only.";
         public const string method_name_type = "The method name can be only letters or combination of letters and digit.";
-
         public const string Empty_command = "Type a command.";
+        public const string var_existence = "At least one of the variables is not declared.";
+
+
+
         public void SynthaxCheck(string line)
         {
             var names = new List<string>() {};
@@ -99,6 +103,7 @@ namespace AseProgramingLanguage1
                                 {
                                     throw new ArgumentOutOfRangeException("Width and Heigth ", split[1], Var_name);
                                 }
+                                
                             }
                         }
                         else { throw new System.ArgumentOutOfRangeException("Width and Heigth ", parameters, RectangleParametersNumber); }
@@ -122,6 +127,24 @@ namespace AseProgramingLanguage1
                             {
                                 throw new System.ArgumentOutOfRangeException("radius", split[1], CircleShouldHaveRadius);
                             }
+                            //else
+                            //{
+                            //    bool res1 = int.TryParse(split[1], out int r1);
+                            //    if (res1==false)
+                            //    {
+
+                            //        Variables var = new Variables();
+                            //        string v = split[1].ToString();
+                            //        int b = var.check(v);
+                            //        if(b==1)
+                            //        {
+                                        
+                            //        }
+                            //        else { throw new System.ArgumentOutOfRangeException("radius", split[1], var_existence); }
+
+                            //    }
+                               
+                            //}
                             
                         }
                         else
@@ -205,6 +228,28 @@ namespace AseProgramingLanguage1
                             {
                                 if (split[1].Equals("="))
                                 {
+                                    //if (res2)
+                                    //{
+                                    //    Variables var = new Variables();
+                                    //    int b = var.check(split[0]);
+                                    //    if(b == 0)
+                                    //    {
+                                    //        var.Add_Var(split[0]);
+                                    //    }
+                                    //}
+                                    //else 
+                                    //{
+                                    //    Variables var = new Variables();
+                                    //    int b = var.check(split[2]);
+                                    //    if (b == 1)
+                                    //    {
+                                    //        int c = var.check(split[0]);
+                                    //        if(c == 0)
+                                    //    {
+                                    //            var.Add_Var(split[0]);
+                                    //    }
+                                    //    }
+                                    //}
                                 }
                                 else { throw new System.ArgumentOutOfRangeException("var assing", split[1], Var_dec_sign); }
                             }
