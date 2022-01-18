@@ -102,16 +102,23 @@ namespace AseProgramingLanguage1
         public void drawTo(string end_x, string end_y)
         {
             int[] para = Get_Whith_height(end_x, end_y);
-            Lines line = new Lines(start_x, start_y, para[0], para[1], Pen.Fill);
-            line.LinePoint_Type(para[0], para[1]);
-            Lines.Add(line);
+           
             int l = Lines.Count;
-            g.DrawLine(myPen, Lines[l - 1].X1, Lines[l - 1].Y1, Lines[l - 1].X2, Lines[l - 1].Y2); //drawing a line first,
-            start_x = Lines[l - 1].X2;
-            start_y = Lines[l - 1].Y2;
-            string x = Lines[l - 1].X2.ToString();
-            string y = Lines[l - 1].X2.ToString();
-            moveTo(x, y);//then moving the turtle to the last point of the drawn line
+            //g.DrawLine(myPen, Lines[l - 1].X1, Lines[l - 1].Y1, Lines[l - 1].X2, Lines[l - 1].Y2); //drawing a line first,
+            //start_x = Lines[l - 1].X2;
+            //start_y = Lines[l - 1].Y2;
+            //string x = Lines[l - 1].X2.ToString();
+            //string y = Lines[l - 1].X2.ToString();
+            //moveTo(x, end_yy);//then moving the turtle to the last point of the drawn line
+
+            g.DrawLine(myPen, para[0],para[1], start_x, start_y); //drawing a line first,
+            Lines line = new Lines(para[0], para[1], start_x, start_y, Pen.R, Pen.G, Pen.B);
+            Lines.Add(line);
+            //start_x = para[0];
+            //start_y = para[1];
+            //moveTo(para[0].ToString(), para[1].ToString());
+            //string x = Lines[l - 1].X2.ToString();
+            //string y = Lines[l - 1].X2.ToString();
 
         }
 
@@ -122,28 +129,26 @@ namespace AseProgramingLanguage1
             int end = counters.Count;
             if (counters[end - 1].status == "on")
             {
-                Console.WriteLine("flag On waiting");
             }
             else            //if the command is outside a loop
             {
-                Console.WriteLine("flag on go");
                 DrawRectangle(w,h);
-                Console.WriteLine($"1 rectangle out of loop :w {w} h {h}");
             }
         }
         public void DrawRectangle(string width, string heigth)
         {
             int[] para = Get_Whith_height(width,heigth);
-            Rectangles rectangle = new Rectangles(start_x, start_y, para[0], para[1], fillOnOff.Fill, Pen.Fill, Brush.Fill);
-            rectangle.Width_Heigth_Types(para[0], para[1]);
-            Rectangles.Add(rectangle);
             if (fillOnOff.Fill.Equals("off") == true)
             {
+                Rectangles rectangle = new Rectangles(start_x, start_y, para[0], para[1], fillOnOff.Fill, Pen.R, Pen.G, Pen.B);
+                Rectangles.Add(rectangle);
                 g.DrawRectangle(myPen, start_x, start_y, para[0], para[1]);
 
             }
             else if (fillOnOff.Fill.Equals("on") == true)
             {
+                Rectangles rectangle = new Rectangles(start_x, start_y, para[0], para[1], fillOnOff.Fill, Brush.R, Brush.G, Brush.B);
+                Rectangles.Add(rectangle);
                 g.FillRectangle(myBrush, start_x, start_y, para[0], para[1]);
             }
         }
@@ -175,66 +180,36 @@ namespace AseProgramingLanguage1
             g.DrawEllipse(turtlePen, turtles[l - 1].X, turtles[l - 1].Y, 1, 1);
 
             for (int i = 0; i < Lines.Count; i++)
-            { if (Lines[i].Pencolor == "black")
-                { g.DrawLine(myPen, Lines[i].X1, Lines[i].Y1, Lines[i].X2, Lines[i].Y2); }
-                if (Lines[i].Pencolor == "red")
-                { g.DrawLine(redPen, Lines[i].X1, Lines[i].Y1, Lines[i].X2, Lines[i].Y2); }
-                if (Lines[i].Pencolor == "blue")
-                { g.DrawLine(bluePen, Lines[i].X1, Lines[i].Y1, Lines[i].X2, Lines[i].Y2); }
-                if (Lines[i].Pencolor == "green")
-                { g.DrawLine(greenPen, Lines[i].X1, Lines[i].Y1, Lines[i].X2, Lines[i].Y2); }
+            { 
+              Pen line_pen = new Pen(Color.FromArgb(Lines[i].R, Lines[i].G, Lines[i].B));
+              g.DrawLine(line_pen, Lines[i].X1, Lines[i].Y1, Lines[i].X2, Lines[i].Y2);
+              
             }
             for (int i = 0; i < Circles.Count; i++)
             {
                 if (Circles[i].Fill == "off")
                 {
-                    if (Circles[i].Pencolor == "black")
-                    { g.DrawEllipse(myPen, Circles[i].X - Circles[i].Radius, Circles[i].Y - Circles[i].Radius, Circles[i].Radius * 2, Circles[i].Radius * 2); }
-                    if (Circles[i].Pencolor == "red")
-                    { g.DrawEllipse(redPen, Circles[i].X - Circles[i].Radius, Circles[i].Y - Circles[i].Radius, Circles[i].Radius * 2, Circles[i].Radius * 2); }
-                    if (Circles[i].Pencolor == "green")
-                    { g.DrawEllipse(greenPen, Circles[i].X - Circles[i].Radius, Circles[i].Y - Circles[i].Radius, Circles[i].Radius * 2, Circles[i].Radius * 2); }
-                    if (Circles[i].Pencolor == "blue")
-                    { g.DrawEllipse(bluePen, Circles[i].X - Circles[i].Radius, Circles[i].Y - Circles[i].Radius, Circles[i].Radius * 2, Circles[i].Radius * 2); }
-
+                    Pen circle_pen = new Pen(Color.FromArgb(Circles[i].R, Circles[i].G, Circles[i].B));
+                    g.DrawEllipse(circle_pen, Circles[i].X - Circles[i].Radius, Circles[i].Y - Circles[i].Radius, Circles[i].Radius * 2, Circles[i].Radius * 2);
                 }
                 else if (Circles[i].Fill == "on")
                 {
-                    if (Circles[i].Fillcolor == "black")
-                        g.FillEllipse(myBrush, Circles[i].X - Circles[i].Radius, Circles[i].Y - Circles[i].Radius, Circles[i].Radius * 2, Circles[i].Radius * 2);
-                    if (Circles[i].Fillcolor == "red")
-                        g.FillEllipse(redBrush, Circles[i].X - Circles[i].Radius, Circles[i].Y - Circles[i].Radius, Circles[i].Radius * 2, Circles[i].Radius * 2);
-                    if (Circles[i].Fillcolor == "green")
-                        g.FillEllipse(greenBrush, Circles[i].X - Circles[i].Radius, Circles[i].Y - Circles[i].Radius, Circles[i].Radius * 2, Circles[i].Radius * 2);
-                    if (Circles[i].Fillcolor == "blue")
-                        g.FillEllipse(blueBrush, Circles[i].X - Circles[i].Radius, Circles[i].Y - Circles[i].Radius, Circles[i].Radius * 2, Circles[i].Radius * 2);
-
+                  SolidBrush circle_brush = new SolidBrush(Color.FromArgb(Circles[i].R, Circles[i].G, Circles[i].B));
+                    g.FillEllipse(circle_brush, Circles[i].X - Circles[i].Radius, Circles[i].Y - Circles[i].Radius, Circles[i].Radius * 2, Circles[i].Radius * 2);
                 }
             }
             for (int i = 0; i < Rectangles.Count; i++)
             {
                 if (Rectangles[i].Fill == "off")
                 {
-                    if (Rectangles[i].Pencolor == "black")
-                    { g.DrawRectangle(myPen, Rectangles[i].X, Rectangles[i].Y, Rectangles[i].Width, Rectangles[i].Heigth); }
-                    if (Rectangles[i].Pencolor == "red")
-                    { g.DrawRectangle(redPen, Rectangles[i].X, Rectangles[i].Y, Rectangles[i].Width, Rectangles[i].Heigth); }
-                    if (Rectangles[i].Pencolor == "green")
-                    { g.DrawRectangle(greenPen, Rectangles[i].X, Rectangles[i].Y, Rectangles[i].Width, Rectangles[i].Heigth); }
-                    if (Rectangles[i].Pencolor == "blue")
-                    { g.DrawRectangle(bluePen, Rectangles[i].X, Rectangles[i].Y, Rectangles[i].Width, Rectangles[i].Heigth); }
+                 Pen  rectangle_pen = new Pen(Color.FromArgb(Rectangles[i].R, Rectangles[i].G, Rectangles[i].B));
+                 g.DrawRectangle(rectangle_pen, Rectangles[i].X, Rectangles[i].Y, Rectangles[i].Width, Rectangles[i].Heigth); 
 
                 }
                 else if (Rectangles[i].Fill == "on")
                 {
-                    if (Rectangles[i].Fillcolor == "black")
-                        g.FillRectangle(myBrush, Rectangles[i].X, Rectangles[i].Y, Rectangles[i].Width, Rectangles[i].Heigth);
-                    if (Rectangles[i].Fillcolor == "red")
-                        g.FillRectangle(redBrush, Rectangles[i].X, Rectangles[i].Y, Rectangles[i].Width, Rectangles[i].Heigth);
-                    if (Rectangles[i].Fillcolor == "green")
-                        g.FillRectangle(greenBrush, Rectangles[i].X, Rectangles[i].Y, Rectangles[i].Width, Rectangles[i].Heigth);
-                    if (Rectangles[i].Fillcolor == "blue")
-                        g.FillRectangle(blueBrush, Rectangles[i].X, Rectangles[i].Y, Rectangles[i].Width, Rectangles[i].Heigth);
+                    SolidBrush rectangle_brush = new SolidBrush(Color.FromArgb(Rectangles[i].R, Rectangles[i].G, Rectangles[i].B));
+                   g.FillRectangle(rectangle_brush, Rectangles[i].X, Rectangles[i].Y, Rectangles[i].Width, Rectangles[i].Heigth);
 
                 }
             }
@@ -248,28 +223,14 @@ namespace AseProgramingLanguage1
 
                 if (Triangles[i].Fill == "off")
                 {
-                    if (Triangles[i].Pencolor == "black")
-                    { g.DrawPolygon(myPen, TPoints); }
-                    if (Triangles[i].Pencolor == "red")
-                    { g.DrawPolygon(redPen, TPoints); }
-                    if (Triangles[i].Pencolor == "green")
-                    { g.DrawPolygon(greenPen, TPoints); }
-                    if (Triangles[i].Pencolor == "blue")
-                    { g.DrawPolygon(bluePen, TPoints); }
-
+                    Pen triangle_pen = new Pen(Color.FromArgb(Triangles[i].R, Triangles[i].G, Triangles[i].B));
+                    g.DrawPolygon(triangle_pen, TPoints);
                 }
                 else if (Triangles[i].Fill == "on")
                 {
-                    if (Triangles[i].Pencolor == "black")
-                    { g.FillPolygon(myBrush, TPoints); }
-                    if (Triangles[i].Pencolor == "red")
-                    { g.FillPolygon(redBrush, TPoints); }
-                    if (Triangles[i].Pencolor == "green")
-                    { g.FillPolygon(greenBrush, TPoints); }
-                    if (Triangles[i].Pencolor == "blue")
-                    { g.FillPolygon(blueBrush, TPoints); }
+                    SolidBrush triangle_brush = new SolidBrush(Color.FromArgb(Triangles[i].R, Triangles[i].G, Triangles[i].B));
+                    g.FillPolygon(triangle_brush, TPoints); }
                 }
-            }
         }
 
         //circle
@@ -316,17 +277,21 @@ namespace AseProgramingLanguage1
             float width;
             float higth;
             width = higth = rad * 2;
-            Circles circle = new Circles(start_x, start_y, rad, fillOnOff.Fill, Pen.Fill, Brush.Fill);
-            circle.Radius_Type(rad);
-            Circles.Add(circle);
+            //Circles circle = new Circles(start_x, start_y, rad, fillOnOff.Fill, Pen.R,Pen.G,Pen.B);
+            //circle.Radius_Type(rad);
+            //Circles.Add(circle);
 
             //g.DrawEllipse(myPen,start_x-(radius/2),start_y-(radius/2),width*2,higth*2);
             if (fillOnOff.Fill.Equals("off") == true)
             {
+                Circles circle = new Circles(start_x, start_y, rad, fillOnOff.Fill, Pen.R, Pen.G, Pen.B);
+                Circles.Add(circle);
                 g.DrawEllipse(myPen, start_x - rad, start_y - rad, width, higth);
             }
             else if (fillOnOff.Fill.Equals("on") == true)
             {
+                Circles circle = new Circles(start_x, start_y, rad, fillOnOff.Fill, Brush.R, Brush.G, Brush.B);
+                Circles.Add(circle);
                 g.FillEllipse(myBrush, start_x - rad, start_y - rad, width, higth);
             }
             else throw new ArgumentOutOfRangeException("You need to choose fill on or fill off for the shape drawing method");
@@ -349,9 +314,7 @@ namespace AseProgramingLanguage1
         public void DrawTriangle (string point1x, string point1y, string point2x, string point2y)
         {
             int[] para = Get_Points(point1x, point1y, point2x, point2y);
-            Triangles triangle = new Triangles(start_x, start_y, para[0], para[1], para[2], para[3], fillOnOff.Fill, Pen.Fill, Brush.Fill);
-            triangle.Tpoint1_TPoint2_Types(para[0], para[1], para[2], para[3]);
-            Triangles.Add(triangle);
+            
             PointF[] TPoints = new PointF[]
         { new PointF { X = start_x,Y=start_y },
               new PointF {X= para[0] , Y=para[1]},
@@ -359,12 +322,15 @@ namespace AseProgramingLanguage1
         };
             if (fillOnOff.Fill.Equals("off") == true)
             {
-
+                Triangles triangle = new Triangles(start_x, start_y, para[0], para[1], para[2], para[3], fillOnOff.Fill, Pen.R, Pen.G, Pen.B);
+                Triangles.Add(triangle);
                 g.DrawPolygon(myPen, TPoints);
 
             }
             else if (fillOnOff.Fill.Equals("on") == true)
             {
+                Triangles triangle = new Triangles(start_x, start_y, para[0], para[1], para[2], para[3], fillOnOff.Fill, Brush.R, Brush.G, Brush.B);
+                Triangles.Add(triangle);
                 g.FillPolygon(myBrush, TPoints);
             }
         }
@@ -876,7 +842,7 @@ namespace AseProgramingLanguage1
         }
     }
 }
-        
+    
         
 		
 		

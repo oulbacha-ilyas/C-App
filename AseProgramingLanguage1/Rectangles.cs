@@ -13,22 +13,24 @@ namespace AseProgramingLanguage1
         public int Y { get; }
         public int Width { get; }
         public int Heigth { get; }
+        public int R { get; }
+        public int G { get; }
+        public int B { get; }
         public string Fill { get; }
-        public string Pencolor { get; }
-        public string Fillcolor { get; }
-
         public const string WidthType = "Width should be a positive number";
         public const string HeigthType = "Heigth should be a positive number";
 
-        public Rectangles(int x, int y, int width,int heigth, string fill, string Pencolor, string Fillcolor)
+        public Rectangles(int x, int y, int width,int heigth, string fill, int r,int g,int b)
         {
             this.X = x;
             this.Y = y;
             this.Width = width;
             this.Heigth = heigth;
             this.Fill = fill;
-            this.Pencolor = Pencolor;
-            this.Fillcolor = Fillcolor;
+            this.R = r;
+            this.G = g;
+            this.B = b;
+
         }
         public void Width_Heigth_Types(int width,int heigth)
         {

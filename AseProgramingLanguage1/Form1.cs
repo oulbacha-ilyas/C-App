@@ -221,7 +221,7 @@ namespace AseProgramingLanguage1
                             else if (parse1.command.Equals("drawto") == true)
 
                             {
-                                ClearCommand();
+                                //ClearCommand();
                                 //myCanvass.drawTo(parse.param1, parse.param2);
                                 myCanvass.Mother_drawTo(parse1.p1, parse1.p2);
                             }
@@ -230,7 +230,7 @@ namespace AseProgramingLanguage1
                                 ClearCommand();
                                 //myCanvass.moveTo(parse.p1, parse.p2);
                                 myCanvass.Mother_moveTo(parse1.p1, parse1.p2);
-                                outputWindow.Refresh();
+                                //outputWindow.Refresh();
                             }
 
                             else
@@ -279,8 +279,10 @@ namespace AseProgramingLanguage1
                 else if (parse.command.Equals("drawto") == true)
 
                 {
-                    ClearCommand();
+                    
                     myCanvass.drawTo(parse.p1, parse.p2);
+                    //ClearCommand();
+                    myCanvass.moveTo(parse.p1, parse.p2);
                 }
                 else if (parse.command.Equals("rectangle") == true)
                 {

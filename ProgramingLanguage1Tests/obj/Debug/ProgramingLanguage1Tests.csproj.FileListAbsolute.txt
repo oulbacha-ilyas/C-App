@@ -31,3 +31,4 @@ C:\Users\21269\source\repos\AsePL2\aseprograminglanguage1\ProgramingLanguage1Tes
 C:\Users\21269\source\repos\AsePL2\aseprograminglanguage1\ProgramingLanguage1Tests\obj\Debug\ProgramingLanguage1Tests.csproj.CoreCompileInputs.cache
 C:\Users\21269\source\repos\AsePL2\aseprograminglanguage1\ProgramingLanguage1Tests\obj\Debug\ProgramingLanguage1Tests.dll
 C:\Users\21269\source\repos\AsePL2\aseprograminglanguage1\ProgramingLanguage1Tests\obj\Debug\ProgramingLanguage1Tests.pdb
+C:\Users\21269\source\repos\AsePL2\aseprograminglanguage1\ProgramingLanguage1Tests\obj\Debug\ProgramingLanguage1Tests.csproj.CopyComplete

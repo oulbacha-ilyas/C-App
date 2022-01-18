@@ -14,12 +14,15 @@ namespace AseProgramingLanguage1
         public int Y2 { get; }
         public int X3 { get; }
         public int Y3 { get; }
+        public int R { get; }
+        public int G { get; }
+        public int B { get; }
         public string Fill { get; }
-        public string Pencolor { get; }
-        public string Fillcolor { get; }
+        //public string Pencolor { get; }
+        //public string Fillcolor { get; }
         public const string TrianglePointsTypes = "X and Y for each point should be greater then 0";
 
-        public Triangles(int x1, int y1, int x2, int y2, int x3, int y3, string fill, string Pencolor, string Fillcolor)
+        public Triangles(int x1, int y1, int x2, int y2, int x3, int y3, string fill,int r,int g,int b)
         {
             this.X1 = x1;
             this.Y1 = y1;
@@ -28,8 +31,11 @@ namespace AseProgramingLanguage1
             this.X3 = x3;
             this.Y3 = y3;
             this.Fill = fill;
-            this.Pencolor = Pencolor;
-            this.Fillcolor = Fillcolor;
+            this.R = r;
+            this.G = g;
+            this.B = b;
+            //this.Pencolor = Pencolor;
+            //this.Fillcolor = Fillcolor;
         }
         public void Tpoint1_TPoint2_Types(int x2, int y2, int x3, int y3)
         {

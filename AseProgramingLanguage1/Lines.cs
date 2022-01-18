@@ -14,13 +14,19 @@ namespace AseProgramingLanguage1
         public int X2 { get; }
         public int Y1 { get; }
         public int Y2 { get; }
-        public Lines(int x1, int y1, int x2, int y2, string pencolor)
+        public int R { get; }
+        public int G { get; }
+        public int B { get; }
+        public Lines(int x1, int y1, int x2, int y2,int r,int g,int b)
         {
             this.X1 = x1;
             this.Y1 = y1;
             this.X2 = x2;
             this.Y2 = y2;
-            this.Pencolor = pencolor;
+            this.R = r;
+            this.G = g;
+            this.B = b;
+
         }
 
         public void LinePoint_Type(int x, int y)

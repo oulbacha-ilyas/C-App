@@ -11,6 +11,9 @@ namespace AseProgramingLanguage1
     {
         public int X { get; }
         public int Y { get; }
+        public int R { get; }
+        public int G { get; }
+        public int B { get; }
         public int Radius { get; }
         public string Fill{ get; }
         public string Pencolor {get; }
@@ -18,14 +21,17 @@ namespace AseProgramingLanguage1
 
         public const string RadiusType = "Radius should be a positive number";
 
-        public Circles(int x,int y,int r,string fill,string Pencolor ,string Fillcolor)
+        public Circles(int x,int y,int ra,string fill/*,string Pencolor *//*,string Fillcolor*/,int r,int g,int b)
         {
             this.X = x;
             this.Y = y;
-            this.Radius = r;
+            this.Radius = ra;
             this.Fill = fill;
-            this.Pencolor=Pencolor;
-            this.Fillcolor=Fillcolor;
+            this.R = r;
+            this.G = g;
+            this.B = b;
+            //this.Pencolor=Pencolor;
+            //this.Fillcolor=Fillcolor;
         }
         public void Radius_Type(int r)
         {
