@@ -62,7 +62,17 @@ namespace AseProgramingLanguage1
         public const string method_name = "A method should have one name and one only.";
         public const string method_name_type = "The method name can be only letters or combination of letters and digit.";
         public const string Empty_command = "Type a command.";
-        public const string var_existence = "At least one of the variables is not declared.";
+        public const string var_existence = "At least one of the variables is not declared."; 
+        public const string if_operator = "The if statement operator should be either <,> or =.";
+        public const string if_cond2 = "The second parameter should be either a desclared variable or an int.";
+        public const string if_cond1 = "The first parameter should be either a declared variable or an int.";
+        public const string if_syntax = "The if statment should contain 7 elements: if  ( name ) a < b."; 
+        public const string if_name = "The if statement name should between bracket."; 
+        public const string end_if= "The if statemend ending sythax : endofif name.";
+        public const string assing_syntax = "To assing a value use : a = x.";
+
+
+
 
 
 
@@ -81,7 +91,7 @@ namespace AseProgramingLanguage1
                 if (line.Equals("clear") || line.Equals("reset") || line.Equals("run"))
                 {
                 // throw new System.ArgumentOutOfRangeException("parameters", line, CorrectSynthax);
-            }
+                }
                 else if (line.Equals("circle") || line.Equals("rectangle") || line.Equals("triangle") || line.Equals("moveto") || line.Equals("drawto") || line.Equals("fill") || line.Equals("fillcolor") || line.Equals("drawcolor") || line.Equals("var")) { throw new ArgumentOutOfRangeException("line", line, Command_WithParameter); }
             else
             {
@@ -215,89 +225,6 @@ namespace AseProgramingLanguage1
                     }
                     else throw new System.ArgumentOutOfRangeException("Fill choice", split[1], FillParametersMatch);
                 }
-                else if (command.Count(char.IsLetterOrDigit) == 1 || command.Count(char.IsLetterOrDigit) == 2/*command.Equals("var")*/)
-                {
-                    if (split.Length == 3)
-                    {
-                        bool res0 = int.TryParse(split[0], out int r0);
-                        bool res2 = int.TryParse(split[2], out int r2);
-
-                        if (split[0].All(v => char.IsLetterOrDigit(v)))
-                        {
-                            if (res0 != true && split[0].Length != 0)
-                            {
-                                if (split[1].Equals("="))
-                                {
-                                    //if (res2)
-                                    //{
-                                    //    Variables var = new Variables();
-                                    //    int b = var.check(split[0]);
-                                    //    if(b == 0)
-                                    //    {
-                                    //        var.Add_Var(split[0]);
-                                    //    }
-                                    //}
-                                    //else 
-                                    //{
-                                    //    Variables var = new Variables();
-                                    //    int b = var.check(split[2]);
-                                    //    if (b == 1)
-                                    //    {
-                                    //        int c = var.check(split[0]);
-                                    //        if(c == 0)
-                                    //    {
-                                    //            var.Add_Var(split[0]);
-                                    //    }
-                                    //    }
-                                    //}
-                                }
-                                else { throw new System.ArgumentOutOfRangeException("var assing", split[1], Var_dec_sign); }
-                            }
-                            else { throw new System.ArgumentOutOfRangeException("var name", split[0], Var_dec_name1); }
-
-                        }
-                        else { throw new System.ArgumentOutOfRangeException("var name", split[0], Var_dec_name2); }
-                    }
-                    else if (split.Length > 3)
-                    {
-
-
-                        int l = split.Length;
-                        int i = 2;
-                        int j = 3;
-                        while (i <= l)
-                        {
-
-                            if (split[i].All(v => char.IsLetterOrDigit(v)))
-                            {
-                                bool resi = int.TryParse(split[i], out int r1);
-                                if (resi == false)
-                                {
-                                }
-                                else
-                                {
-                                    Console.WriteLine("value can be calculated");
-
-                                }
-
-                            }
-                            else { throw new System.ArgumentOutOfRangeException("var name", split[i], Var_name); }
-
-                            i = i + 2;
-                        }
-
-                        while (j < l)
-                        {
-                            if (split[j].Equals("+") || split[j].Equals("-") || split[j].Equals("*") || split[j].Equals("/"))
-                            {
-                                Console.WriteLine($"{j} :the operator is correct");
-                            }
-                            else { throw new System.ArgumentOutOfRangeException("var assing", split[j], logical_operators); }
-                            j = j + 2;
-                        }
-                    }
-                    else { throw new System.ArgumentOutOfRangeException("var assing", split, loop_syntax); }
-                }
 
                 else if (command.Equals("while"))
                 {
@@ -387,6 +314,148 @@ namespace AseProgramingLanguage1
                     else { throw new System.ArgumentOutOfRangeException("loop syntax", split, method_name); }
                 }
 
+                else if (command.Equals("if("))
+                {
+
+                    if (split.Length == 6)
+                    {
+                        if (split[2].Equals(")"))
+                        {
+
+                            if (split[1].All(i => char.IsLetterOrDigit(i)))
+                            {
+                                if (split[3].All(i => char.IsLetterOrDigit(i)))
+                                {
+
+                                    if (split[4].Equals("<") || split[4].Equals(">") || split[4].Equals("="))
+                                    {
+                                            if (split[5].All(x => char.IsLetterOrDigit(x)))
+                                            {
+                                            }
+                                            else { throw new System.ArgumentOutOfRangeException("while limit", split[4], if_cond2); }
+
+
+                                    }
+                                    else { throw new System.ArgumentOutOfRangeException("while limit", split[3], if_operator); };
+
+
+                                }
+                                else { throw new System.ArgumentOutOfRangeException("loop counter", split[2], if_cond1); }
+                            }
+                            else { throw new System.ArgumentOutOfRangeException("loop counter", split[2], if_name); }
+
+                        }
+
+                        else { throw new System.ArgumentOutOfRangeException("loop syntax", split, if_syntax); }
+
+                    }
+                    else { throw new System.ArgumentOutOfRangeException("if syntax", split, if_syntax); }
+
+                }
+                else if (command.Equals("endofif"))
+                {
+                    if (split.Length == 2)
+                    {
+
+                        bool res1 = int.TryParse(split[1], out int r1);
+                        if (split[1].All(i => char.IsLetterOrDigit(i)))
+                        {
+                            if (res1 == true)
+                            {
+                                throw new System.ArgumentOutOfRangeException("loop syntax", split, if_name);
+                            }
+                        }
+                        else { throw new System.ArgumentOutOfRangeException("loop syntax", split, if_name); }
+                    }
+                    else { throw new System.ArgumentOutOfRangeException("loop syntax", split, end_if); }
+                
+                }
+                else if (command.Count(char.IsLetterOrDigit) == 1)
+                {
+                    if (split.Length == 3)
+                    {
+                        bool res0 = int.TryParse(split[0], out int r0);
+                        bool res2 = int.TryParse(split[2], out int r2);
+
+                        if (split[0].All(v => char.IsLetterOrDigit(v)))
+                        {
+                            if (res0 != true && split[0].Length != 0)
+                            {
+                                if (split[1].Equals("="))
+                                {
+                                    //if (res2)
+                                    //{
+                                    //    Variables var = new Variables();
+                                    //    int b = var.check(split[0]);
+                                    //    if(b == 0)
+                                    //    {
+                                    //        var.Add_Var(split[0]);
+                                    //    }
+                                    //}
+                                    //else 
+                                    //{
+                                    //    Variables var = new Variables();
+                                    //    int b = var.check(split[2]);
+                                    //    if (b == 1)
+                                    //    {
+                                    //        int c = var.check(split[0]);
+                                    //        if(c == 0)
+                                    //    {
+                                    //            var.Add_Var(split[0]);
+                                    //    }
+                                    //    }
+                                    //}
+                                }
+                                else { throw new System.ArgumentOutOfRangeException("var assing", split[1], Var_dec_sign); }
+                            }
+                            else { throw new System.ArgumentOutOfRangeException("var name", split[0], Var_dec_name1); }
+
+                        }
+                        else { throw new System.ArgumentOutOfRangeException("var name", split[0], Var_dec_name2); }
+                    }
+                    else if (split.Length == 3 || split.Length == 5)
+                    {
+                        if (split[1].Equals("="))
+                        {
+
+                            int l = split.Length;
+                            int i = 2;
+                            int j = 3;
+                            while (i <= l)
+                            {
+
+                                if (split[i].All(v => char.IsLetterOrDigit(v)))
+                                {
+                                    bool resi = int.TryParse(split[i], out int r1);
+                                    if (resi == false)
+                                    {
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("value can be calculated");
+
+                                    }
+
+                                }
+                                else { throw new System.ArgumentOutOfRangeException("var name", split[i], Var_name); }
+
+                                i = i + 2;
+                            }
+
+                            while (j < l)
+                            {
+                                if (split[j].Equals("+") || split[j].Equals("-") || split[j].Equals("*") || split[j].Equals("/"))
+                                {
+                                    Console.WriteLine($"{j} :the operator is correct");
+                                }
+                                else { throw new System.ArgumentOutOfRangeException("var assing", split[j], logical_operators); }
+                                j = j + 2;
+                            }
+                        }
+                        else { throw new System.ArgumentOutOfRangeException("var assing", split[1], Var_dec_sign); }
+                    }
+                    else { throw new System.ArgumentOutOfRangeException("var assing", split, assing_syntax); }
+                }
                 else { throw new System.ArgumentOutOfRangeException("Unknown command", line, UnkownCommand); }
             }
 

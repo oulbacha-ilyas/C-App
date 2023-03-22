@@ -164,17 +164,14 @@ namespace AseProgramingLanguage1
             int linesNumber = ProgramLines.Lines.Length;
             int loop_start_line =0;
             int loop_end_line =0;
+            int if_start_line = 0;
+            int if_end_line = 0;
+
             int iterations =0;
             for (int i = 0; i <= linesNumber - 1; i++) //the program is run line by line using,after checkeing the synthax and parsing the parameters
-            {
-                
+            {    
                 ParseCommand parse = new ParseCommand(ProgramLines.Lines[i]);
 
-                //if while is off
-                //if while is on ==> line i
-                // while status on ==> read only
-                //while off ==> line j
-                //execute from i to j
                 if (parse.command.Equals("while") == true)
                 {
                     myCanvass.Create_while(parse.param5, parse.param6);
@@ -187,7 +184,7 @@ namespace AseProgramingLanguage1
                 {
                     myCanvass.End_while(parse.counter);
                     loop_end_line = i;
-                    int e = 0;
+                    int e = 1;
                     while (e <=iterations)
                     {
                         for (int j = loop_start_line+1; j <= loop_end_line-1; j++)
@@ -242,7 +239,7 @@ namespace AseProgramingLanguage1
                                 split1 = line1.Split(' ');
 
                                 int len = split1.Length;
-                                if (split1.Length == 3)
+                                if (split1.Length == 3 && !split1[0].Equals("if"))
                                 {
                                     bool res0 = int.TryParse(split1[2], out int r0);
                                     if (res0)
@@ -260,7 +257,7 @@ namespace AseProgramingLanguage1
 
                                     }
                                 }
-                                else if (split1.Length == 5)
+                                else if (split1.Length == 5 && !split1[0].Equals("if"))
                                 {
                                     myCanvass.Mother_Calcul_var(parse1.command, parse1.val2, parse1.oper1, parse1.val3);
                                     // myCanvass.Calcul_var(parse1.command, parse1.val2, parse1.oper1, parse1.val3);
@@ -276,10 +273,113 @@ namespace AseProgramingLanguage1
                     }
                     Console.WriteLine(" loop is executed");
                 }
+
+                if (parse.command.Equals("if(") == true)
+                {
+
+                        myCanvass.Create_if(parse.if_name, parse.param5, parse.param6, parse.oper1);
+                        if_start_line = i;
+
+                        Console.WriteLine("if created");
+                        //iterations = parse.param6;
+
+                    
+
+
+
+                }
+                else if (parse.command.Equals("endofif") == true)
+                {
+                    myCanvass.End_ofif(parse.if_name);
+                    if_end_line = i;
+                    int e = 0;
+
+                    for (int j = if_start_line + 1; j <= if_end_line - 1; j++)
+                    {
+                        ParseCommand parse1 = new ParseCommand(ProgramLines.Lines[j]);
+                        if (parse1.command.Equals("circle") == true)
+                        {
+
+                            myCanvass.Mother_DrawCircle(parse1.radius);
+                        }
+                        else
+                        if (parse1.command.Equals("rectangle") == true)
+                        {
+                            myCanvass.Mother_DrawRectangle(parse1.width, parse1.heigth);
+
+                        }
+                        else if (parse1.command.Equals("triangle") == true)
+                        {
+                            myCanvass.Mother_DrawTriangle(parse1.p1, parse1.p2, parse1.p3, parse1.p4);
+                        }
+                        if (parse1.command.Equals("drawcolor") == true)
+                        {
+
+                            myCanvass.Mother_DrawColor(parse1.rgb1, parse1.rgb2, parse1.rgb3);
+                            //calling the the drawing color setting method
+                        }
+                        if (parse1.command.Equals("fillcolor") == true)
+                        {
+                            myCanvass.Mother_FillColor(parse1.rgb1, parse1.rgb2, parse1.rgb1); //calling the fill color setting method
+                        }
+                        else if (parse1.command.Equals("drawto") == true)
+
+                        {
+                            //ClearCommand();
+                            //myCanvass.drawTo(parse.param1, parse.param2);
+                            myCanvass.Mother_drawTo(parse1.p1, parse1.p2);
+                        }
+                        if (parse1.command.Equals("moveto") == true)
+                        {
+                            ClearCommand();
+                            //myCanvass.moveTo(parse.p1, parse.p2);
+                            myCanvass.Mother_moveTo(parse1.p1, parse1.p2);
+                            //outputWindow.Refresh();
+                        }
+
+                        else
+                        {
+                            string line1 = ProgramLines.Lines[j];
+                            string[] dec;
+                            string[] split1;
+                            line1 = line1.ToLower().Trim();
+                            split1 = line1.Split(' ');
+
+                            int len = split1.Length;
+                            if (split1.Length == 3)
+                            {
+                                bool res0 = int.TryParse(split1[2], out int r0);
+                                if (res0)
+                                {
+                                    //Canvass var_assign = new Canvass(parse.command, parse.val0);
+                                    Console.WriteLine("assign called");
+                                    myCanvass.Assign_var(parse1.command, parse1.val0);
+                                }
+                                else
+                                {
+                                    //Variables var_check = new Variables(parse.command, parse.param5);
+                                    //var_check.Check_Var(parse.command, parse.param5);
+                                    Console.WriteLine(" check called");
+                                    myCanvass.Check_Var(parse1.command, parse1.param5);
+
+                                }
+                            }
+                            else if (split1.Length == 5)
+                            {
+                                myCanvass.Mother_Calcul_var(parse1.command, parse1.val2, parse1.oper1, parse1.val3);
+                                // myCanvass.Calcul_var(parse1.command, parse1.val2, parse1.oper1, parse1.val3);
+                            }
+
+                        }
+
+                    }
+                    Console.WriteLine(" for if is executed");
+                    e++;
+                }
                 else if (parse.command.Equals("drawto") == true)
 
                 {
-                    
+
                     myCanvass.drawTo(parse.p1, parse.p2);
                     //ClearCommand();
                     myCanvass.moveTo(parse.p1, parse.p2);
@@ -320,9 +420,9 @@ namespace AseProgramingLanguage1
                 }
                 else if (parse.command.Equals("drawcolor") == true)
                 {
-        
-                        myCanvass.DrawColor(parse.rgb1, parse.rgb2, parse.rgb3);
-                         //calling the the drawing color setting method
+
+                    myCanvass.DrawColor(parse.rgb1, parse.rgb2, parse.rgb3);
+                    //calling the the drawing color setting method
                 }
                 else if (parse.command.Equals("fill") == true)
                 {
@@ -332,7 +432,7 @@ namespace AseProgramingLanguage1
                 {
                     myCanvass.Mother_FillColor(parse.rgb1, parse.rgb2, parse.rgb3); //calling the fill color setting method
                 }
-                else
+                else 
                 {
                     string line = ProgramLines.Lines[i];
                     string[] dec;
@@ -502,13 +602,6 @@ namespace AseProgramingLanguage1
         }
             
             
-    
-
-        private void synthaxMessage_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void synthaxMessages_TextChanged(object sender, EventArgs e)
         {
 

@@ -11,6 +11,7 @@ namespace AseProgramingLanguage1
     {
         public string line { get; }
         public string command { get; }
+        public string aftercommand { get; }
         public string radius { get; }
         public int param1 { get; }
         public int param2 { get; }
@@ -35,6 +36,8 @@ namespace AseProgramingLanguage1
         public string rgb2 { get; }
         public string rgb3 { get; }
         public string M { get; }
+        public string if_name { get; }
+
 
         public const string InvalidParsing = "Check synthax errors.";
         public const string Var_dec = "the val shoud be known.";
@@ -53,7 +56,9 @@ namespace AseProgramingLanguage1
             line = line.ToLower().Trim();
             split = line.Split(' ');
             string command;
+            string aftercommand;
             command = split[0]; //based on the first split,parse parameters based on command value;some commands may have no parameters,others may have more then 1
+            aftercommand = split[1];
             if (command.Equals("rectangle"))
             {
                 this.command = split[0];
@@ -126,10 +131,10 @@ namespace AseProgramingLanguage1
                     this.rgb3 = parameters[2];
                 }
             }
-            else if(command.Count(char.IsLetterOrDigit) == 1 || command.Count(char.IsLetterOrDigit) == 2) // declaring the variables
+            else if(command.Count(char.IsLetterOrDigit) == 1) // declaring the variables
             //else if (command.Count(char.IsLetterOrDigit) == 1 || command.Count(char.IsLetterOrDigit) == 2/*command.Equals("var")*/)
             {
-                if (split.Length == 3)
+                if (split.Length == 3 )
                 {
                     //if the declared value is there,change its value
                     //if its not,declare a new one
@@ -148,7 +153,7 @@ namespace AseProgramingLanguage1
                         this.param5 = split[2];
                     }
                 }
-                else if (split.Length == 5) //5 is the length of the synthax when there is an operator for calculating
+                else if (split.Length == 5 ) //5 is the length of the synthax when there is an operator for calculating
                 {
                     this.command = split[0];
                     this.val2 = split[2];
@@ -177,8 +182,21 @@ namespace AseProgramingLanguage1
                 this.command = split[0];
                 this.M = split[1];
             }
+            else if (command.Equals("if("))
+            {
+                this.command = split[0];
+                this.if_name = split[1];  //will take the counter and consider it as a name of the while
+                this.param5 = split[3]; // the first parameter
+                this.oper1 = split[4]; //  the operator
+                this.param6 = split[5]; //the second parameter
+            }
+            else if (command.Equals("endofif"))
+            {
+                this.command = split[0];
+                this.if_name = split[1];
+            }
 
- 
+
         }
     }
 }

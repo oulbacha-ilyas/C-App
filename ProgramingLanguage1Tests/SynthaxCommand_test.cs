@@ -509,7 +509,8 @@ namespace ProgramingLanguage1Tests
         }
 
         [TestMethod]
-        public void loop_counter() //if the  parameters does not match an existing color,an exception is thrown
+        public void loop_
+            () //if the  parameters does not match an existing color,an exception is thrown
         {
 
             string line = "while 1 < 10";

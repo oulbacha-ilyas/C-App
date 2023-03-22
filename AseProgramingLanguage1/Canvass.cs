@@ -34,21 +34,34 @@ namespace AseProgramingLanguage1
 
         List<Variables> var_list = new List<Variables>(); // variables list
         Variables default_loop = new Variables("default", 0, "off");
+        Variables default_statement = new Variables("default", 0, "off");
         List<Variables> counters = new List<Variables>(); //while counters list
+        List<Variables> ifstatements = new List<Variables>(); //if counters list
 
-     
+
 
         //variables setting
         public string S { get; }
 
         public const string Var_value = "The value assigned to the variable should be positive.";
         public const string Var_dec = "The value assigned to the variable should be a number or a declared variable.";
-        public const string counter_var = "To end up  a while,use the while counter."; 
+        public const string counter_var = "To end up  a while,use the while counter that has been used at the opening.";
         public const string iterations_var = "Iterations should be a digit or a declared variable.";
-        public const string counter_dec = "A loop with the same counter already exist,use another one."; 
+        public const string counter_dec = "A loop with the same counter already exist,use another one.";
         public const string values_comp = "The differenece between the two parameters should be positive.";
         public const string calc_result = "The operation cannot be performed.";
         public const string var_dec = "At least one of the variables is not declared.";
+        public const string if_var2 = "The second parameter is not declared yet.";
+        public const string if_dec = "An If statement with the same name already exist,use another one.";
+        public const string if_var1 = "The first parameter is not declared yet.";
+        public const string loop_ended = "This loop is already closed.";
+        public const string if_var_list = "One of the parameters is not properly declared.";
+        public const string if_name_check = "To end up an if statement,use the while counter that has been used at the opening.";
+
+
+
+
+
 
         public Canvass(Graphics g)
         {
@@ -61,15 +74,16 @@ namespace AseProgramingLanguage1
             turtlePen = new Pen(Color.Red, 5);
             //Point turtle = new Point();
             // Brush myBrush = new Brush();
-            myBrush = new SolidBrush(Color.FromArgb(0,0,0));
+            myBrush = new SolidBrush(Color.FromArgb(0, 0, 0));
             redBrush = new SolidBrush(Color.Red);
             greenBrush = new SolidBrush(Color.Green);
             blueBrush = new SolidBrush(Color.Blue);
             counters.Add(default_loop);
+            ifstatements.Add(default_statement);
         }
         public Canvass()
         {
-           
+
         }
         public Canvass(string s)
         {
@@ -102,7 +116,7 @@ namespace AseProgramingLanguage1
         public void drawTo(string end_x, string end_y)
         {
             int[] para = Get_Whith_height(end_x, end_y);
-           
+
             int l = Lines.Count;
             //g.DrawLine(myPen, Lines[l - 1].X1, Lines[l - 1].Y1, Lines[l - 1].X2, Lines[l - 1].Y2); //drawing a line first,
             //start_x = Lines[l - 1].X2;
@@ -111,7 +125,7 @@ namespace AseProgramingLanguage1
             //string y = Lines[l - 1].X2.ToString();
             //moveTo(x, end_yy);//then moving the turtle to the last point of the drawn line
 
-            g.DrawLine(myPen, para[0],para[1], start_x, start_y); //drawing a line first,
+            g.DrawLine(myPen, para[0], para[1], start_x, start_y); //drawing a line first,
             Lines line = new Lines(para[0], para[1], start_x, start_y, Pen.R, Pen.G, Pen.B);
             Lines.Add(line);
             //start_x = para[0];
@@ -123,7 +137,7 @@ namespace AseProgramingLanguage1
         }
 
         // rectangles
-        public void Mother_DrawRectangle(string w,string h)
+        public void Mother_DrawRectangle(string w, string h)
         {
             //int[] para = Get_Whith_height(w,h);
             int end = counters.Count;
@@ -132,12 +146,12 @@ namespace AseProgramingLanguage1
             }
             else            //if the command is outside a loop
             {
-                DrawRectangle(w,h);
+                DrawRectangle(w, h);
             }
         }
         public void DrawRectangle(string width, string heigth)
         {
-            int[] para = Get_Whith_height(width,heigth);
+            int[] para = Get_Whith_height(width, heigth);
             if (fillOnOff.Fill.Equals("off") == true)
             {
                 Rectangles rectangle = new Rectangles(start_x, start_y, para[0], para[1], fillOnOff.Fill, Pen.R, Pen.G, Pen.B);
@@ -180,10 +194,10 @@ namespace AseProgramingLanguage1
             g.DrawEllipse(turtlePen, turtles[l - 1].X, turtles[l - 1].Y, 1, 1);
 
             for (int i = 0; i < Lines.Count; i++)
-            { 
-              Pen line_pen = new Pen(Color.FromArgb(Lines[i].R, Lines[i].G, Lines[i].B));
-              g.DrawLine(line_pen, Lines[i].X1, Lines[i].Y1, Lines[i].X2, Lines[i].Y2);
-              
+            {
+                Pen line_pen = new Pen(Color.FromArgb(Lines[i].R, Lines[i].G, Lines[i].B));
+                g.DrawLine(line_pen, Lines[i].X1, Lines[i].Y1, Lines[i].X2, Lines[i].Y2);
+
             }
             for (int i = 0; i < Circles.Count; i++)
             {
@@ -194,7 +208,7 @@ namespace AseProgramingLanguage1
                 }
                 else if (Circles[i].Fill == "on")
                 {
-                  SolidBrush circle_brush = new SolidBrush(Color.FromArgb(Circles[i].R, Circles[i].G, Circles[i].B));
+                    SolidBrush circle_brush = new SolidBrush(Color.FromArgb(Circles[i].R, Circles[i].G, Circles[i].B));
                     g.FillEllipse(circle_brush, Circles[i].X - Circles[i].Radius, Circles[i].Y - Circles[i].Radius, Circles[i].Radius * 2, Circles[i].Radius * 2);
                 }
             }
@@ -202,14 +216,14 @@ namespace AseProgramingLanguage1
             {
                 if (Rectangles[i].Fill == "off")
                 {
-                 Pen  rectangle_pen = new Pen(Color.FromArgb(Rectangles[i].R, Rectangles[i].G, Rectangles[i].B));
-                 g.DrawRectangle(rectangle_pen, Rectangles[i].X, Rectangles[i].Y, Rectangles[i].Width, Rectangles[i].Heigth); 
+                    Pen rectangle_pen = new Pen(Color.FromArgb(Rectangles[i].R, Rectangles[i].G, Rectangles[i].B));
+                    g.DrawRectangle(rectangle_pen, Rectangles[i].X, Rectangles[i].Y, Rectangles[i].Width, Rectangles[i].Heigth);
 
                 }
                 else if (Rectangles[i].Fill == "on")
                 {
                     SolidBrush rectangle_brush = new SolidBrush(Color.FromArgb(Rectangles[i].R, Rectangles[i].G, Rectangles[i].B));
-                   g.FillRectangle(rectangle_brush, Rectangles[i].X, Rectangles[i].Y, Rectangles[i].Width, Rectangles[i].Heigth);
+                    g.FillRectangle(rectangle_brush, Rectangles[i].X, Rectangles[i].Y, Rectangles[i].Width, Rectangles[i].Heigth);
 
                 }
             }
@@ -229,8 +243,9 @@ namespace AseProgramingLanguage1
                 else if (Triangles[i].Fill == "on")
                 {
                     SolidBrush triangle_brush = new SolidBrush(Color.FromArgb(Triangles[i].R, Triangles[i].G, Triangles[i].B));
-                    g.FillPolygon(triangle_brush, TPoints); }
+                    g.FillPolygon(triangle_brush, TPoints);
                 }
+            }
         }
 
         //circle
@@ -268,7 +283,7 @@ namespace AseProgramingLanguage1
                 }
                 else { throw new System.ArgumentOutOfRangeException("a greater than b", r, var_dec); }
             }
-            
+
             return rad;
         }
         public void DrawCircle(string radius) // the circle is not drawn from the last position of moveTo,but the center is shifted
@@ -308,13 +323,13 @@ namespace AseProgramingLanguage1
             }
             else            //if the command is outside a loop
             {
-                DrawTriangle( point1x, point1y, point2x,point2y);
+                DrawTriangle(point1x, point1y, point2x, point2y);
             }
         }
-        public void DrawTriangle (string point1x, string point1y, string point2x, string point2y)
+        public void DrawTriangle(string point1x, string point1y, string point2x, string point2y)
         {
             int[] para = Get_Points(point1x, point1y, point2x, point2y);
-            
+
             PointF[] TPoints = new PointF[]
         { new PointF { X = start_x,Y=start_y },
               new PointF {X= para[0] , Y=para[1]},
@@ -346,13 +361,13 @@ namespace AseProgramingLanguage1
             }
         }
 
-        public void DrawColor(string r,string g,string b)
+        public void DrawColor(string r, string g, string b)
         {
-            
-            int[] rgb = Get_rgb(r,g,b);
+
+            int[] rgb = Get_rgb(r, g, b);
             Pen = new Turtle(rgb[0], rgb[1], rgb[2]);
 
-            myPen = new Pen(Color.FromArgb(rgb[0],rgb[1], rgb[2]));
+            myPen = new Pen(Color.FromArgb(rgb[0], rgb[1], rgb[2]));
 
         }
 
@@ -405,7 +420,7 @@ namespace AseProgramingLanguage1
         public void Mother_Calcul_var(string v, string x, string oper, string y)
         {
             int end = counters.Count;
-            if (counters[end-1].status == "on")
+            if (counters[end - 1].status == "on")
             {
                 Console.WriteLine(" Flag on waiting");
             }
@@ -414,14 +429,25 @@ namespace AseProgramingLanguage1
                 Calcul_var(v, x, oper, y);
             }
         }
-
+        public void Mother_Compare(string if_name, string var1, string var2, string oper)
+        {
+            int end = counters.Count;
+            if (counters[end - 1].status == "on")
+            {
+                Console.WriteLine(" Flag on waiting");
+            }
+            else
+            {
+                Compare(if_name, var1, var2, oper);
+            }
+        }
         //get parameters for loop and operations
 
         public int Get_iterations(string v)
         {
             int it = 0;
             bool resit = int.TryParse(v, out int rit);
-            if(resit)
+            if (resit)
             {
                 it = Int32.Parse(v);
             }
@@ -431,12 +457,12 @@ namespace AseProgramingLanguage1
                 int i = var_list.FindIndex(e => e.varname == v);
                 it = var_list[i].varvalue;
             }
-            else { throw new System.ArgumentOutOfRangeException("a greater than b", v, var_dec); }
+            else { throw new System.ArgumentOutOfRangeException("a greater than b", v, iterations_var); }
             return it;
         }
         public int[] Get_Whith_height(string w, string h)
         {
-            int[] rec_params= {0,0};
+            int[] rec_params = { 0, 0 };
             int w_val = 0;
             int h_val = 0;
             bool resw = int.TryParse(w, out int rw);
@@ -459,7 +485,7 @@ namespace AseProgramingLanguage1
                 }
                 else { throw new System.ArgumentOutOfRangeException("a greater than b", h, var_dec); }
             }
-            if (resw==false && reh)
+            if (resw == false && reh)
             {
                 if (var_list.Exists(e => e.varname == w))
                 {
@@ -467,11 +493,11 @@ namespace AseProgramingLanguage1
                     int w_found = var_list[i].varvalue;
                     rec_params[0] = w_found;
                     rec_params[1] = Int32.Parse(h);
-                    
+
                 }
                 else { throw new System.ArgumentOutOfRangeException("a greater than b", w, var_dec); }
             }
-            if (resw == false && reh==false)
+            if (resw == false && reh == false)
             {
                 if (var_list.Exists(e => e.varname == w) && var_list.Exists(e => e.varname == h))
                 {
@@ -494,7 +520,7 @@ namespace AseProgramingLanguage1
                 int value_found = var_list[i].varvalue;
                 Assign_var(v, value_found);
             }
-            else { throw new System.ArgumentOutOfRangeException("a greater than b", y,Var_dec); }
+            else { throw new System.ArgumentOutOfRangeException("a greater than b", y, Var_dec); }
 
         }
         public void Assign_var(string v, int x)
@@ -521,7 +547,7 @@ namespace AseProgramingLanguage1
         }
 
 
-        public int[] Get_Points(string a, string b,string c, string d)
+        public int[] Get_Points(string a, string b, string c, string d)
         {
             string[] pars = { a, b, c, d };
             int[] rec_params = { 0, 0, 0, 0 };
@@ -543,16 +569,16 @@ namespace AseProgramingLanguage1
                 else
                 {
                     throw new System.ArgumentOutOfRangeException("a greater than b", rec_params, var_dec);
-                }                
+                }
             }
             return rec_params;
         }
         public int[] Get_rgb(string r, string g, string b)
         {
-            string[] pars = {r,g,b};
+            string[] pars = { r, g, b };
             int[] rec_params = { 0, 0, 0 };
 
-            for (int i = 0; i <3; i++)
+            for (int i = 0; i < 3; i++)
             {
                 bool ress = int.TryParse(pars[i], out int rs);
                 if (ress)
@@ -573,14 +599,14 @@ namespace AseProgramingLanguage1
             }
             return rec_params;
         }
-        public void Calcul_var(string v, string x,string oper,string y)
+        public void Calcul_var(string v, string x, string oper, string y)
         {
-            int r=0;
+            int r = 0;
             bool resx = int.TryParse(x, out int rx);
             bool resy = int.TryParse(y, out int ry);
-            if(resx && resy)
+            if (resx && resy)
             {
-                if(oper=="+")
+                if (oper == "+")
                 {
                     r = Int32.Parse(x) + Int32.Parse(y);
                     if (r < 0)
@@ -588,17 +614,17 @@ namespace AseProgramingLanguage1
                         throw new System.ArgumentOutOfRangeException("a greater than b", r, values_comp);
                     }
                 }
-                else if(oper == "-")
+                else if (oper == "-")
                 {
                     r = Int32.Parse(x) - Int32.Parse(y);
-                    if(r<0)
+                    if (r < 0)
                     {
                         throw new System.ArgumentOutOfRangeException("a greater than b", r, values_comp);
                     }
                 }
                 else if (oper == "*")
                 {
-                    r = Int32.Parse(x)*Int32.Parse(y);
+                    r = Int32.Parse(x) * Int32.Parse(y);
                     if (r < 0)
                     {
                         throw new System.ArgumentOutOfRangeException("a greater than b", r, values_comp);
@@ -606,23 +632,23 @@ namespace AseProgramingLanguage1
                 }
                 else if (oper == "/")
                 {
-                    if(Int32.Parse(y) == 0)
+                    if (Int32.Parse(y) == 0)
                     {
                         throw new System.ArgumentOutOfRangeException("a greater than b", r, calc_result);
                     }
                     else
                     {
-                        r = Int32.Parse(x)/Int32.Parse(y);
+                        r = Int32.Parse(x) / Int32.Parse(y);
                         if (r < 0)
                         {
                             throw new System.ArgumentOutOfRangeException("a greater than b", r, values_comp);
                         }
                     }
-                    
+
                 }
-                
+
             }
-            if (resx==false && resy)
+            if (resx == false && resy)
             {
                 if (var_list.Exists(e => e.varname == x))
                 {
@@ -674,7 +700,7 @@ namespace AseProgramingLanguage1
 
             }
 
-            if (resx  && resy == false)
+            if (resx && resy == false)
             {
                 if (var_list.Exists(e => e.varname == y))
                 {
@@ -691,7 +717,7 @@ namespace AseProgramingLanguage1
                     }
                     else if (oper == "-")
                     {
-                        r = Int32.Parse(x)-yf ;
+                        r = Int32.Parse(x) - yf;
                         if (r < 0)
                         {
                             throw new System.ArgumentOutOfRangeException("a greater than b", r, values_comp);
@@ -699,7 +725,7 @@ namespace AseProgramingLanguage1
                     }
                     else if (oper == "*")
                     {
-                        r = Int32.Parse(x)*yf;
+                        r = Int32.Parse(x) * yf;
                         if (r < 0)
                         {
                             throw new System.ArgumentOutOfRangeException("a greater than b", r, values_comp);
@@ -713,7 +739,7 @@ namespace AseProgramingLanguage1
                         }
                         else
                         {
-                            r = Int32.Parse(x)/yf;
+                            r = Int32.Parse(x) / yf;
                             if (r < 0)
                             {
                                 throw new System.ArgumentOutOfRangeException("a greater than b", r, values_comp);
@@ -722,15 +748,15 @@ namespace AseProgramingLanguage1
 
                     }
                 }
-                else { throw new System.ArgumentOutOfRangeException("variable dec", y, var_dec);}
+                else { throw new System.ArgumentOutOfRangeException("variable dec", y, var_dec); }
 
             }
 
-            if (resx==false && resy == false)
+            if (resx == false && resy == false)
             {
                 if (var_list.Exists(e => e.varname == y))
                 {
-                    if(var_list.Exists(e => e.varname == y))
+                    if (var_list.Exists(e => e.varname == y))
                     {
                         int i = var_list.FindIndex(e => e.varname == y);
                         int yf = var_list[i].varvalue;
@@ -750,12 +776,12 @@ namespace AseProgramingLanguage1
                             r = xf - yf;
                             if (r < 0)
                             {
-                                throw new System.ArgumentOutOfRangeException("variable dec", r, values_comp); ; 
+                                throw new System.ArgumentOutOfRangeException("variable dec", r, values_comp); ;
                             }
                         }
                         else if (oper == "*")
                         {
-                            r = xf*yf;
+                            r = xf * yf;
                             if (r < 0)
                             {
                                 throw new System.ArgumentOutOfRangeException("result", r, calc_result);
@@ -769,7 +795,7 @@ namespace AseProgramingLanguage1
                             }
                             else
                             {
-                                r = xf/yf;
+                                r = xf / yf;
                                 if (r < 0)
                                 {
                                     throw new System.ArgumentOutOfRangeException("variable dec", r, calc_result);
@@ -779,9 +805,9 @@ namespace AseProgramingLanguage1
                         }
 
                     }
-                    else {  throw new System.ArgumentOutOfRangeException("variable dec", y, var_dec); }
+                    else { throw new System.ArgumentOutOfRangeException("variable dec", y, var_dec); }
                 }
-                else {  throw new System.ArgumentOutOfRangeException("variable dec", x, var_dec); }
+                else { throw new System.ArgumentOutOfRangeException("variable dec", x, var_dec); }
 
             }
 
@@ -791,33 +817,33 @@ namespace AseProgramingLanguage1
 
 
         //while loop methods
- 
-        public void Create_while(string c,string l) // Flag on
+
+        public void Create_while(string c, string l) // Flag on
         {
             bool resl = int.TryParse(l, out int rl);
             string s = "on";
-          
-            if (counters.Exists(e => e.counter== c))
+
+            if (counters.Exists(e => e.counter == c))
             {
-              throw new System.ArgumentOutOfRangeException("counter", c, counter_dec);
+                throw new System.ArgumentOutOfRangeException("counter", c, counter_dec);
             }
-            else  if (resl == true)
-                {
+            else if (resl == true)
+            {
                 int l_parsed = Int32.Parse(l);
-                    Variables loop = new Variables(c,l_parsed,s);
-                    counters.Add(loop);
-                }
-                else if (var_list.Exists(e => e.varname == l))
-                {
-                    int i = var_list.FindIndex(e => e.varname == l);
-                    int value_found = var_list[i].varvalue;
-                    Variables loop = new Variables(c, value_found,s);
-                    counters.Add(loop);
-                }
-                else
-                {
+                Variables loop = new Variables(c, l_parsed, s);
+                counters.Add(loop);
+            }
+            else if (var_list.Exists(e => e.varname == l))
+            {
+                int i = var_list.FindIndex(e => e.varname == l);
+                int value_found = var_list[i].varvalue;
+                Variables loop = new Variables(c, value_found, s);
+                counters.Add(loop);
+            }
+            else
+            {
                 throw new System.ArgumentOutOfRangeException("iterations ", l, iterations_var);
-                }
+            }
         }
 
         //
@@ -830,6 +856,7 @@ namespace AseProgramingLanguage1
                 if (s_found == "off")
                 {
                     Console.WriteLine($"loop {counter} is already ended ");
+                    throw new System.ArgumentOutOfRangeException("iterations ", counter, loop_ended);
                 }
                 else { counters.Where(w => w.counter == counter).ToList().ForEach(s => s.status = "off"); }
 
@@ -840,9 +867,166 @@ namespace AseProgramingLanguage1
                 throw new System.ArgumentOutOfRangeException("end while ", counter, counter_var);
             }
         }
+
+
+        //if statement
+
+        public void Create_if(string if_name, string var1, string var2, string oper) // Flag on
+        {
+
+            //chech if it exist
+            //check if the parameters are true
+            //check if the condition is true
+            //then draw
+            Compare(if_name, var1, var2, oper);
+        }
+
+
+
+
+        //
+        public void End_ofif(string if_name)
+        {
+            if (ifstatements.Exists(e => e.ifname == if_name))
+            {
+                int i = ifstatements.FindIndex(e => e.ifname == if_name);
+                string s_found = ifstatements[i].status;
+                if (s_found == "off")
+                {
+                    Console.WriteLine($"loop {if_name} is already ended ");
+                }
+                else { ifstatements.Where(w => w.ifname == if_name).ToList().ForEach(s => s.status = "off"); }
+
+
+            }
+            else
+            {
+                throw new System.ArgumentOutOfRangeException("end while ", if_name, if_name_check);
+            }
+        }
+
+        public void Compare(string if_name, string var1, string var2, string oper)
+        {
+            bool resl = int.TryParse(if_name, out int rl);
+            bool v1_cond = int.TryParse(var1, out int v1);
+            bool v2_cond = int.TryParse(var2, out int v2);
+            string name;
+            int a;
+            int b;
+            string o;
+            int c;
+            string s = "on";
+
+            if (ifstatements.Exists(e => e.ifname == if_name))
+            {
+                throw new System.ArgumentOutOfRangeException("statement", var1, if_dec);
+            }
+            else if (v1_cond == true)
+            {
+                if (v2_cond == true)
+                {
+                     c = CompareValues(v1, v2, oper);
+                     Variables statement = new Variables(if_name,v1, v2, oper, c,s);
+                     ifstatements.Add(statement); 
+                }
+                else
+                {
+                    if (var_list.Exists(e => e.varname == var2))
+                    {
+
+                        int i = var_list.FindIndex(e => e.varname == var2);
+                        int value_found = var_list[i].varvalue;
+                        c = CompareValues(v1, value_found, oper);
+                        c = CompareValues(v1, v2, oper);
+                        Variables statement = new Variables(if_name, v1, value_found, oper,c, s);
+                        ifstatements.Add(statement);
+                    }
+                    else
+                    {
+                        throw new System.ArgumentOutOfRangeException("iterations ", var2, if_var2);
+                    }
+                }
+            }
+            else
+            {
+                if (v2_cond == true)
+                {
+                    if (var_list.Exists(e => e.varname == var1))
+                    {
+                        int i = var_list.FindIndex(e => e.varname == var1);
+                        int value_found = var_list[i].varvalue;
+                        c = CompareValues(v1, v2, oper);
+
+                        Variables statement = new Variables(if_name, value_found, v2, oper,c,s);
+                        ifstatements.Add(statement);
+                        
+                    }
+                    else
+                    {
+                        throw new System.ArgumentOutOfRangeException("iterations ", var2, if_var1);
+                    }
+                }
+                else
+                {
+                    if (var_list.Exists(e => e.varname == var1))
+                    {
+                        if (var_list.Exists(f => f.varname == var2))
+                        {
+                            int i = var_list.FindIndex(e => e.varname == var1);
+                            int j = var_list.FindIndex(f => f.varname == var2);
+                            int value1_found = var_list[i].varvalue;
+                            int value2_found = var_list[j].varvalue;
+                            c = CompareValues(v1, v2, oper);
+
+                            Variables statement = new Variables(if_name, value1_found, value2_found, oper,c,s);
+                            ifstatements.Add(statement);
+                        }
+                        else
+                        {
+                            throw new System.ArgumentOutOfRangeException("iterations ", var2, if_var2);
+                        }
+                    }
+                    else
+                    {
+                        throw new System.ArgumentOutOfRangeException("iterations ", var2, if_var1);
+                    }
+                }
+            }
+        }
+
+        public int CompareValues(int value1, int value2, string oper)
+        {
+            int result;
+            switch (oper)
+            {
+                case "==":
+                    result = (value1 == value2) ? 1 : 0;
+                    break;
+                case "!=":
+                    result = (value1 != value2) ? 1 : 0;
+                    break;
+                case "<":
+                    result = (value1 < value2) ? 1 : 0;
+                    break;
+                case ">":
+                    result = (value1 > value2) ? 1 : 0;
+                    break;
+                case "<=":
+                    result = (value1 <= value2) ? 1 : 0;
+                    break;
+                case ">=":
+                    result = (value1 >= value2) ? 1 : 0;
+                    break;
+                default:
+                    throw new ArgumentException("Invalid operator", nameof(oper));
+            }
+            return result;
+        }
+
+
     }
 }
-    
+  
         
 		
 		

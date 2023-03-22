@@ -18,3 +18,13 @@ C:\Users\21269\source\repos\AsePL2\aseprograminglanguage1\AseProgramingLanguage1
 C:\Users\21269\source\repos\AsePL2\aseprograminglanguage1\AseProgramingLanguage1\obj\Debug\AseProgramingLanguage1.csproj.CoreCompileInputs.cache
 C:\Users\21269\source\repos\AsePL2\aseprograminglanguage1\AseProgramingLanguage1\obj\Debug\AseProgramingLanguage1.exe
 C:\Users\21269\source\repos\AsePL2\aseprograminglanguage1\AseProgramingLanguage1\obj\Debug\AseProgramingLanguage1.pdb
+C:\Users\21269\Documents\Kaur\AseProgramingLanguage1\bin\Debug\AseProgramingLanguage1.exe.config
+C:\Users\21269\Documents\Kaur\AseProgramingLanguage1\bin\Debug\AseProgramingLanguage1.exe
+C:\Users\21269\Documents\Kaur\AseProgramingLanguage1\bin\Debug\AseProgramingLanguage1.pdb
+C:\Users\21269\Documents\Kaur\AseProgramingLanguage1\obj\Debug\AseProgramingLanguage1.csproj.AssemblyReference.cache
+C:\Users\21269\Documents\Kaur\AseProgramingLanguage1\obj\Debug\AseProgramingLanguage1.Form1.resources
+C:\Users\21269\Documents\Kaur\AseProgramingLanguage1\obj\Debug\AseProgramingLanguage1.Properties.Resources.resources
+C:\Users\21269\Documents\Kaur\AseProgramingLanguage1\obj\Debug\AseProgramingLanguage1.csproj.GenerateResource.cache
+C:\Users\21269\Documents\Kaur\AseProgramingLanguage1\obj\Debug\AseProgramingLanguage1.csproj.CoreCompileInputs.cache
+C:\Users\21269\Documents\Kaur\AseProgramingLanguage1\obj\Debug\AseProgramingLanguage1.exe
+C:\Users\21269\Documents\Kaur\AseProgramingLanguage1\obj\Debug\AseProgramingLanguage1.pdb
